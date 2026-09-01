@@ -147,6 +147,10 @@ header.nav{
 .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem clamp(20px,4vw,40px);max-width:1320px;margin:0 auto}
 .brand{display:flex;align-items:center;gap:.85rem;text-decoration:none;color:var(--gold-200)}
 .brand svg{width:44px;height:44px;flex:none}
+.brand-logo{
+  width:46px;height:46px;flex:none;border-radius:50%;object-fit:cover;
+  box-shadow:0 0 0 1px rgba(227,194,126,.5),0 0 20px rgba(227,194,126,.35);
+}
 .brand-name{font-family:var(--serif);font-size:1.28rem;font-weight:600;letter-spacing:.24em;text-transform:uppercase}
 .nav-links{display:flex;gap:2.2rem;list-style:none}
 .nav-links a{color:var(--mist);text-decoration:none;font-size:.86rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;opacity:.8;transition:opacity .2s,color .2s}
@@ -314,8 +318,37 @@ header.nav{
 .stars-frac .stars-base{color:rgba(227,194,126,.25);text-shadow:none}
 .stars-frac .stars-fill{position:absolute;inset:0;width:var(--fill,100%);overflow:hidden;white-space:nowrap;color:var(--gold-400)}
 
+/* == pearl: het glanzende wit-met-goud van de doos ==================== */
+.pearl{
+  background:
+    radial-gradient(120% 80% at 22% 0%,#ffffff 0%,#f9f6ee 48%,#efe9da 100%);
+  color:var(--ink);position:relative;
+}
+.pearl::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.85) 50%,transparent 62%);
+  opacity:.55;
+}
+.pearl .sec-head h2,.pearl h3{color:var(--ink)}
+.pearl .sec-head p{color:var(--ink-soft)}
+.pearl .eyebrow{color:#8a6a30}
+.pearl .p-card,.pearl .step,.pearl .release{
+  background:#fffdf7;border:1px solid #e8e1cc;
+  box-shadow:0 18px 44px -26px rgba(17,26,51,.28);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.pearl .p-card::before{background:linear-gradient(90deg,transparent,#d4a955,transparent)}
+.pearl .p-card:hover,.pearl .step:hover{border-color:#d4a955;box-shadow:0 24px 54px -24px rgba(138,106,47,.4)}
+.pearl .p-card h3,.pearl .step h3{color:var(--ink)}
+.pearl .p-card p,.pearl .step p,.pearl .release p.lead,.pearl .photo-duo p.lead{color:var(--ink-soft)}
+.pearl .problem-bridge{color:#8a6a30}
+.pearl .release h3{color:var(--ink)}
+.pearl .release-note{color:#8a8468}
+.pearl .photo-points li{color:var(--ink)}
+.pearl .starfield{display:none}
+
 /* == problem =========================================================== */
-.problem{background:linear-gradient(180deg,#080b16,#0a0d1a)}
+.problem{padding-top:clamp(60px,7vw,100px)}
 .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:3.6rem;position:relative;z-index:2}
 .p-card{
   background:var(--glass);border:1px solid var(--line-soft);border-radius:var(--radius);
@@ -335,7 +368,7 @@ header.nav{
 @media (max-width:840px){.cards-3{grid-template-columns:1fr}}
 
 /* == how it works ====================================================== */
-.how{background:linear-gradient(180deg,#0a0d1a,#0d1733 55%,#0a0d1a);overflow:hidden}
+.how{overflow:hidden;padding-top:clamp(50px,6vw,80px)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.6rem;position:relative;z-index:2}
 .step{
   background:var(--glass);border:1px solid var(--line-soft);
@@ -560,12 +593,17 @@ table.vgl{width:100%;border-collapse:separate;border-spacing:0;background:rgba(1
 
 /* == final cta ========================================================= */
 .final{
-  background:
-    radial-gradient(1000px 560px at 50% 30%,rgba(120,85,30,.28),transparent 60%),
-    radial-gradient(1200px 700px at 50% 115%,rgba(13,23,51,.9),transparent 72%),
-    linear-gradient(180deg,#0a1128,#05060c);
-  text-align:center;overflow:hidden;
+  background:url("wolken-banner.jpg") center 65%/cover no-repeat;
+  text-align:center;overflow:hidden;position:relative;
 }
+.final::before{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,#0a0d1a 0%,rgba(10,13,26,.25) 30%,rgba(10,13,26,.35) 70%,#04050a 100%);
+}
+.final .container{position:relative;z-index:2}
+.final h2,.final p{text-shadow:0 2px 24px rgba(4,5,10,.8)}
+.final .moon-center{border-radius:50%;box-shadow:0 0 0 1px rgba(227,194,126,.5),0 0 34px rgba(227,194,126,.5)}
 .final h2{font-size:clamp(2.1rem,4.6vw,3.4rem);text-wrap:balance}
 .final p{margin:1.3rem auto 0;max-width:37rem;color:var(--mist-dim)}
 .final .btn{margin-top:2.4rem}
@@ -720,7 +758,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 <header class="nav">
   <div class="nav-inner">
     <a class="brand" href="#top" aria-label="Droompleisters, naar boven">
-      <svg viewBox="0 0 100 100"><use href="#moon-mark"/></svg>
+      <img class="brand-logo" src="logo-crop.jpg" alt="">
       <span class="brand-name">Droompleisters</span>
     </a>
     <ul class="nav-links">
@@ -777,8 +815,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
   <p class="strip-note container">* Interne klantenquête onder Droompleisters-gebruikers, voorjaar 2026.</p>
 </div>
 
+<div class="photo-divider flip" aria-hidden="true"></div>
+
 <!-- ===================== PROBLEM ===================== -->
-<section class="problem section-pad" aria-label="Herkenbaar">
+<section class="problem pearl section-pad" aria-label="Herkenbaar">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow center">Herken je dit?</p>
@@ -807,8 +847,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 </section>
 
 <!-- ===================== HOW IT WORKS ===================== -->
-<section class="how section-pad" id="werking" aria-label="Zo werkt het">
-  <div class="starfield" data-stars="40" aria-hidden="true"></div>
+<section class="how pearl section-pad" id="werking" aria-label="Zo werkt het">
   <div class="container">
     <div class="sec-head reveal">
       <p class="eyebrow center">Zo werkt het</p>
@@ -843,27 +882,27 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
             <stop offset="1" stop-color="#e3c27e" stop-opacity="0"/>
           </linearGradient>
         </defs>
-        <g stroke="rgba(227,194,126,.12)" stroke-width="1">
+        <g stroke="rgba(138,106,47,.18)" stroke-width="1">
           <line x1="50" y1="40" x2="610" y2="40"/>
           <line x1="50" y1="100" x2="610" y2="100"/>
           <line x1="50" y1="160" x2="610" y2="160"/>
         </g>
         <path d="M50 205 C 130 195 150 90 250 68 C 330 51 390 55 460 85 C 530 115 570 168 610 192 L 610 210 L 50 210 Z" fill="url(#curvefill)"/>
-        <path class="draw" d="M50 205 C 130 195 150 90 250 68 C 330 51 390 55 460 85 C 530 115 570 168 610 192" fill="none" stroke="#e3c27e" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="250" cy="68" r="4.5" fill="#f6e7c3"/>
-        <text x="250" y="42" text-anchor="middle" font-family="Jost,sans-serif" font-size="11.5" letter-spacing="2.4" fill="#ecd9a8">RUSTIG NAAR DIEPE SLAAP</text>
-        <g font-family="Jost,sans-serif" font-size="12" fill="#5f6987">
+        <path class="draw" d="M50 205 C 130 195 150 90 250 68 C 330 51 390 55 460 85 C 530 115 570 168 610 192" fill="none" stroke="#c9962e" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="250" cy="68" r="4.5" fill="#b8893c"/>
+        <text x="250" y="42" text-anchor="middle" font-family="Jost,sans-serif" font-size="11.5" letter-spacing="2.4" fill="#8a6a30">RUSTIG NAAR DIEPE SLAAP</text>
+        <g font-family="Jost,sans-serif" font-size="12" fill="#6b7280">
           <text x="50" y="232">22:00</text>
           <text x="235" y="232">01:00</text>
           <text x="425" y="232">04:00</text>
           <text x="585" y="232">07:00</text>
         </g>
-        <text x="24" y="128" font-family="Jost,sans-serif" font-size="11" fill="#5f6987" transform="rotate(-90 24 128)">afgifte</text>
+        <text x="24" y="128" font-family="Jost,sans-serif" font-size="11" fill="#6b7280" transform="rotate(-90 24 128)">afgifte</text>
       </svg>
       <p class="release-note">Schematische weergave van het afgifteprofiel gedurende de nacht.</p>
     </div>
 
-    <div class="photo-duo reveal">
+    <div class="photo-duo reveal" style="position:relative;z-index:2">
       <div class="photo-frame"><img src="pleister-arm.jpg" alt="Slapende vrouw met een Droompleister op haar bovenarm in een donkere slaapkamer" loading="lazy"></div>
       <div>
         <h3>Zo licht dat je hem vergeet</h3>
@@ -877,8 +916,6 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
     </div>
   </div>
 </section>
-
-<div class="photo-divider flip" aria-hidden="true"></div>
 
 <!-- ===================== INGREDIENTS ===================== -->
 <section class="ingr section-pad" id="ingredienten" aria-label="Ingrediënten">
@@ -1183,7 +1220,9 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
           <circle cx="150" cy="150" r="140" fill="#0a0d1a"/>
           <circle cx="150" cy="150" r="140" fill="none" stroke="url(#goldmetal)" stroke-width="1.4"/>
           <circle cx="150" cy="150" r="118" fill="none" stroke="url(#goldmetal)" stroke-width=".6" opacity=".5"/>
-          <g transform="translate(150 126) scale(1.02) translate(-50 -50)"><use href="#moon-mark"/></g>
+          <clipPath id="clubclip"><circle cx="150" cy="128" r="52"/></clipPath>
+          <image href="logo-crop.jpg" x="98" y="76" width="104" height="104" clip-path="url(#clubclip)" preserveAspectRatio="xMidYMid slice"/>
+          <circle cx="150" cy="128" r="52" fill="none" stroke="url(#goldmetal)" stroke-width="1.4"/>
           <text x="150" y="224" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="24" font-weight="600" letter-spacing="4" fill="#f4f1e8">DROOMCLUB</text>
           <text x="150" y="247" text-anchor="middle" font-family="Jost,sans-serif" font-size="10.5" letter-spacing="3" fill="#d4a955">20% KORTING · ELKE DOOS</text>
           <g fill="#f4f1e8" opacity=".8">
@@ -1243,9 +1282,8 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 
 <!-- ===================== FINAL CTA ===================== -->
 <section class="final section-pad" aria-label="Bestel vandaag">
-  <div class="starfield" data-stars="60" data-shooting aria-hidden="true"></div>
-  <div class="container" style="position:relative;z-index:2">
-    <svg class="moon-center reveal" viewBox="0 0 100 100" aria-hidden="true"><use href="#moon-mark"/></svg>
+  <div class="container">
+    <img class="moon-center reveal" src="logo-crop.jpg" alt="" loading="lazy" style="width:88px;height:88px;object-fit:cover">
     <h2 class="reveal d1">Vanavond is de eerste nacht<br>van je <span class="foil" style="font-style:italic">nieuwe routine</span></h2>
     <p class="reveal d2">Bestel voor 23:59 en je Droompleisters zijn binnen 2 werkdagen onderweg naar je deurmat. Met 30 nachten garantie heb je niets te verliezen, behalve die uren staren naar het plafond.</p>
     <a href="#bestel" class="btn btn-gold btn-xl reveal d3">Bestel je Droompleisters</a>
@@ -1261,7 +1299,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
     <div class="foot-grid">
       <div>
         <div class="foot-brand">
-          <svg viewBox="0 0 100 100"><use href="#moon-mark"/></svg>
+          <img class="brand-logo" src="logo-crop.jpg" alt="" loading="lazy">
           <span>Droompleisters</span>
         </div>
         <p style="margin-top:1.1rem;max-width:26rem;font-weight:300">Slaappleisters met 100% natuurlijke ingrediënten. Ontwikkeld in Nederland, voor iedereen die 's nachts liever droomt dan piekert.</p>
@@ -1388,7 +1426,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 <div class="modal-back" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
   <div class="modal" style="text-align:center">
     <button class="modal-close" data-close-confirm aria-label="Sluiten">✕</button>
-    <svg viewBox="0 0 100 100" style="width:72px;margin:0 auto 1rem" aria-hidden="true"><use href="#moon-mark"/></svg>
+    <img src="logo-crop.jpg" alt="" style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;box-shadow:0 0 0 1px rgba(227,194,126,.5),0 0 24px rgba(227,194,126,.4)">
     <h3 id="confirmTitle">Gelukt</h3>
     <p class="modal-sub" id="confirmText" style="margin-top:.8rem"></p>
     <button class="btn btn-gold" data-close-confirm style="width:auto;margin-top:1.6rem">Verder slapen ☾</button>
