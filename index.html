@@ -10,6 +10,10 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.droompleisters.nl/">
 <meta property="og:site_name" content="Droompleisters">
+<meta property="og:image" content="https://www.droompleisters.nl/hero-scene.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://www.droompleisters.nl/">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
@@ -44,7 +48,7 @@
 <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <div class="topbar" role="note">
-  <span aria-hidden="true">☾</span> <strong>Introductie-aanbieding</strong> · tot 28% korting op bundels · bestel binnen <span class="cdown" id="cdown">24 uur</span> en je persoonlijke betaallink ligt uiterlijk morgen in je inbox
+  <span class="tb-full"><span aria-hidden="true">☾</span> <strong>Gratis verzending in heel Nederland</strong> · Droomclub-leden betalen €19,95 per doos · op werkdagen binnen 1 werkdag verzonden</span><span class="tb-short"><span aria-hidden="true">☾</span> <strong>Gratis verzending in NL</strong> · Droomclub €19,95 per doos</span>
 </div>
 
 <header class="nav" id="siteNav">
@@ -55,7 +59,7 @@
     </a>
     <ul class="nav-links"><li><a href="slaappleisters.html">Slaappleisters</a></li><li><a href="werking.html">Werking</a></li><li><a href="ingredienten.html">Ingrediënten</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="droomclub.html">Droomclub</a></li><li><a href="faq.html">FAQ</a></li></ul>
     <div class="nav-actions">
-      <a href="slaappleisters.html#bestel" class="btn btn-gold nav-cta" data-order="3">Bestel nu</a>
+      <a href="slaappleisters.html#bestel" class="btn btn-gold nav-cta" data-order="club">Bestel nu</a>
       <button class="nav-burger" id="navBurger" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -63,8 +67,8 @@
 <div class="mobile-menu" id="mobileMenu">
   <div class="mm-inner">
     <ul><li><a class="mm-link" href="slaappleisters.html">Slaappleisters</a></li><li><a class="mm-link" href="werking.html">Werking</a></li><li><a class="mm-link" href="ingredienten.html">Ingrediënten</a></li><li><a class="mm-link" href="reviews.html">Reviews</a></li><li><a class="mm-link" href="droomclub.html">Droomclub</a></li><li><a class="mm-link" href="faq.html">FAQ</a></li><li><a class="mm-link" href="over-ons.html">Over ons</a></li><li><a class="mm-link" href="contact.html">Contact</a></li></ul>
-    <a class="btn btn-gold btn-xl" href="slaappleisters.html#bestel" data-order="3">Bestel nu</a>
-    <p class="mm-note">30 nachten slaapgarantie · verzending vanuit Nederland</p>
+    <a class="btn btn-gold btn-xl" href="slaappleisters.html#bestel" data-order="club">Bestel nu</a>
+    <p class="mm-note">Gratis verzending in Nederland · 30 nachten slaapgarantie</p>
   </div>
 </div>
 <main id="top">
@@ -86,10 +90,11 @@
         <span class="chip">Melatoninevrij</span>
         <span class="chip">100% natuurlijke ingrediënten</span>
         <span class="chip">30 nachten per doos</span>
+        <span class="chip">Gratis verzending NL</span>
       </div>
       <div class="hero-cta reveal d4">
-        <a href="slaappleisters.html#bestel" class="btn btn-gold btn-xl" data-order="3">Probeer 30 nachten</a>
-        <a href="werking.html" class="btn btn-ghost">Ontdek de werking</a>
+        <a href="#bestel" class="btn btn-gold btn-xl">Probeer 30 nachten</a>
+        <a href="#werking" class="btn btn-ghost">Ontdek de werking</a>
       </div>
       <div class="hero-proof reveal d5">
         <span class="stars stars-frac" aria-hidden="true" style="--fill:96%"><span class="stars-base">★★★★★</span><span class="stars-fill">★★★★★</span></span>
@@ -192,7 +197,7 @@
         <path d="M50 205 C 130 195 150 90 250 68 C 330 51 390 55 460 85 C 530 115 570 168 610 192 L 610 210 L 50 210 Z" fill="url(#curvefill)"/>
         <path class="draw" d="M50 205 C 130 195 150 90 250 68 C 330 51 390 55 460 85 C 530 115 570 168 610 192" fill="none" stroke="#c9962e" stroke-width="2.5" stroke-linecap="round"/>
         <circle cx="250" cy="68" r="4.5" fill="#b8893c"/>
-        <text x="250" y="42" text-anchor="middle" font-family="Jost,sans-serif" font-size="11.5" letter-spacing="2.4" fill="#8a6a30">RUSTIG NAAR DIEPE SLAAP</text>
+        <text x="250" y="42" text-anchor="middle" font-family="Jost,sans-serif" font-size="11.5" letter-spacing="2.4" fill="#8a6a30">PIEK VAN DE AFGIFTE ROND 01:00</text>
         <g font-family="Jost,sans-serif" font-size="12" fill="#636d86">
           <text x="50" y="232">22:00</text>
           <text x="235" y="232">01:00</text>
@@ -205,7 +210,7 @@
     </div>
 
     <div class="photo-duo reveal">
-      <div class="photo-frame"><img src="sfeer-huid.webp" alt="Een gouden Droompleister op de bovenarm, klaar voor de nacht" loading="lazy"></div>
+      <div class="photo-frame"><img src="sfeer-huid.webp" alt="Een gouden Droompleister op de bovenarm, klaar voor de nacht" loading="lazy" width="1254" height="1254"></div>
       <div>
         <h3>Zo licht dat je hem vergeet</h3>
         <p class="lead">De pleister is dun en huidvriendelijk, met de zachte kraft-look van papier. Je plakt hem op, kruipt onder je dekbed en de nacht doet de rest.</p>
@@ -290,7 +295,7 @@
           <li>Ontwikkeld in Nederland</li>
         </ul>
       </div>
-      <div class="photo-frame"><img src="sfeer-flatlay.webp" alt="Droompleisters met de natuurlijke ingrediënten: lavendel, hop, valeriaan en magnesium" loading="lazy"></div>
+      <div class="photo-frame"><img src="sfeer-flatlay.webp" alt="Droompleisters met de natuurlijke ingrediënten: lavendel, hop, valeriaan en magnesium" loading="lazy" width="1254" height="1254"></div>
     </div>
     <p class="more-link reveal"><a href="ingredienten.html">Lees meer over elk ingrediënt</a></p>
   </div>
@@ -392,7 +397,7 @@
       </article>
       <article class="glossy rev-card reveal d3">
         <span class="stars" aria-hidden="true">★★★★★</span><span class="sr-only">5 van 5 sterren</span>
-        <p>"Samen met mijn vriendin begonnen, allebei lid van de Droomclub. <b>We slikken niks</b> en slapen beter dan ooit. De korting op de volgende doos is mooi meegenomen."</p>
+        <p>"Samen met mijn vriendin begonnen, allebei lid van de Droomclub. <b>We slikken niks</b> en slapen beter dan ooit. De ledenprijs per doos is mooi meegenomen."</p>
         <div class="rev-who">
           <span class="rev-ava">T</span>
           <div><div class="rev-name">Tom (45)</div><div class="rev-tag">Breda · Droomclub-lid</div></div>
@@ -411,68 +416,69 @@
 <section class="section-pad" id="bestel" aria-label="Bestellen">
   <div class="container">
     <div class="sec-head reveal">
-      <p class="eyebrow center">Kies je bundel</p>
-      <h2>Beter slapen vanaf <span class="foil">€0,72</span> per nacht</h2>
-      <p>Elke doos bevat 30 pleisters: genoeg voor 30 nachten. Hoe meer dozen, hoe lager de prijs per nacht.</p>
+      <p class="eyebrow center">Kies wat bij je past</p>
+      <h2>Rustig de nacht in vanaf <span class="foil">€0,67</span> per nacht</h2>
+      <p>Elke doos bevat 30 pleisters: genoeg voor 30 nachten. Gratis verzending in heel Nederland en direct afrekenen met iDEAL, Bancontact of creditcard.</p>
     </div>
     <div class="price-grid">
       <article class="glossy price-card reveal d1">
         <div class="thumb-wrap"><img class="price-thumb" src="doos-transparant.webp" alt="" loading="lazy" aria-hidden="true" width="702" height="1000"><span class="thumb-n" aria-hidden="true">×1</span></div>
-        <div class="price-title">Kennismaken</div>
-        <div class="price-sub">1 doos · 30 nachten</div>
+        <div class="price-title">Proberen</div>
+        <div class="price-sub">1 doos · 30 nachten · eenmalig</div>
         <div class="price-amount"><span class="price-now">€29,95</span></div>
         <div class="price-night">€1,00 per nacht</div>
         <ul class="price-feats">
           <li>30 pleisters (30 nachten)</li>
+          <li>Gratis verzending in Nederland</li>
           <li>30 nachten slaapgarantie</li>
-          <li>Verzending €3,95 (NL &amp; BE)</li>
         </ul>
         <button class="btn btn-pearl" data-order="1">Bestel 1 doos</button>
       </article>
       <article class="price-card popular reveal d2">
         <div class="pop-flag">Meest gekozen</div>
+        <div class="thumb-wrap"><img class="price-thumb" src="droomclub-welkom.webp" alt="" loading="lazy" aria-hidden="true" width="960" height="1200" style="object-fit:cover"><span class="thumb-n" aria-hidden="true">☾</span></div>
+        <div class="price-title">Droomclub</div>
+        <div class="price-sub">Elke 30 dagen 1 doos · altijd opzegbaar</div>
+        <div class="price-amount"><span class="price-now">€19,95</span><span class="price-ref">per doos · losse doos €29,95</span></div>
+        <div class="price-night">€0,67 per nacht</div>
+        <span class="price-save">Je bespaart €10 per doos (33%)</span>
+        <ul class="price-feats">
+          <li>Altijd gratis verzending, in NL en BE</li>
+          <li>Welkomstbox met satijnen slaapmasker bij je eerste levering</li>
+          <li>Overslaan, pauzeren of opzeggen wanneer je wilt</li>
+          <li>30 nachten slaapgarantie</li>
+        </ul>
+        <button class="btn btn-gold" data-order="club">Word lid · €19,95 per doos</button>
+        <p class="price-small">Bestelling met betaalverplichting · €19,95 elke 30 dagen · geen opzegtermijn · <a href="droomclub.html">alles over de Droomclub</a></p>
+      </article>
+      <article class="glossy price-card reveal d3">
         <div class="thumb-wrap"><img class="price-thumb" src="sfeer-bundel.webp" alt="" loading="lazy" aria-hidden="true" width="1200" height="1091"><span class="thumb-n" aria-hidden="true">×3</span></div>
-        <div class="price-title">Vaste routine</div>
-        <div class="price-sub">3 dozen · 90 nachten</div>
-        <div class="price-amount"><span class="price-now">€64,95</span><span class="price-was"><span class="sr-only">normaal </span>€89,85</span></div>
+        <div class="price-title">Voorraad</div>
+        <div class="price-sub">3 dozen · 90 nachten · eenmalig</div>
+        <div class="price-amount"><span class="price-now">€64,95</span><span class="price-was">3 losse dozen €89,85</span></div>
         <div class="price-night">€0,72 per nacht</div>
         <span class="price-save">Je bespaart €24,90 (28%)</span>
         <ul class="price-feats">
           <li>90 pleisters (ritme van 3 maanden)</li>
+          <li>Gratis verzending in NL en BE</li>
           <li>30 nachten slaapgarantie</li>
-          <li>Gratis verzending (NL &amp; BE)</li>
-          <li>Gratis welkomstcadeau van de Droomclub</li>
         </ul>
-        <button class="btn btn-gold" data-order="3">Bestel 3 dozen</button>
-      </article>
-      <article class="glossy price-card reveal d3">
-        <div class="thumb-wrap"><img class="price-thumb" src="doos-transparant.webp" alt="" loading="lazy" aria-hidden="true" width="702" height="1000"><span class="thumb-n" aria-hidden="true">×2</span></div>
-        <div class="price-title">Samen slapen</div>
-        <div class="price-sub">2 dozen · 60 nachten</div>
-        <div class="price-amount"><span class="price-now">€49,95</span><span class="price-was"><span class="sr-only">normaal </span>€59,90</span></div>
-        <div class="price-night">€0,83 per nacht</div>
-        <span class="price-save">Je bespaart €9,95 (17%)</span>
-        <ul class="price-feats">
-          <li>60 pleisters (ook leuk om te delen)</li>
-          <li>30 nachten slaapgarantie</li>
-          <li>Gratis verzending (NL &amp; BE)</li>
-        </ul>
-        <button class="btn btn-pearl" data-order="2">Bestel 2 dozen</button>
+        <button class="btn btn-pearl" data-order="3">Bestel 3 dozen</button>
+        <p class="price-small">Liever 2 dozen? <a href="#bestel" data-order="2">€49,95, gratis verzonden</a></p>
       </article>
     </div>
     <div class="price-foot reveal">
-      <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Betaallink binnen 24 uur · verzonden binnen 2 werkdagen na betaling</span>
+      <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Gratis verzending in heel Nederland · België gratis vanaf 2 dozen</span>
+      <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Op werkdagen binnen 1 werkdag verzonden</span>
       <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Niet tevreden? Geld terug</span>
-      <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Verzending vanuit Nederland</span>
     </div>
     <div class="pay-row reveal">
       <span class="pay-pill">iDEAL</span>
       <span class="pay-pill">Bancontact</span>
       <span class="pay-pill">Creditcard</span>
-      <span class="pay-pill">Bankoverschrijving</span>
     </div>
     <noscript>
-      <p class="claims-note">Bestellen zonder JavaScript? Mail je naam, adres en gewenste bundel naar <a href="mailto:hallo@droompleisters.nl?subject=Bestelling%20Droompleisters" style="color:var(--gold-deep)">hallo@droompleisters.nl</a>. Je ontvangt dan een betaalverzoek per e-mail.</p>
+      <p class="claims-note">Bestellen lukt alleen met JavaScript ingeschakeld. Werkt het niet? Mail naar <a href="mailto:hallo@droompleisters.nl?subject=Bestelling%20Droompleisters" style="color:var(--gold-deep)">hallo@droompleisters.nl</a>, dan helpen we je binnen één werkdag verder.</p>
     </noscript>
   </div>
 </section>
@@ -507,26 +513,20 @@
   <div class="container">
     <div class="glossy club-box reveal">
       <div>
-        <p class="eyebrow">Word lid van de Droomclub</p>
-        <h2>Goede nachten worden nog leuker samen</h2>
-        <p class="lead">De Droomclub is onze binnenste cirkel van vaste slapers. Lid worden is gratis en duurt tien seconden.</p>
+        <p class="eyebrow">De Droomclub</p>
+        <h2>Elke 30 dagen een doos voor €19,95, altijd gratis thuisbezorgd</h2>
+        <p class="lead">De Droomclub is onze binnenste cirkel van vaste slapers. Als lid betaal je €19,95 in plaats van €29,95 per doos, en je eerste levering komt in een nachtblauwe welkomstbox met een satijnen slaapmasker.</p>
         <ul class="club-perks">
-          <li><b>20% korting</b>&nbsp;op elke volgende doos: als lid betaal je <b>€23,95</b>&nbsp;per doos via een altijd opzegbaar abonnement (elke 30 dagen een doos)</li>
-          <li>Een&nbsp;<b>welkomstcadeau</b>&nbsp;bij je eerste Droomclub-bestelling</li>
-          <li>Slaaptips en avondroutines die echt werken, één mail per maand</li>
-          <li>Voorrang bij nieuwe producten en beperkte edities</li>
+          <li><b>€10 minder per doos</b>:&nbsp;€19,95 in plaats van €29,95, dat is €120 per jaar</li>
+          <li><b>Altijd gratis verzending</b>, in Nederland en België</li>
+          <li><b>Welkomstbox</b>&nbsp;met satijnen slaapmasker bij je eerste levering</li>
+          <li><b>Jij houdt de regie</b>: overslaan, pauzeren of opzeggen wanneer je wilt, zonder termijn</li>
         </ul>
-        <form class="club-form" action="https://formsubmit.co/hallo@droompleisters.nl" method="POST">
-          <input type="hidden" name="_subject" value="Nieuwe Droomclub-aanmelding via droompleisters.nl">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_next" value="https://droompleisters.nl/?bevestigd=droomclub">
-          <input type="hidden" name="formulier" value="droomclub">
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-          <label class="sr-only" for="club-email">E-mailadres</label>
-          <input id="club-email" type="email" name="email" placeholder="jouw@email.nl" required>
-          <button class="btn btn-gold" type="submit">Word gratis lid</button>
-        </form>
-        <p class="club-small">Gratis · geen spam · uitschrijven kan altijd met één klik. <a href="droomclub.html" style="color:var(--gold-deep)">Alles over de Droomclub</a></p>
+        <div class="club-cta">
+          <a class="btn btn-gold" href="droomclub.html" data-order="club">Word lid · €19,95 per doos</a>
+          <a class="btn btn-pearl" href="droomclub.html">Alles over de Droomclub</a>
+        </div>
+        <p class="club-small">Bestelling met betaalverplichting · €19,95 elke 30 dagen · geen minimale looptijd, geen opzegtermijn.</p>
       </div>
       <div class="club-visual" aria-hidden="true">
         <svg viewBox="0 0 300 300">
@@ -535,7 +535,7 @@
           <circle cx="150" cy="150" r="118" fill="none" stroke="url(#goldmetal)" stroke-width=".6" opacity=".5"/>
           <image href="logo-maan.webp" x="93" y="66" width="114" height="114" preserveAspectRatio="xMidYMid meet"/>
           <text x="150" y="224" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="24" font-weight="600" letter-spacing="4" fill="#f7f4ec">DROOMCLUB</text>
-          <text x="150" y="247" text-anchor="middle" font-family="Jost,sans-serif" font-size="10.5" letter-spacing="3" fill="#d4a955">20% KORTING · ELKE DOOS</text>
+          <text x="150" y="247" text-anchor="middle" font-family="Jost,sans-serif" font-size="10.5" letter-spacing="3" fill="#d4a955">€19,95 PER DOOS · GRATIS VERZENDING</text>
           <g fill="#f7f4ec" opacity=".8">
             <circle cx="70" cy="70" r="1.3"/><circle cx="235" cy="85" r="1.6"/>
             <circle cx="60" cy="190" r="1.1"/><circle cx="240" cy="185" r="1.2"/>
@@ -577,7 +577,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false" aria-controls="faq-a6">Hoe snel wordt mijn bestelling geleverd?<span class="plus" aria-hidden="true">+</span></button>
-        <div class="faq-a" id="faq-a6"><div class="faq-a-inner">Na je bestelling ontvang je binnen 24 uur een persoonlijk betaalverzoek per e-mail. Na ontvangst van je betaling verzenden wij binnen 2 werkdagen vanuit Nederland naar heel Nederland en België. Vanaf 2 dozen is de verzending gratis; voor 1 doos rekenen we €3,95.</div></div>
+        <div class="faq-a" id="faq-a6"><div class="faq-a-inner">Op werkdagen verzenden we binnen 1 werkdag vanuit Nederland, met track &amp; trace per e-mail. Verzending is gratis in heel Nederland; naar België gratis vanaf 2 dozen (anders €4,95) en voor Droomclub-leden altijd gratis. Je rekent direct af met iDEAL, Bancontact of creditcard.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false" aria-controls="faq-a7">Hoe werkt de 30 nachten slaapgarantie?<span class="plus" aria-hidden="true">+</span></button>
@@ -585,7 +585,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false" aria-controls="faq-a8">Wat is de Droomclub?<span class="plus" aria-hidden="true">+</span></button>
-        <div class="faq-a" id="faq-a8"><div class="faq-a-inner">De Droomclub is ons gratis ledenprogramma. Je krijgt 20% korting op elke volgende doos: €23,95 per doos via een altijd opzegbaar abonnement dat elke 30 dagen levert. Daarnaast een welkomstcadeau bij je eerste Droomclub-bestelling en maandelijks de beste slaaptips in je mail. Aanmelden kan <a href="droomclub.html">op de Droomclub-pagina</a> of via de QR-code op de achterkant van elke doos.</div></div>
+        <div class="faq-a" id="faq-a8"><div class="faq-a-inner">De Droomclub is ons ledenabonnement: elke 30 dagen automatisch een nieuwe doos voor €19,95 in plaats van €29,95, altijd gratis verzending en een welkomstbox met satijnen slaapmasker bij je eerste levering. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd. Lid worden kan <a href="droomclub.html">op de Droomclub-pagina</a> of via de QR-code op de achterkant van elke doos.</div></div>
       </div>
     </div>
     <p class="more-link reveal"><a href="faq.html">Alle veelgestelde vragen</a></p>
@@ -600,8 +600,8 @@
   <div class="container" style="padding-bottom:clamp(110px,13vw,180px)">
     <img class="moon-center reveal" src="logo-maan.webp" alt="" loading="lazy" width="360" height="360">
     <h2 class="reveal d1">Vanavond is de eerste nacht<br>van je <span class="foil" style="font-style:italic">nieuwe routine</span></h2>
-    <p class="reveal d2">Bestel vandaag, betaal via de link in je inbox en binnen 2 werkdagen na je betaling zijn je Droompleisters onderweg naar je deurmat. Met 30 nachten garantie heb je niets te verliezen, behalve die uren staren naar het plafond.</p>
-    <a href="#bestel" class="btn btn-gold btn-xl reveal d3" data-order="3">Bestel je Droompleisters</a>
+    <p class="reveal d2">Bestel vandaag, reken direct af en op werkdagen gaat je pakket binnen 1 werkdag de deur uit, gratis verzonden in heel Nederland. Met 30 nachten garantie heb je niets te verliezen, behalve die uren staren naar het plafond.</p>
+    <a href="#bestel" class="btn btn-gold btn-xl reveal d3" data-order="club">Bestel je Droompleisters</a>
     <p class="final-sub reveal d3">★ 4,8/5 · 2.300+ tevreden slapers · melatoninevrij · 100% natuurlijke ingrediënten</p>
   </div>
 </section>
@@ -656,43 +656,58 @@
 
 <!-- ===================== STICKY MOBILE CTA ===================== -->
 <div class="sticky-cta" id="stickyCta">
-  <div class="info"><b>Droompleisters</b> · vanaf €0,72/nacht<br>30 nachten garantie</div>
-  <a href="slaappleisters.html#bestel" class="btn btn-gold" data-order="3">Bestel nu</a>
+  <div class="info"><b>Droomclub</b> · €19,95 per doos<br>gratis verzending · 30 nachten garantie</div>
+  <a href="#bestel" class="btn btn-gold" data-order="club">Word lid</a>
 </div>
 
-<!-- ===================== ORDER MODAL ===================== -->
+<!-- ===================== ORDER MODAL (checkout) ===================== -->
 <div class="modal-back" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
   <div class="modal">
     <button class="modal-close" data-close aria-label="Sluiten">✕</button>
-    <h3 id="orderTitle">Je bestelling</h3>
-    <p class="modal-sub">Vul je gegevens in. Je ontvangt binnen 24 uur een persoonlijk betaalverzoek per e-mail (o.a. iDEAL en Bancontact). Na betaling verzenden we binnen 2 werkdagen.</p>
-    <form action="https://formsubmit.co/hallo@droompleisters.nl" method="POST">
+    <h3 id="orderTitle">Afrekenen</h3>
+    <p class="modal-sub">Kies je pakket, vul je adres in en betaal direct met iDEAL, Bancontact of creditcard. Op werkdagen verzenden we binnen 1 werkdag vanuit Nederland.</p>
+    <form action="https://formsubmit.co/hallo@droompleisters.nl" method="POST" id="orderForm">
       <input type="hidden" name="_subject" value="🌙 Nieuwe bestelling via droompleisters.nl">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" value="https://droompleisters.nl/?bevestigd=bestelling">
       <input type="hidden" name="formulier" value="bestelling">
-      <input type="hidden" name="totaal" id="orderTotaal" value="€64,95">
+      <input type="hidden" name="totaal" id="orderTotaal" value="€19,95">
+      <input type="hidden" name="verzending" id="orderVerzending" value="gratis">
       <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-      <div class="bundle-opts">
+      <div class="bundle-opts" role="radiogroup" aria-label="Kies je pakket">
         <div class="bundle-opt">
-          <input type="radio" name="bundel" value="1 doos · €29,95 + €3,95 verzending" id="b1" data-total="€33,90" data-totalnote="Totaal incl. €3,95 verzending">
+          <input type="radio" name="bundel" value="Droomclub · elke 30 dagen 1 doos · €19,95 · gratis verzending" id="bclub" checked data-price="19.95" data-boxes="1" data-club="1">
+          <label for="bclub">
+            <span><span class="b-name">Droomclub · elke 30 dagen 1 doos <span class="b-tag">Aanbevolen</span></span><br><span class="b-note">€19,95 per doos · altijd gratis verzending · welkomstbox · altijd opzegbaar</span></span>
+            <span class="b-price">€19,95</span>
+          </label>
+        </div>
+        <div class="bundle-opt">
+          <input type="radio" name="bundel" value="Droomclub · elke 30 dagen 2 dozen · €39,90 · gratis verzending" id="bclub2" data-price="39.90" data-boxes="2" data-club="1">
+          <label for="bclub2">
+            <span><span class="b-name">Droomclub · elke 30 dagen 2 dozen</span><br><span class="b-note">Samen slapen · 2 × €19,95 in één pakket · gratis verzending · welkomstbox</span></span>
+            <span class="b-price">€39,90</span>
+          </label>
+        </div>
+        <div class="bundle-opt">
+          <input type="radio" name="bundel" value="1 doos eenmalig · €29,95" id="b1" data-price="29.95" data-boxes="1">
           <label for="b1">
-            <span><span class="b-name">1 doos · 30 nachten</span><br><span class="b-note">+ €3,95 verzending</span></span>
+            <span><span class="b-name">1 doos · eenmalig</span><br><span class="b-note">30 nachten · gratis verzending in Nederland</span></span>
             <span class="b-price">€29,95</span>
           </label>
         </div>
         <div class="bundle-opt">
-          <input type="radio" name="bundel" value="2 dozen · €49,95 · gratis verzending" id="b2" data-total="€49,95" data-totalnote="Totaal · gratis verzending">
+          <input type="radio" name="bundel" value="2 dozen eenmalig · €49,95 · gratis verzending" id="b2" data-price="49.95" data-boxes="2">
           <label for="b2">
-            <span><span class="b-name">2 dozen · 60 nachten</span><br><span class="b-note">Gratis verzending · bespaar €9,95</span></span>
+            <span><span class="b-name">2 dozen · eenmalig</span><br><span class="b-note">60 nachten · gratis verzending · bespaar €9,95</span></span>
             <span class="b-price">€49,95</span>
           </label>
         </div>
         <div class="bundle-opt">
-          <input type="radio" name="bundel" value="3 dozen · €64,95 · gratis verzending + welkomstcadeau" id="b3" checked data-total="€64,95" data-totalnote="Totaal · gratis verzending">
+          <input type="radio" name="bundel" value="3 dozen eenmalig · €64,95 · gratis verzending" id="b3" data-price="64.95" data-boxes="3">
           <label for="b3">
-            <span><span class="b-name">3 dozen · 90 nachten <span aria-hidden="true">✦</span><span class="sr-only"> (meest gekozen)</span></span><br><span class="b-note">Gratis verzending + welkomstcadeau · bespaar €24,90</span></span>
+            <span><span class="b-name">3 dozen · eenmalig</span><br><span class="b-note">90 nachten · gratis verzending · bespaar €24,90</span></span>
             <span class="b-price">€64,95</span>
           </label>
         </div>
@@ -700,8 +715,8 @@
       <p class="modal-total" id="modalTotal" aria-live="polite"></p>
       <div class="form-grid">
         <div class="full"><label for="f-naam">Volledige naam</label><input id="f-naam" type="text" name="naam" required autocomplete="name"></div>
-        <div><label for="f-email">E-mailadres (voor je betaalverzoek)</label><input id="f-email" type="email" name="email" placeholder="jouw@email.nl" required autocomplete="email"></div>
-        <div><label for="f-tel">Telefoon (optioneel)</label><input id="f-tel" type="tel" name="telefoon" placeholder="06 12345678" autocomplete="tel"></div>
+        <div><label for="f-email">E-mailadres (voor je bevestiging en track &amp; trace)</label><input id="f-email" type="email" name="email" placeholder="jouw@email.nl" required autocomplete="email"></div>
+        <div><label for="f-tel">Telefoon (optioneel, voor de bezorger)</label><input id="f-tel" type="tel" name="telefoon" placeholder="06 12345678" autocomplete="tel"></div>
         <div class="full"><label for="f-straat">Straat en huisnummer</label><input id="f-straat" type="text" name="adres" required autocomplete="street-address"></div>
         <div><label for="f-postcode">Postcode</label><input id="f-postcode" type="text" name="postcode" placeholder="1234 AB" required autocomplete="postal-code"></div>
         <div><label for="f-plaats">Plaats</label><input id="f-plaats" type="text" name="plaats" required autocomplete="address-level2"></div>
@@ -710,15 +725,25 @@
           <option value="Nederland" selected>Nederland</option>
           <option value="België">België</option>
         </select></div>
+        <div class="full"><label for="f-jarig">Verjaardagsmaand (optioneel, alleen voor Droomclub-leden)</label>
+        <select id="f-jarig" name="verjaardagsmaand">
+          <option value="" selected>Liever niet</option>
+          <option>januari</option><option>februari</option><option>maart</option><option>april</option><option>mei</option><option>juni</option><option>juli</option><option>augustus</option><option>september</option><option>oktober</option><option>november</option><option>december</option>
+        </select></div>
       </div>
-      <button class="btn btn-gold" type="submit" id="orderSubmit">Bevestig bestelling · <span id="orderBtnTotal">€64,95</span> <span aria-hidden="true">☾</span></button>
-      <p class="modal-pay-note">
-        <strong>Zo werkt betalen:</strong> na het bevestigen krijg je van ons een persoonlijke betaallink per e-mail. Betalen kan veilig via iDEAL, Bancontact, creditcard of bankoverschrijving. Pas na jouw betaling verzenden we. Niet tevreden? 30 nachten geld-terug-garantie.
-      </p>
+      <fieldset class="pay-choice">
+        <legend>Betaalmethode</legend>
+        <input type="radio" name="betaalmethode" value="iDEAL" id="pm-ideal" checked><label for="pm-ideal">iDEAL</label>
+        <input type="radio" name="betaalmethode" value="Bancontact" id="pm-bc"><label for="pm-bc">Bancontact</label>
+        <input type="radio" name="betaalmethode" value="Creditcard" id="pm-cc"><label for="pm-cc">Creditcard</label>
+      </fieldset>
+      <p class="modal-pay-note" id="orderNote">Bestelling met betaalverplichting · met je eerste betaling geef je een machtiging: daarna €19,95 elke 30 dagen via automatische incasso of je creditcard · opzeggen kan altijd, zonder termijn.</p>
+      <p class="modal-legal">Door te bestellen ga je akkoord met de <a href="voorwaarden.html" target="_blank" rel="noopener">algemene voorwaarden</a>. Je hebt <a href="retour.html" target="_blank" rel="noopener">14 dagen bedenktijd</a>; lees ook ons <a href="privacy.html" target="_blank" rel="noopener">privacybeleid</a>.</p>
+      <button class="btn btn-gold" type="submit" id="orderSubmit">Bevestig en betaal · <span id="orderBtnTotal">€19,95</span> <span aria-hidden="true">☾</span></button>
       <div class="modal-trust">
-        <span>✓ Verzending vanuit NL</span>
+        <span>✓ Gratis verzending in NL</span>
         <span>✓ 30 nachten garantie</span>
-        <span>✓ Veilig &amp; vrijblijvend</span>
+        <span>✓ 14 dagen bedenktijd</span>
       </div>
     </form>
   </div>

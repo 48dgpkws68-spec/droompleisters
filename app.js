@@ -60,9 +60,9 @@
 
   // --- sticky mobile cta ----------------------------------------------
   var sticky=document.getElementById('stickyCta'), bestel=document.getElementById('bestel');
-  if(sticky&&heroEl){
+  if(sticky){
     window.addEventListener('scroll',function(){
-      var past=window.scrollY>heroEl.offsetHeight*.75;
+      var past=heroEl?window.scrollY>heroEl.offsetHeight*.75:window.scrollY>360;
       var inPricing=false;
       if(bestel){
         var r=bestel.getBoundingClientRect();
@@ -77,19 +77,40 @@
   var lastFocus=null;
   var inertTargets=['.topbar','#siteNav','main','footer','#stickyCta'];
   function setInert(on){inertTargets.forEach(function(sel){var el=document.querySelector(sel);if(el){if(on)el.setAttribute('inert','');else el.removeAttribute('inert');}});}
+  function euro(n){ return '€'+n.toFixed(2).replace('.',','); }
   function updateTotal(){
     var checked=modal.querySelector('input[name=bundel]:checked');
     if(!checked) return;
-    var total=checked.dataset.total||'', note=checked.dataset.totalnote||'Totaal';
+    var price=parseFloat(checked.dataset.price||'0'), boxes=parseInt(checked.dataset.boxes||'1',10), club=checked.dataset.club==='1';
+    var landEl=document.getElementById('f-land'); var be=landEl&&landEl.value==='België';
+    var ship=(!club&&be&&boxes<2)?4.95:0;
+    var total=price+ship;
+    var line, note;
+    if(club){
+      line='Vandaag: <b>'+euro(price)+'</b> · daarna '+euro(price)+' elke 30 dagen · altijd gratis verzending';
+      note='Bestelling met betaalverplichting · met je eerste betaling geef je een machtiging: daarna '+euro(price)+' elke 30 dagen via automatische incasso of je creditcard · opzeggen kan altijd, zonder termijn.';
+    }else if(ship>0){
+      line='Totaal: <b>'+euro(total)+'</b> · incl. €4,95 verzending naar België';
+      note='Bestelling met betaalverplichting · eenmalige betaling · 14 dagen bedenktijd · 30 nachten garantie op je eerste doos.';
+    }else{
+      line='Totaal: <b>'+euro(total)+'</b> · gratis verzending';
+      note='Bestelling met betaalverplichting · eenmalige betaling · 14 dagen bedenktijd · 30 nachten garantie op je eerste doos.';
+    }
     var totalEl=document.getElementById('modalTotal');
-    if(totalEl) totalEl.innerHTML=note+': <b>'+total+'</b>';
+    if(totalEl) totalEl.innerHTML=line;
     var btnTotal=document.getElementById('orderBtnTotal');
-    if(btnTotal) btnTotal.textContent=total;
+    if(btnTotal) btnTotal.textContent=euro(total);
+    var noteEl=document.getElementById('orderNote');
+    if(noteEl) noteEl.textContent=note;
     var hidden=document.getElementById('orderTotaal');
-    if(hidden) hidden.value=total;
+    if(hidden) hidden.value=euro(total)+(club?' (Droomclub, elke 30 dagen)':'');
+    var hv=document.getElementById('orderVerzending');
+    if(hv) hv.value=ship>0?euro(ship):'gratis';
     var nx=modal.querySelector('input[name=_next]');
     if(nx) nx.value=location.origin+location.pathname+'?bevestigd=bestelling&bundel='+checked.id.slice(1);
   }
+  var landSel=document.getElementById('f-land');
+  if(landSel) landSel.addEventListener('change',updateTotal);
   function openModal(bundle){
     if(bundle){var r=document.getElementById('b'+bundle); if(r) r.checked=true;}
     updateTotal();
@@ -133,7 +154,7 @@
   document.querySelectorAll('form[action*="formsubmit.co"]').forEach(function(f){
     f.addEventListener('submit',function(){
       var b=f.querySelector('button[type=submit]');
-      if(b){ b.disabled=true; b.dataset.txt=b.innerHTML; b.textContent='Versturen…'; }
+      if(b){ b.disabled=true; b.dataset.txt=b.innerHTML; b.textContent='Versturen…'; setTimeout(function(){ if(b.disabled){ b.disabled=false; b.innerHTML=b.dataset.txt; } },8000); }
     });
   });
   window.addEventListener('pageshow',function(){
@@ -145,8 +166,8 @@
 
   // --- _next meeschalen met het actieve domein --------------------------
   document.querySelectorAll('input[name=_next]').forEach(function(i){
-    var conf=i.value.indexOf('droomclub')>-1?'droomclub':'bestelling';
-    i.value=location.origin+location.pathname+'?bevestigd='+conf;
+    var q=(i.value.split('?')[1]||'bevestigd=bestelling');
+    i.value=location.origin+location.pathname+'?'+q;
   });
 
   // --- bevestigingsmodal na redirect ------------------------------------
@@ -154,24 +175,28 @@
   function closeConfirm(){ confirmModal.classList.remove('open'); document.body.style.overflow=''; setInert(false); var b=document.querySelector('.brand'); if(b) b.focus(); }
   confirmModal.querySelectorAll('[data-close-confirm]').forEach(function(b){ b.addEventListener('click',closeConfirm); });
   confirmModal.addEventListener('click',function(e){ if(e.target===confirmModal) closeConfirm(); });
-  var mConf=location.search.match(/[?&]bevestigd=(bestelling|droomclub)/);
+  var mConf=location.search.match(/[?&]bevestigd=(bestelling|droomclub|contact)/);
   if(mConf){
     var t=document.getElementById('confirmTitle'), x=document.getElementById('confirmText');
     if(mConf[1]==='bestelling'){
-      t.textContent='Je bestelling is ontvangen';
-      var PAY={}; /* betaallinks per bundel, bijv. {1:'https://...',2:'https://...',3:'https://...'} zodra aangemaakt (Mollie: iDEAL, Bancontact, creditcard) */
-      var mB=location.search.match(/[?&]bundel=([123])/);
+      t.textContent='Bestelling geplaatst';
+      var PAY={}; /* betaalpagina's per pakket, bijv. {club:'https://...',1:'https://...',2:'https://...',3:'https://...'} zodra de betaalkoppeling (Mollie: iDEAL, Bancontact, creditcard, SEPA-incasso) actief is */
+      var mB=location.search.match(/[?&]bundel=(club2?|[123])/);
+      var isClub=mB&&mB[1].indexOf('club')===0;
       if(mB&&PAY[mB[1]]){
         var pn=document.getElementById('payNow'); pn.href=PAY[mB[1]]; pn.style.display='inline-flex';
         document.getElementById('payMethods').style.display='block';
         document.getElementById('confirmClose').className='btn btn-pearl';
-        x.textContent='Je bestelling is binnen. Reken je nu meteen af, dan verzenden we binnen 2 werkdagen. Liever wachten? Dan ontvang je binnen 24 uur een persoonlijk betaalverzoek per e-mail.';
+        x.textContent='Nog één stap: rond je betaling af. Daarna verwerken we je bestelling automatisch en verzenden we op werkdagen binnen 1 werkdag.';
       }else{
-        x.textContent='Binnen 24 uur ontvang je van ons een persoonlijk betaalverzoek per e-mail. Niets gezien? Kijk ook in je spam-map. Blijft het stil, mail dan even naar hallo@droompleisters.nl. Na betaling verzenden we binnen 2 werkdagen. Slaap lekker alvast.';
+        x.textContent=(isClub?'Welkom bij de Droomclub! Je welkomstbox met je eerste doos en het satijnen slaapmasker gaat als eerste levering de deur uit. ':'Bedankt! ')+'Je bestelling wordt automatisch verwerkt. Je ontvangt je bevestiging en track & trace per e-mail; op werkdagen verzenden we binnen 1 werkdag vanuit Nederland.';
       }
+    }else if(mConf[1]==='contact'){
+      t.textContent='Bericht ontvangen';
+      x.textContent='Bedankt voor je bericht. We reageren binnen één werkdag op het e-mailadres dat je opgaf.';
     }else{
-      t.textContent='Welkom bij de Droomclub';
-      x.textContent='Je aanmelding is binnen. Check je inbox voor je welkomstvoordeel en de beste slaaptips.';
+      t.textContent='Je Droombrief komt eraan';
+      x.textContent='Je aanmelding is binnen. Eén mail per maand met een avondritueel, een slaaptip en het clubnieuws. Uitschrijven kan altijd met één klik.';
     }
     confirmModal.classList.add('open');
     document.body.style.overflow='hidden';
@@ -183,15 +208,15 @@
   var LEGAL={
     voorwaarden:{
       title:'Algemene voorwaarden',
-      html:'<h4>Bestellen &amp; betalen</h4><p>Je bestelt via het bestelformulier op deze pagina. Na je bestelling ontvang je binnen 24 uur een persoonlijk betaalverzoek per e-mail. Pas na ontvangst van je betaling verzenden wij je bestelling. Alle prijzen zijn in euro en inclusief btw.</p><h4>Levering</h4><p>Wij verzenden binnen 2 werkdagen na ontvangst van je betaling vanuit Nederland naar Nederland en België. Vanaf 2 dozen is verzending gratis; voor 1 doos rekenen we €3,95.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar hallo@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · hallo@droompleisters.nl</p>'
+      html:'<h4>Bestellen &amp; betalen</h4><p>Je rekent direct af met iDEAL, Bancontact of creditcard. Je bestelling wordt automatisch verwerkt en je ontvangt meteen een bevestiging per e-mail. Alle prijzen zijn in euro en inclusief btw.</p><h4>Verzending en levering</h4><p>Verzending is gratis in heel Nederland. Naar België is verzending gratis vanaf 2 dozen; voor 1 losse doos rekenen we €4,95. Droomclub-leden betalen nooit verzendkosten. Op werkdagen verzenden we binnen 1 werkdag vanuit Nederland, met track &amp; trace.</p><h4>Droomclub</h4><p>Als lid ontvang je elke 30 dagen automatisch één doos voor €19,95, gratis verzonden. De vervolgbetalingen lopen via automatische incasso (na iDEAL of Bancontact) of via je creditcard; je krijgt 3 dagen vooraf een herinnering. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd via de link in elke mail of via hallo@droompleisters.nl.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar hallo@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · hallo@droompleisters.nl</p>'
     },
     privacy:{
       title:'Privacybeleid',
-      html:'<h4>Welke gegevens</h4><p>Wij verwerken alleen de gegevens die je zelf invult bij een bestelling of Droomclub-aanmelding: naam, e-mailadres, telefoonnummer (optioneel) en bezorgadres.</p><h4>Waarvoor</h4><p>Je gegevens gebruiken we uitsluitend om je bestelling af te handelen, het betaalverzoek te sturen en, als je lid wordt van de Droomclub, om je maximaal één mail per maand te sturen. Uitschrijven kan altijd met één klik.</p><h4>Delen &amp; bewaren</h4><p>We verkopen je gegevens nooit en delen ze alleen met partijen die nodig zijn voor de afhandeling, zoals de bezorgdienst. Je kunt altijd inzage of verwijdering vragen via hallo@droompleisters.nl.</p>'
+      html:'<h4>Welke gegevens</h4><p>Wij verwerken alleen de gegevens die je zelf invult bij een bestelling of Droomclub-aanmelding: naam, e-mailadres, telefoonnummer (optioneel) en bezorgadres.</p><h4>Waarvoor</h4><p>Je gegevens gebruiken we uitsluitend om je bestelling en, als je lid bent, je Droomclub-leveringen af te handelen, en om je de Droombrief te sturen als je je daarvoor aanmeldt (maximaal één mail per maand). Je betaling verloopt via onze betaalprovider; wij zien geen rekening- of kaartgegevens. Uitschrijven kan altijd met één klik.</p><h4>Delen &amp; bewaren</h4><p>We verkopen je gegevens nooit en delen ze alleen met partijen die nodig zijn voor de afhandeling, zoals de bezorgdienst. Je kunt altijd inzage of verwijdering vragen via hallo@droompleisters.nl.</p>'
     },
     retour:{
       title:'Retour & herroeping',
-      html:'<h4>Wettelijk herroepingsrecht</h4><p>Je hebt bij koop op afstand het recht je bestelling binnen 14 dagen na ontvangst zonder opgave van reden te herroepen. Ongeopende dozen kun je binnen die termijn retourneren; na ontvangst betalen wij het aankoopbedrag van de geretourneerde dozen terug. Om hygiënische redenen kunnen geopende dozen niet worden geretourneerd, behalve via de slaapgarantie hieronder.</p><h4>30 nachten slaapgarantie</h4><p>Bovenop het herroepingsrecht geldt onze slaapgarantie: probeer je eerste doos 30 nachten. Niet tevreden? Mail naar hallo@droompleisters.nl en je krijgt je aankoopbedrag terug, inclusief ongeopende dozen uit een bundel.</p><h4>Retouradres</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland. Meld je retour altijd eerst per e-mail, dan ontvang je instructies.</p>'
+      html:'<h4>Wettelijk herroepingsrecht</h4><p>Je hebt bij koop op afstand het recht je bestelling binnen 14 dagen na ontvangst (bij de Droomclub: na ontvangst van je eerste levering) zonder opgave van reden te herroepen. Ongeopende dozen kun je binnen die termijn retourneren; na ontvangst betalen wij het aankoopbedrag van de geretourneerde dozen terug. Om hygiënische redenen kunnen geopende dozen niet worden geretourneerd, behalve via de slaapgarantie hieronder.</p><h4>30 nachten slaapgarantie</h4><p>Bovenop het herroepingsrecht geldt onze slaapgarantie: probeer je eerste doos 30 nachten. Niet tevreden? Mail naar hallo@droompleisters.nl en je krijgt je aankoopbedrag terug, inclusief ongeopende dozen uit een bundel.</p><h4>Retouradres</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland. Meld je retour altijd eerst per e-mail, dan ontvang je instructies.</p>'
     }
   };
   var legalModal=document.getElementById('legalModal'), legalLast=null;
@@ -323,8 +348,8 @@
       burger.setAttribute('aria-expanded',open?'true':'false');
       burger.setAttribute('aria-label',open?'Menu sluiten':'Menu openen');
       document.body.classList.toggle('menu-open',open);
-      document.body.style.overflow=open?'hidden':'';
-      if(open){ var f=mm.querySelector('a'); if(f) f.focus(); }
+      document.body.style.overflow=(open||document.querySelector('.modal-back.open'))?'hidden':'';
+      if(open){ var nb=nav?nav.getBoundingClientRect().bottom:78; mm.style.paddingTop=Math.round(nb+18)+'px'; var f=mm.querySelector('a'); if(f) f.focus(); }
     }
     burger.addEventListener('click',function(){ setMenu(!mm.classList.contains('open')); });
     mm.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ setMenu(false); }); });
@@ -349,20 +374,12 @@
       r.addEventListener('change',function(){
         pdpOrder.dataset.order=r.value;
         var im=document.getElementById('pdpMain');
-        if(im&&r.dataset.img&&im.getAttribute('src')!==r.dataset.img){im.src=r.dataset.img;document.querySelectorAll('.pdp-thumb').forEach(function(t){t.classList.toggle('active',t.dataset.src===r.dataset.img);t.setAttribute('aria-current',t.dataset.src===r.dataset.img?'true':'false');});}
+        if(im&&r.dataset.img&&im.getAttribute('src')!==r.dataset.img){im.src=r.dataset.img;var th=document.querySelector('.pdp-thumb[data-src="'+r.dataset.img+'"]');if(th&&th.dataset.alt)im.alt=th.dataset.alt;document.querySelectorAll('.pdp-thumb').forEach(function(t){t.classList.toggle('active',t.dataset.src===r.dataset.img);t.setAttribute('aria-current',t.dataset.src===r.dataset.img?'true':'false');});}
         if(price) price.textContent=r.dataset.price;
         if(per) per.textContent=r.dataset.per;
+        var pn=document.getElementById('pdpNote'); if(pn&&r.dataset.note) pn.textContent=r.dataset.note;
+        if(r.dataset.cta) pdpOrder.textContent=r.dataset.cta;
       });
     });
-  }
-  // contact-bevestiging
-  if(/[?&]bevestigd=contact/.test(location.search)){
-    var cm=document.getElementById('confirmModal');
-    if(cm){
-      document.getElementById('confirmTitle').textContent='Bericht ontvangen';
-      document.getElementById('confirmText').textContent='Bedankt voor je bericht. We reageren binnen één werkdag op het e-mailadres dat je opgaf.';
-      cm.classList.add('open'); document.body.style.overflow='hidden';
-      history.replaceState(null,'',location.pathname);
-    }
   }
 })();
