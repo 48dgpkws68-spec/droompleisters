@@ -41,9 +41,9 @@
   ]
 }
 </script>
-<link rel="preload" as="image" href="hero-scene.jpg" fetchpriority="high">
-<link rel="icon" type="image/png" href="logo-maan.png">
-<link rel="apple-touch-icon" href="logo-maan.png">
+<link rel="preload" as="image" href="hero-scene.webp" fetchpriority="high">
+<link rel="icon" type="image/webp" href="logo-maan.webp">
+<link rel="apple-touch-icon" href="logo-maan.webp">
 <meta name="theme-color" content="#0a0c16">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,6 +213,10 @@ header.nav.lit .nav-links a:hover{color:var(--gold-deep)}
     radial-gradient(50% 70% at 12% 10%,rgba(19,32,74,.55),transparent 65%),
     linear-gradient(180deg,#05070f 0%,#0a0e1f 60%,#070a15 100%);
 }
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(90px,14vw,190px);
+  background:linear-gradient(180deg,rgba(7,10,21,0),#070a15);z-index:1;pointer-events:none;
+}
 .hero-inner{
   position:relative;max-width:var(--wide);margin:0 auto;
   min-height:min(90vh,880px);display:flex;align-items:center;
@@ -280,13 +284,16 @@ header.nav.lit .nav-links a:hover{color:var(--gold-deep)}
 }
 
 /* == wolken-overgangen ================================================= */
-.sky{position:relative;height:clamp(200px,24vw,360px);background:url("wolken-banner.jpg") center/cover no-repeat}
+.sky{position:relative;height:clamp(200px,24vw,360px);background:url("wolken-banner.webp") center/cover no-repeat}
 .sky.to-light::after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,#070a15 0%,rgba(7,10,21,.4) 22%,rgba(253,252,248,0) 55%,var(--pearl) 96%);
 }
 .sky.to-light{transform:scaleY(-1)}
-.sky.to-light::after{transform:scaleY(-1);background:linear-gradient(180deg,var(--pearl) 4%,rgba(253,252,248,0) 45%,rgba(7,10,21,.4) 78%,#070a15 100%)}
+.sky.to-light::after{
+  transform:scaleY(-1);
+  background:linear-gradient(180deg,#070a15 0%,rgba(7,10,21,.55) 18%,rgba(7,10,21,0) 48%,rgba(253,252,248,0) 62%,rgba(253,252,248,.7) 84%,var(--pearl) 100%);
+}
 .sky.to-night::after{
   content:"";position:absolute;inset:0;
   background:linear-gradient(180deg,var(--pearl) 0%,rgba(253,252,248,0) 40%,rgba(7,10,21,.35) 80%,#0a0e1f 100%);
@@ -550,7 +557,7 @@ table.vgl{width:100%;border-collapse:separate;border-spacing:0;min-width:660px}
 
 /* == final cta ========================================================= */
 .final{
-  background:url("wolken-banner.jpg") center 68%/cover no-repeat;
+  background:url("wolken-banner.webp") center 68%/cover no-repeat;
   text-align:center;overflow:hidden;position:relative;color:var(--pearl);
 }
 .final::before{
@@ -695,8 +702,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <header class="nav" id="siteNav">
   <div class="nav-inner">
     <a class="brand" href="#top" aria-label="Droompleisters, naar boven">
-      <img class="brand-moon" src="logo-maan.png" alt="" width="420" height="420">
-      <img class="brand-word" src="logo-woord.png" alt="Droompleisters" width="1500" height="128">
+      <img class="brand-moon" src="logo-maan.webp" alt="" width="360" height="360">
+      <img class="brand-word" src="logo-woord.webp" alt="Droompleisters" width="1100" height="94">
     </a>
     <ul class="nav-links">
       <li><a href="#werking">Werking</a></li>
@@ -714,7 +721,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <section class="hero" aria-label="Introductie">
   <div class="starfield" data-stars="70" data-shooting aria-hidden="true"></div>
   <div class="hero-inner">
-    <img class="hero-img" src="hero-scene.jpg" alt="De Droompleisters verpakking in een gouden nachtgloed" fetchpriority="high" width="1600" height="900">
+    <img class="hero-img" src="hero-scene.webp" alt="De Droompleisters verpakking in een gouden nachtgloed" fetchpriority="high" width="1600" height="900">
     <div class="hero-copy">
       <p class="eyebrow reveal" style="color:var(--gold-400)">Slaappleisters · voor het slapengaan</p>
       <h1 class="reveal d1">De goede nacht<br>die je gewoon <span class="foil" style="font-style:italic">opplakt</span></h1>
@@ -845,7 +852,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     </div>
 
     <div class="photo-duo reveal">
-      <div class="photo-frame"><img src="pleister-arm.jpg" alt="Slapende vrouw met een Droompleister op haar bovenarm in een donkere slaapkamer" loading="lazy"></div>
+      <div class="photo-frame"><img src="pleister-arm.webp" alt="Slapende vrouw met een Droompleister op haar bovenarm in een donkere slaapkamer" loading="lazy"></div>
       <div>
         <h3>Zo licht dat je hem vergeet</h3>
         <p class="lead">De pleister is dun en huidvriendelijk, met de zachte kraft-look van papier. Je plakt hem op, kruipt onder je dekbed en de nacht doet de rest.</p>
@@ -929,7 +936,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
           <li>Ontwikkeld in Nederland</li>
         </ul>
       </div>
-      <div class="photo-frame"><img src="pleisters.jpg" alt="Stickervel met zes ronde kraft Droompleisters met het maanlogo" loading="lazy" style="object-position:top"></div>
+      <div class="photo-frame"><img src="pleisters.webp" alt="Stickervel met zes ronde kraft Droompleisters met het maanlogo" loading="lazy" style="object-position:top"></div>
     </div>
   </div>
 </section>
@@ -1054,7 +1061,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     </div>
     <div class="price-grid">
       <article class="glossy price-card reveal d1">
-        <img class="price-thumb" src="doos-front.jpg" alt="" loading="lazy" aria-hidden="true" width="1100" height="1100">
+        <img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700">
         <div class="price-title">Kennismaken</div>
         <div class="price-sub">1 doos · 30 nachten</div>
         <div class="price-amount"><span class="price-now">€29,95</span></div>
@@ -1068,7 +1075,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
       </article>
       <article class="price-card popular reveal d2">
         <div class="pop-flag">Meest gekozen</div>
-        <img class="price-thumb" src="doos-front.jpg" alt="" loading="lazy" aria-hidden="true" width="1100" height="1100">
+        <img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700">
         <div class="price-title">Vaste routine</div>
         <div class="price-sub">3 dozen · 90 nachten</div>
         <div class="price-amount"><span class="price-now">€64,95</span><span class="price-was"><span class="sr-only">normaal </span>€89,85</span></div>
@@ -1083,7 +1090,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
         <button class="btn btn-gold" data-order="3">Bestel 3 dozen</button>
       </article>
       <article class="glossy price-card reveal d3">
-        <img class="price-thumb" src="doos-front.jpg" alt="" loading="lazy" aria-hidden="true" width="1100" height="1100">
+        <img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700">
         <div class="price-title">Samen slapen</div>
         <div class="price-sub">2 dozen · 60 nachten</div>
         <div class="price-amount"><span class="price-now">€49,95</span><span class="price-was"><span class="sr-only">normaal </span>€59,90</span></div>
@@ -1170,7 +1177,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
           <circle cx="150" cy="150" r="140" fill="#0b1026"/>
           <circle cx="150" cy="150" r="140" fill="none" stroke="url(#goldmetal)" stroke-width="1.4"/>
           <circle cx="150" cy="150" r="118" fill="none" stroke="url(#goldmetal)" stroke-width=".6" opacity=".5"/>
-          <image href="logo-maan.png" x="93" y="66" width="114" height="114" preserveAspectRatio="xMidYMid meet"/>
+          <image href="logo-maan.webp" x="93" y="66" width="114" height="114" preserveAspectRatio="xMidYMid meet"/>
           <text x="150" y="224" text-anchor="middle" font-family="Cormorant Garamond,serif" font-size="24" font-weight="600" letter-spacing="4" fill="#f7f4ec">DROOMCLUB</text>
           <text x="150" y="247" text-anchor="middle" font-family="Jost,sans-serif" font-size="10.5" letter-spacing="3" fill="#d4a955">20% KORTING · ELKE DOOS</text>
           <g fill="#f7f4ec" opacity=".8">
@@ -1234,7 +1241,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <section class="final" aria-label="Bestel vandaag">
   <div class="starfield" data-stars="50" data-shooting aria-hidden="true"></div>
   <div class="container" style="padding-bottom:clamp(110px,13vw,180px)">
-    <img class="moon-center reveal" src="logo-maan.png" alt="" loading="lazy" width="420" height="420">
+    <img class="moon-center reveal" src="logo-maan.webp" alt="" loading="lazy" width="360" height="360">
     <h2 class="reveal d1">Vanavond is de eerste nacht<br>van je <span class="foil" style="font-style:italic">nieuwe routine</span></h2>
     <p class="reveal d2">Bestel voor 23:59 en je Droompleisters zijn binnen 2 werkdagen onderweg naar je deurmat. Met 30 nachten garantie heb je niets te verliezen, behalve die uren staren naar het plafond.</p>
     <a href="#bestel" class="btn btn-gold btn-xl reveal d3">Bestel je Droompleisters</a>
@@ -1248,8 +1255,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     <div class="foot-grid">
       <div>
         <div class="foot-brand">
-          <img class="brand-moon" src="logo-maan.png" alt="" loading="lazy" width="420" height="420" style="height:44px">
-          <img class="brand-word" src="logo-woord.png" alt="Droompleisters" loading="lazy" width="1500" height="128" style="height:17px">
+          <img class="brand-moon" src="logo-maan.webp" alt="" loading="lazy" width="360" height="360" style="height:44px">
+          <img class="brand-word" src="logo-woord.webp" alt="Droompleisters" loading="lazy" width="1100" height="94" style="height:17px">
         </div>
         <p style="margin-top:1.1rem;max-width:26rem">Slaappleisters met 100% natuurlijke ingrediënten. Ontwikkeld in Nederland, voor iedereen die 's nachts liever droomt dan piekert.</p>
       </div>
@@ -1375,7 +1382,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="modal-back" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
   <div class="modal" style="text-align:center">
     <button class="modal-close" data-close-confirm aria-label="Sluiten">✕</button>
-    <img src="logo-maan.png" alt="" width="420" height="420" style="width:76px;height:auto;margin:0 auto 1rem;filter:drop-shadow(0 6px 20px rgba(169,127,45,.45))">
+    <img src="logo-maan.webp" alt="" width="360" height="360" style="width:76px;height:auto;margin:0 auto 1rem;filter:drop-shadow(0 6px 20px rgba(169,127,45,.45))">
     <h3 id="confirmTitle">Gelukt</h3>
     <p class="modal-sub" id="confirmText" style="margin-top:.8rem"></p>
     <button class="btn btn-gold" data-close-confirm style="width:auto;margin-top:1.6rem">Verder slapen ☾</button>
