@@ -348,6 +348,8 @@
     document.querySelectorAll('input[name=pdpBundle]').forEach(function(r){
       r.addEventListener('change',function(){
         pdpOrder.dataset.order=r.value;
+        var im=document.getElementById('pdpMain');
+        if(im&&r.dataset.img&&im.getAttribute('src')!==r.dataset.img){im.src=r.dataset.img;document.querySelectorAll('.pdp-thumb').forEach(function(t){t.classList.toggle('active',t.dataset.src===r.dataset.img);t.setAttribute('aria-current',t.dataset.src===r.dataset.img?'true':'false');});}
         if(price) price.textContent=r.dataset.price;
         if(per) per.textContent=r.dataset.per;
       });
