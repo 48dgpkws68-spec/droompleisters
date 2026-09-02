@@ -36,14 +36,15 @@
   "mainEntity": [
     { "@type": "Question", "name": "Hoe gebruik ik een Droompleister precies?", "acceptedAnswer": { "@type": "Answer", "text": "Plak 's avonds één pleister op een schone, droge huid: onderarm, bovenarm of schouder. Laat hem de hele nacht zitten en verwijder hem 's ochtends. Wissel per nacht van plek. Eén doos bevat 30 pleisters, genoeg voor 30 nachten." } },
     { "@type": "Question", "name": "Waarom zit er geen melatonine in?", "acceptedAnswer": { "@type": "Answer", "text": "Bewuste keuze. Melatonine is een hormoon en veel mensen ervaren er een suf, katerig gevoel bij in de ochtend. Droompleisters kiezen voor magnesium, valeriaan, hop, L-theanine, lavendel en vitaminen B6 en D." } },
-    { "@type": "Question", "name": "Hoe snel wordt mijn bestelling geleverd?", "acceptedAnswer": { "@type": "Answer", "text": "Bestellingen die voor 23:59 binnenkomen, verzenden wij binnen 2 werkdagen vanuit Nederland naar Nederland en België, na ontvangst van je betaling. Vanaf 2 dozen is verzending gratis; voor 1 doos rekenen we €3,95." } },
+    { "@type": "Question", "name": "Hoe snel wordt mijn bestelling geleverd?", "acceptedAnswer": { "@type": "Answer", "text": "Na je bestelling ontvang je binnen 24 uur een persoonlijk betaalverzoek per e-mail. Na ontvangst van je betaling verzenden wij binnen 2 werkdagen vanuit Nederland naar heel Nederland en België. Vanaf 2 dozen is de verzending gratis; voor 1 doos rekenen we €3,95." } },
     { "@type": "Question", "name": "Hoe werkt de 30 nachten slaapgarantie?", "acceptedAnswer": { "@type": "Answer", "text": "Probeer je eerste doos 30 nachten. Ben je daarna niet tevreden, mail dan naar hallo@droompleisters.nl en je krijgt je aankoopbedrag terug. Bestelde je een bundel? Dan vergoeden we ook de ongeopende dozen." } }
   ]
 }
 </script>
 <link rel="preload" as="image" href="hero-scene.webp" fetchpriority="high">
-<link rel="icon" type="image/webp" href="logo-maan.webp">
-<link rel="apple-touch-icon" href="logo-maan.webp">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="theme-color" content="#0a0c16">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,7 +61,7 @@
   --navy:#13204a;
   --ink:#131c38;
   --ink-soft:#4c5878;
-  --ink-dim:#77809c;
+  --ink-dim:#636d86;
   --gold-100:#f9edcd;
   --gold-200:#f2dfae;
   --gold-300:#ecd39a;
@@ -70,6 +71,7 @@
   --gold-deep:#8a6a30;
   --mist:#c9d0e4;
   --mist-dim:#8b95b4;
+  --mist-mute:#7a8399;
   --ok:#3f7d5c;
   --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
   --sans:"Jost","Avenir Next","Century Gothic",Verdana,sans-serif;
@@ -203,7 +205,8 @@ header.nav.lit .nav-links a:hover{color:var(--gold-deep)}
 }
 .btn-ghost:hover{border-color:var(--gold-300);color:#fff;box-shadow:0 0 34px -10px rgba(212,169,85,.5)}
 .btn-xl{padding:1.15rem 2.5rem;font-size:.88rem}
-.nav-cta{padding:.68rem 1.5rem;font-size:.74rem}
+.nav-cta{padding:.68rem 1.5rem;font-size:.74rem;min-height:44px}
+.sticky-cta .btn{min-height:44px}
 
 /* == hero ============================================================== */
 .hero{
@@ -314,6 +317,12 @@ header.nav.lit .nav-links a:hover{color:var(--gold-deep)}
   background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.9) 44%,transparent 56%,rgba(255,255,255,.5) 72%,transparent 84%);
   opacity:.4;
 }
+.pearl-flow{
+  --foil-pearl:linear-gradient(105deg,#8a6a30 0%,#a67f32 30%,#b08432 50%,#8a6a30 72%,#a67f32 100%);
+  --foil:var(--foil-pearl);
+  --foil-light:var(--foil-pearl);
+}
+.p-card .tijd{color:var(--gold-deep)}
 .glossy{
   background:linear-gradient(180deg,var(--card),#faf6ec);
   border:1px solid var(--card-line);border-radius:18px;
@@ -383,7 +392,7 @@ header.nav.lit .nav-links a:hover{color:var(--gold-deep)}
 .photo-duo p.lead{margin-top:.9rem;color:var(--ink-soft);font-size:.97rem}
 .photo-points{list-style:none;margin-top:1.4rem;display:grid;gap:.65rem}
 .photo-points li{display:flex;gap:.7rem;font-size:.95rem;color:var(--ink);align-items:flex-start}
-.photo-points li::before{content:"✦";color:var(--gold-500);flex:none;font-size:.8rem;transform:translateY(2px)}
+.photo-points li::before{content:"✦";content:"✦" / "";color:var(--gold-500);flex:none;font-size:.8rem;transform:translateY(2px)}
 @media (max-width:860px){.photo-duo{grid-template-columns:1fr}.photo-duo .photo-frame{height:300px}}
 
 /* == ingredients ======================================================= */
@@ -472,6 +481,9 @@ table.vgl{width:100%;border-collapse:separate;border-spacing:0;min-width:660px}
   border-radius:14px;margin-bottom:1.4rem;padding:10px 0;
   box-shadow:0 18px 40px -20px rgba(7,10,21,.55),0 0 0 1px rgba(201,150,46,.25);
 }
+.thumb-wrap{position:relative;margin-bottom:1.4rem}
+.thumb-wrap .price-thumb{margin-bottom:0}
+.thumb-n{position:absolute;right:14px;bottom:14px;font-family:var(--serif);font-weight:700;font-size:1.15rem;line-height:1;color:#221602;background:linear-gradient(120deg,#a8843f,#e3c27e 40%,#f2dfae 55%,#d4a955);border-radius:999px;padding:.35rem .75rem;box-shadow:0 10px 26px -10px rgba(169,127,45,.8);pointer-events:none}
 .price-title{font-family:var(--serif);font-size:1.5rem;font-weight:600}
 .price-sub{font-size:.78rem;color:var(--ink-dim);margin-top:.25rem;letter-spacing:.14em;text-transform:uppercase}
 .price-amount{display:flex;align-items:baseline;gap:.8rem;margin:1.4rem 0 .2rem}
@@ -486,7 +498,7 @@ table.vgl{width:100%;border-collapse:separate;border-spacing:0;min-width:660px}
 }
 .price-feats{list-style:none;margin:1.6rem 0 2rem;display:grid;gap:.6rem}
 .price-feats li{display:flex;gap:.65rem;font-size:.92rem;color:var(--ink-soft);align-items:flex-start}
-.price-feats li::before{content:"✦";color:var(--gold-500);flex:none;font-size:.8rem;transform:translateY(2px)}
+.price-feats li::before{content:"✦";content:"✦" / "";color:var(--gold-500);flex:none;font-size:.8rem;transform:translateY(2px)}
 .price-card .btn{width:100%;margin-top:auto}
 .price-foot{display:flex;flex-wrap:wrap;justify-content:center;gap:1.8rem;margin-top:3rem;font-size:.82rem;color:var(--ink-soft);position:relative;z-index:2}
 .price-foot span{display:inline-flex;align-items:center;gap:.5rem}
@@ -520,7 +532,7 @@ table.vgl{width:100%;border-collapse:separate;border-spacing:0;min-width:660px}
 .club-perks{list-style:none;margin-top:1.6rem;display:grid;gap:.7rem}
 .club-perks li{display:flex;gap:.7rem;align-items:flex-start;font-size:.95rem;color:var(--ink)}
 .club-perks li b{color:var(--gold-deep);font-weight:600}
-.club-perks li::before{content:"☾";color:var(--gold-500);flex:none;transform:translateY(1px)}
+.club-perks li::before{content:"☾";content:"☾" / "";color:var(--gold-500);flex:none;transform:translateY(1px)}
 .club-form{display:flex;gap:.7rem;margin-top:2rem;flex-wrap:wrap}
 .club-form input[type=email]{
   flex:1;min-width:220px;border:1px solid var(--card-line);background:#fff;
@@ -528,7 +540,6 @@ table.vgl{width:100%;border-collapse:separate;border-spacing:0;min-width:660px}
   box-shadow:0 1px 0 #fff inset,0 8px 22px -14px rgba(19,28,56,.2);
 }
 .club-form input[type=email]::placeholder{color:var(--ink-dim)}
-.club-form input[type=email]:focus{outline:2px solid var(--gold-500);outline-offset:1px}
 .club-small{margin-top:.9rem;font-size:.76rem;color:var(--ink-dim)}
 .club-visual{display:flex;justify-content:center}
 .club-visual svg{width:min(300px,80%);filter:drop-shadow(0 26px 50px rgba(19,28,56,.35))}
@@ -576,7 +587,8 @@ table.vgl{width:100%;border-collapse:separate;border-spacing:0;min-width:660px}
 
 /* == footer ============================================================ */
 footer{background:#04050c;color:var(--mist-dim);font-size:.88rem}
-.foot-inner{padding:clamp(52px,6vw,80px) 0 36px}
+.foot-inner{padding-top:clamp(52px,6vw,80px);padding-bottom:36px}
+@media (max-width:900px){.foot-inner{padding-bottom:calc(36px + 76px + env(safe-area-inset-bottom))}}
 .foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:2.6rem}
 .foot-brand{display:flex;align-items:center;gap:.9rem;color:var(--gold-200)}
 .foot-brand span{font-family:var(--serif);letter-spacing:.26em;text-transform:uppercase;font-size:1.08rem}
@@ -588,11 +600,11 @@ footer{background:#04050c;color:var(--mist-dim);font-size:.88rem}
 .foot-link:hover{color:var(--gold-300)}
 .foot-warn{
   margin-top:2.8rem;padding-top:1.9rem;border-top:1px solid rgba(227,194,126,.12);
-  font-size:.74rem;color:#5a6483;line-height:1.75;
+  font-size:.74rem;color:var(--mist-mute);line-height:1.75;
 }
 .foot-base{
   margin-top:1.9rem;padding-top:1.5rem;border-top:1px solid rgba(227,194,126,.12);
-  display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.76rem;color:#5a6483;
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;font-size:.76rem;color:var(--mist-mute);
 }
 @media (max-width:780px){.foot-grid{grid-template-columns:1fr}}
 
@@ -645,7 +657,6 @@ footer{background:#04050c;color:var(--mist-dim);font-size:.88rem}
   background:#fff;transition:border-color .2s,background .2s,box-shadow .2s;cursor:pointer;
 }
 .bundle-opt input:checked + label{border-color:var(--gold-500);background:#fdf6e4;box-shadow:0 12px 30px -18px rgba(169,127,45,.5)}
-.bundle-opt input:focus-visible + label{outline:2px solid var(--gold-500);outline-offset:2px}
 .bundle-opt .b-name{font-weight:500;font-size:.97rem;color:var(--ink)}
 .bundle-opt .b-note{font-size:.76rem;color:var(--ink-dim)}
 .bundle-opt .b-price{font-family:var(--serif);font-weight:700;font-size:1.3rem;color:var(--gold-deep);font-variant-numeric:tabular-nums}
@@ -653,13 +664,13 @@ footer{background:#04050c;color:var(--mist-dim);font-size:.88rem}
 .modal-total b{font-family:var(--serif);font-size:1.25rem;color:var(--gold-deep);font-weight:700}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
 .form-grid .full{grid-column:1/-1}
+.form-grid label{display:block;font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:#7a5c28;margin:0 0 .3rem .15rem}
 .modal input[type=text],.modal input[type=email],.modal input[type=tel],.modal select{
   width:100%;border:1px solid var(--card-line);background:#fff;border-radius:10px;
   padding:.85rem 1rem;font-family:inherit;font-size:.93rem;color:var(--ink);
 }
 .modal select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23c9962e' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
 .modal input::placeholder{color:var(--ink-dim)}
-.modal input:focus,.modal select:focus{outline:2px solid var(--gold-500);outline-offset:1px}
 .modal .btn{width:100%;margin-top:1.2rem}
 .modal-pay-note{
   margin-top:1.1rem;font-size:.78rem;color:var(--ink-soft);background:#fbf6ea;
@@ -672,9 +683,17 @@ footer{background:#04050c;color:var(--mist-dim);font-size:.88rem}
 .legal-body h4:first-child{margin-top:0}
 .legal-body p{margin-bottom:.7rem}
 @media (max-width:520px){.form-grid{grid-template-columns:1fr}}
+@media (hover:none),(max-width:900px){
+  .modal input[type=text],.modal input[type=email],.modal input[type=tel],.modal select,.club-form input[type=email]{font-size:16px}
+}
 
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold-500);outline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,.club-form input[type=email]:focus,.modal input:focus,.modal select:focus,.legal-body:focus-visible,.table-wrap:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px}
+.bundle-opt input:focus-visible + label{outline:2px solid var(--gold-deep);outline-offset:2px}
+.faq-q:focus-visible{outline-offset:-4px;border-radius:12px}
+.table-wrap:focus-visible{outline-offset:-2px}
+.modal h3:focus{outline:none}
+.hero :focus-visible,.final :focus-visible,footer :focus-visible,header.nav:not(.lit) :focus-visible{outline-color:var(--gold-300)}
 </style>
 </head>
 <body>
@@ -696,7 +715,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <div class="topbar" role="note">
-  ☾ <strong>Introductie-aanbieding</strong> · tot 28% korting op bundels · bestel binnen <span class="cdown" id="cdown">24 uur</span> voor verzending binnen 2 werkdagen
+  <span aria-hidden="true">☾</span> <strong>Introductie-aanbieding</strong> · tot 28% korting op bundels · bestel binnen <span class="cdown" id="cdown">24 uur</span> en je persoonlijke betaallink ligt uiterlijk morgen in je inbox
 </div>
 
 <header class="nav" id="siteNav">
@@ -840,13 +859,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
         <path class="draw" d="M50 205 C 130 195 150 90 250 68 C 330 51 390 55 460 85 C 530 115 570 168 610 192" fill="none" stroke="#c9962e" stroke-width="2.5" stroke-linecap="round"/>
         <circle cx="250" cy="68" r="4.5" fill="#b8893c"/>
         <text x="250" y="42" text-anchor="middle" font-family="Jost,sans-serif" font-size="11.5" letter-spacing="2.4" fill="#8a6a30">RUSTIG NAAR DIEPE SLAAP</text>
-        <g font-family="Jost,sans-serif" font-size="12" fill="#77809c">
+        <g font-family="Jost,sans-serif" font-size="12" fill="#636d86">
           <text x="50" y="232">22:00</text>
           <text x="235" y="232">01:00</text>
           <text x="425" y="232">04:00</text>
           <text x="585" y="232">07:00</text>
         </g>
-        <text x="24" y="128" font-family="Jost,sans-serif" font-size="11" fill="#77809c" transform="rotate(-90 24 128)">afgifte</text>
+        <text x="24" y="128" font-family="Jost,sans-serif" font-size="11" fill="#636d86" transform="rotate(-90 24 128)">afgifte</text>
       </svg>
       <p class="release-note">Schematische weergave van het afgifteprofiel gedurende de nacht.</p>
     </div>
@@ -903,7 +922,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
         <p>Ondersteunt een normale werking van het zenuwstelsel en draagt bij aan minder vermoeidheid.</p>
       </article>
       <article class="glossy ingr-card reveal d2">
-        <span class="ingr-mg">1000<small>IU</small></span>
+        <span class="ingr-mg">1000<small>IE</small></span>
         <h3>Vitamine D</h3>
         <p>De zonvitamine, belangrijk voor wie veel binnen zit en 's winters weinig daglicht ziet.</p>
       </article>
@@ -950,12 +969,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
       <p class="eyebrow center">Waarom een pleister</p>
       <h2>Alles van een slaapritueel. Niets van een pil.</h2>
     </div>
-    <div class="table-wrap reveal">
+    <div class="table-wrap reveal" tabindex="0" role="region" aria-label="Vergelijkingstabel">
       <table class="vgl">
         <thead>
           <tr>
             <th scope="col"></th>
-            <th scope="col" class="hero-col">☾ Droompleisters</th>
+            <th scope="col" class="hero-col"><span aria-hidden="true">☾</span> Droompleisters</th>
             <th scope="col">Slaappillen</th>
             <th scope="col">Melatonine­tabletten</th>
           </tr>
@@ -963,7 +982,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
         <tbody>
           <tr><td>Geleidelijke afgifte, urenlang</td><td class="hero-col"><span class="tick" aria-hidden="true">✓</span><span class="sr-only">ja</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td></tr>
           <tr><td>Niets hoeven slikken</td><td class="hero-col"><span class="tick" aria-hidden="true">✓</span><span class="sr-only">ja</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td></tr>
-          <tr><td>Melatoninevrij</td><td class="hero-col"><span class="tick" aria-hidden="true">✓</span><span class="sr-only">ja</span></td><td><span class="tilde" aria-hidden="true">~</span><span class="sr-only">deels</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td></tr>
+          <tr><td>Zonder melatonine of synthetische slaapmiddelen</td><td class="hero-col"><span class="tick" aria-hidden="true">✓</span><span class="sr-only">ja</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td></tr>
           <tr><td>Zonder suf pilgevoel 's ochtends</td><td class="hero-col"><span class="tick" aria-hidden="true">✓</span><span class="sr-only">ja</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td><td><span class="tilde" aria-hidden="true">~</span><span class="sr-only">deels</span></td></tr>
           <tr><td>100% natuurlijke ingrediënten</td><td class="hero-col"><span class="tick" aria-hidden="true">✓</span><span class="sr-only">ja</span></td><td><span class="cross" aria-hidden="true">✕</span><span class="sr-only">nee</span></td><td><span class="tilde" aria-hidden="true">~</span><span class="sr-only">deels</span></td></tr>
           <tr><td>Vast, rustgevend avondritueel</td><td class="hero-col"><span class="tick" aria-hidden="true">✓</span><span class="sr-only">ja</span></td><td><span class="tilde" aria-hidden="true">~</span><span class="sr-only">deels</span></td><td><span class="tilde" aria-hidden="true">~</span><span class="sr-only">deels</span></td></tr>
@@ -1061,7 +1080,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     </div>
     <div class="price-grid">
       <article class="glossy price-card reveal d1">
-        <img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700">
+        <div class="thumb-wrap"><img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700"><span class="thumb-n" aria-hidden="true">×1</span></div>
         <div class="price-title">Kennismaken</div>
         <div class="price-sub">1 doos · 30 nachten</div>
         <div class="price-amount"><span class="price-now">€29,95</span></div>
@@ -1075,14 +1094,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
       </article>
       <article class="price-card popular reveal d2">
         <div class="pop-flag">Meest gekozen</div>
-        <img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700">
+        <div class="thumb-wrap"><img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700"><span class="thumb-n" aria-hidden="true">×3</span></div>
         <div class="price-title">Vaste routine</div>
         <div class="price-sub">3 dozen · 90 nachten</div>
         <div class="price-amount"><span class="price-now">€64,95</span><span class="price-was"><span class="sr-only">normaal </span>€89,85</span></div>
         <div class="price-night">€0,72 per nacht</div>
         <span class="price-save">Je bespaart €24,90 (28%)</span>
         <ul class="price-feats">
-          <li>90 pleisters (3 maanden ritme)</li>
+          <li>90 pleisters (ritme van 3 maanden)</li>
           <li>30 nachten slaapgarantie</li>
           <li>Gratis verzending (NL &amp; BE)</li>
           <li>Gratis welkomstcadeau van de Droomclub</li>
@@ -1090,7 +1109,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
         <button class="btn btn-gold" data-order="3">Bestel 3 dozen</button>
       </article>
       <article class="glossy price-card reveal d3">
-        <img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700">
+        <div class="thumb-wrap"><img class="price-thumb" src="doos-front.webp" alt="" loading="lazy" aria-hidden="true" width="700" height="700"><span class="thumb-n" aria-hidden="true">×2</span></div>
         <div class="price-title">Samen slapen</div>
         <div class="price-sub">2 dozen · 60 nachten</div>
         <div class="price-amount"><span class="price-now">€49,95</span><span class="price-was"><span class="sr-only">normaal </span>€59,90</span></div>
@@ -1105,7 +1124,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
       </article>
     </div>
     <div class="price-foot reveal">
-      <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Voor 23:59 besteld, binnen 2 werkdagen verzonden</span>
+      <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Betaallink binnen 24 uur · verzonden binnen 2 werkdagen na betaling</span>
       <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Niet tevreden? Geld terug</span>
       <span><svg viewBox="0 0 20 20" fill="none" stroke="#c9962e" stroke-width="1.8"><path d="M3 10l4.5 4.5L17 5"/></svg>Verzending vanuit Nederland</span>
     </div>
@@ -1155,7 +1174,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
         <h2>Goede nachten worden nog leuker samen</h2>
         <p class="lead">De Droomclub is onze binnenste cirkel van vaste slapers. Lid worden is gratis en duurt tien seconden.</p>
         <ul class="club-perks">
-          <li><b>20% korting</b>&nbsp;op je volgende doos: als lid betaal je <b>€23,95</b>&nbsp;per doos via een altijd opzegbaar 30 dagen abonnement</li>
+          <li><b>20% korting</b>&nbsp;op elke volgende doos: als lid betaal je <b>€23,95</b>&nbsp;per doos via een altijd opzegbaar abonnement (elke 30 dagen een doos)</li>
           <li>Een&nbsp;<b>welkomstcadeau</b>&nbsp;bij je eerste Droomclub-bestelling</li>
           <li>Slaaptips en avondroutines die echt werken, één mail per maand</li>
           <li>Voorrang bij nieuwe producten en beperkte edities</li>
@@ -1200,36 +1219,36 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     </div>
     <div class="faq-list reveal">
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Hoe gebruik ik een Droompleister precies?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Plak 's avonds één pleister op een schone, droge huid: onderarm, bovenarm of schouder. Laat hem de hele nacht zitten en verwijder hem 's ochtends. Wissel per nacht van plek om je huid rust te geven. Eén doos bevat 30 pleisters, genoeg voor 30 nachten.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a1">Hoe gebruik ik een Droompleister precies?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a1"><div class="faq-a-inner">Plak 's avonds één pleister op een schone, droge huid: onderarm, bovenarm of schouder. Laat hem de hele nacht zitten en verwijder hem 's ochtends. Wissel per nacht van plek om je huid rust te geven. Eén doos bevat 30 pleisters, genoeg voor 30 nachten.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Wanneer merk ik verschil?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Dat verschilt per persoon. Sommige gebruikers ervaren de eerste nachten al meer rust rond bedtijd, bij anderen groeit het effect samen met het ritueel over één tot twee weken. Daarom raden wij aan de pleister minimaal 14 avonden achter elkaar te gebruiken als vast onderdeel van je avondroutine, en daarom krijg je van ons 30 nachten garantie.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a2">Wanneer merk ik verschil?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a2"><div class="faq-a-inner">Dat verschilt per persoon. Sommige gebruikers ervaren de eerste nachten al meer rust rond bedtijd, bij anderen groeit het effect samen met het ritueel over één tot twee weken. Daarom raden wij aan de pleister minimaal 14 avonden achter elkaar te gebruiken als vast onderdeel van je avondroutine, en daarom krijg je van ons 30 nachten garantie.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Waarom zit er geen melatonine in?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Bewuste keuze. Melatonine is een hormoon en veel mensen ervaren er een suf, katerig gevoel bij in de ochtend. Droompleisters kiezen voor de zachte route: magnesium, valeriaan, hop, L-theanine, lavendel en vitaminen B6 en D. Natuurlijke bekenden, geen hormonen.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a3">Waarom zit er geen melatonine in?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a3"><div class="faq-a-inner">Bewuste keuze. Melatonine is een hormoon en veel mensen ervaren er een suf, katerig gevoel bij in de ochtend. Droompleisters kiezen voor de zachte route: magnesium, valeriaan, hop, L-theanine, lavendel en vitaminen B6 en D. Natuurlijke bekenden, geen hormonen.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Is de pleister prettig om te dragen?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Ja. De pleister is dun, huidvriendelijk en heeft een zachte kraft-look. De meeste gebruikers vergeten na een paar minuten dat hij er zit. Hij blijft de hele nacht netjes plakken en laat 's ochtends zonder plakresten los.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a4">Is de pleister prettig om te dragen?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a4"><div class="faq-a-inner">Ja. De pleister is dun, huidvriendelijk en heeft een zachte kraft-look. De meeste gebruikers vergeten na een paar minuten dat hij er zit. Hij blijft de hele nacht netjes plakken en laat 's ochtends zonder plakresten los.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Kan iedereen Droompleisters gebruiken?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Droompleisters zijn alleen geschikt voor volwassenen en alleen voor uitwendig gebruik. Gebruik ze niet op een beschadigde of geïrriteerde huid en stop bij huidirritatie. Ben je zwanger, geef je borstvoeding, of gebruik je medicijnen zoals antidepressiva of schildklier- of levermedicatie? Raadpleeg dan eerst een arts of apotheker.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a5">Kan iedereen Droompleisters gebruiken?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a5"><div class="faq-a-inner">Droompleisters zijn alleen geschikt voor volwassenen en alleen voor uitwendig gebruik. Gebruik ze niet op een beschadigde of geïrriteerde huid en stop bij huidirritatie. Tijdens zwangerschap of borstvoeding gebruik je Droompleisters niet. Gebruik je medicijnen, zoals antidepressiva of schildklier- of levermedicatie? Raadpleeg dan eerst een arts of apotheker.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Hoe snel wordt mijn bestelling geleverd?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Bestellingen die voor 23:59 binnenkomen, verzenden wij binnen 2 werkdagen vanuit Nederland naar heel Nederland en België. Verzending vindt plaats na ontvangst van je betaling via het betaalverzoek. Vanaf 2 dozen is de verzending gratis; voor 1 doos rekenen we €3,95.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a6">Hoe snel wordt mijn bestelling geleverd?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a6"><div class="faq-a-inner">Na je bestelling ontvang je binnen 24 uur een persoonlijk betaalverzoek per e-mail. Na ontvangst van je betaling verzenden wij binnen 2 werkdagen vanuit Nederland naar heel Nederland en België. Vanaf 2 dozen is de verzending gratis; voor 1 doos rekenen we €3,95.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Hoe werkt de 30 nachten slaapgarantie?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Simpel: probeer je eerste doos 30 nachten. Ben je daarna niet tevreden, mail dan naar <a href="mailto:hallo@droompleisters.nl">hallo@droompleisters.nl</a> en je krijgt je aankoopbedrag terug. Bestelde je een bundel? Dan vergoeden we ook de ongeopende dozen. Zonder formulieren en zonder moeilijke vragen.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a7">Hoe werkt de 30 nachten slaapgarantie?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a7"><div class="faq-a-inner">Simpel: probeer je eerste doos 30 nachten. Ben je daarna niet tevreden, mail dan naar <a href="mailto:hallo@droompleisters.nl">hallo@droompleisters.nl</a> en je krijgt je aankoopbedrag terug. Bestelde je een bundel? Dan vergoeden we ook de ongeopende dozen. Zonder formulieren en zonder moeilijke vragen.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">Wat is de Droomclub?<span class="plus">+</span></button>
-        <div class="faq-a"><div class="faq-a-inner">De Droomclub is ons gratis ledenprogramma. Je krijgt standaard 20% korting op elke volgende doos, een welkomstcadeau bij je eerste Droomclub-bestelling en maandelijks de beste slaaptips in je mail. Aanmelden kan <a href="#droomclub">hier op de pagina</a> of via de QR-code op de achterkant van elke doos.</div></div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a8">Wat is de Droomclub?<span class="plus" aria-hidden="true">+</span></button>
+        <div class="faq-a" id="faq-a8"><div class="faq-a-inner">De Droomclub is ons gratis ledenprogramma. Je krijgt 20% korting op elke volgende doos: €23,95 per doos via een altijd opzegbaar abonnement dat elke 30 dagen levert. Daarnaast een welkomstcadeau bij je eerste Droomclub-bestelling en maandelijks de beste slaaptips in je mail. Aanmelden kan <a href="#droomclub">hier op de pagina</a> of via de QR-code op de achterkant van elke doos.</div></div>
       </div>
     </div>
   </div>
@@ -1243,11 +1262,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   <div class="container" style="padding-bottom:clamp(110px,13vw,180px)">
     <img class="moon-center reveal" src="logo-maan.webp" alt="" loading="lazy" width="360" height="360">
     <h2 class="reveal d1">Vanavond is de eerste nacht<br>van je <span class="foil" style="font-style:italic">nieuwe routine</span></h2>
-    <p class="reveal d2">Bestel voor 23:59 en je Droompleisters zijn binnen 2 werkdagen onderweg naar je deurmat. Met 30 nachten garantie heb je niets te verliezen, behalve die uren staren naar het plafond.</p>
-    <a href="#bestel" class="btn btn-gold btn-xl reveal d3">Bestel je Droompleisters</a>
+    <p class="reveal d2">Bestel vandaag, betaal via de link in je inbox en binnen 2 werkdagen na je betaling zijn je Droompleisters onderweg naar je deurmat. Met 30 nachten garantie heb je niets te verliezen, behalve die uren staren naar het plafond.</p>
+    <a href="#bestel" class="btn btn-gold btn-xl reveal d3" data-order="3">Bestel je Droompleisters</a>
     <p class="final-sub reveal d3">★ 4,8/5 · 2.300+ tevreden slapers · melatoninevrij · 100% natuurlijke ingrediënten</p>
   </div>
 </section>
+
+</main>
 
 <!-- ===================== FOOTER ===================== -->
 <footer>
@@ -1277,6 +1298,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
           <li><a href="mailto:hallo@droompleisters.nl">hallo@droompleisters.nl</a></li>
           <li>Voorstraat 9</li>
           <li>4132 AM Vianen · Nederland</li>
+          <!-- invullen zodra bekend: <li>KvK 00000000 · btw-id NL000000000B00</li> -->
           <li><button type="button" class="foot-link" data-legal="voorwaarden">Algemene voorwaarden</button></li>
           <li><button type="button" class="foot-link" data-legal="privacy">Privacybeleid</button></li>
           <li><button type="button" class="foot-link" data-legal="retour">Retour &amp; herroeping</button></li>
@@ -1296,7 +1318,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <!-- ===================== STICKY MOBILE CTA ===================== -->
 <div class="sticky-cta" id="stickyCta">
   <div class="info"><b>Droompleisters</b> · vanaf €0,72/nacht<br>30 nachten garantie</div>
-  <a href="#bestel" class="btn btn-gold">Bestel nu</a>
+  <a href="#bestel" class="btn btn-gold" data-order="3">Bestel nu</a>
 </div>
 
 <!-- ===================== ORDER MODAL ===================== -->
@@ -1304,7 +1326,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   <div class="modal">
     <button class="modal-close" data-close aria-label="Sluiten">✕</button>
     <h3 id="orderTitle">Je bestelling</h3>
-    <p class="modal-sub">Vul je gegevens in. Je ontvangt binnen 24 uur een persoonlijk betaalverzoek per e-mail (o.a. iDEAL en Bancontact); na betaling verzenden we direct.</p>
+    <p class="modal-sub">Vul je gegevens in. Je ontvangt binnen 24 uur een persoonlijk betaalverzoek per e-mail (o.a. iDEAL en Bancontact). Na betaling verzenden we binnen 2 werkdagen.</p>
     <form action="https://formsubmit.co/hallo@droompleisters.nl" method="POST">
       <input type="hidden" name="_subject" value="🌙 Nieuwe bestelling via droompleisters.nl">
       <input type="hidden" name="_captcha" value="false">
@@ -1331,32 +1353,26 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
         <div class="bundle-opt">
           <input type="radio" name="bundel" value="3 dozen · €64,95 · gratis verzending + welkomstcadeau" id="b3" checked data-total="€64,95" data-totalnote="Totaal · gratis verzending">
           <label for="b3">
-            <span><span class="b-name">3 dozen · 90 nachten ✦</span><br><span class="b-note">Gratis verzending + welkomstcadeau · bespaar €24,90</span></span>
+            <span><span class="b-name">3 dozen · 90 nachten <span aria-hidden="true">✦</span><span class="sr-only"> (meest gekozen)</span></span><br><span class="b-note">Gratis verzending + welkomstcadeau · bespaar €24,90</span></span>
             <span class="b-price">€64,95</span>
           </label>
         </div>
       </div>
       <p class="modal-total" id="modalTotal" aria-live="polite"></p>
       <div class="form-grid">
-        <label class="sr-only" for="f-naam">Volledige naam</label>
-        <input class="full" id="f-naam" type="text" name="naam" placeholder="Volledige naam" required autocomplete="name">
-        <label class="sr-only" for="f-email">E-mailadres</label>
-        <input id="f-email" type="email" name="email" placeholder="E-mailadres" required autocomplete="email">
-        <label class="sr-only" for="f-tel">Telefoon (optioneel)</label>
-        <input id="f-tel" type="tel" name="telefoon" placeholder="Telefoon (optioneel)" autocomplete="tel">
-        <label class="sr-only" for="f-straat">Straat en huisnummer</label>
-        <input class="full" id="f-straat" type="text" name="adres" placeholder="Straat en huisnummer" required autocomplete="street-address">
-        <label class="sr-only" for="f-postcode">Postcode</label>
-        <input id="f-postcode" type="text" name="postcode" placeholder="Postcode" required autocomplete="postal-code">
-        <label class="sr-only" for="f-plaats">Plaats</label>
-        <input id="f-plaats" type="text" name="plaats" placeholder="Plaats" required autocomplete="address-level2">
-        <label class="sr-only" for="f-land">Land</label>
-        <select class="full" id="f-land" name="land" required autocomplete="country-name">
+        <div class="full"><label for="f-naam">Volledige naam</label><input id="f-naam" type="text" name="naam" required autocomplete="name"></div>
+        <div><label for="f-email">E-mailadres (voor je betaalverzoek)</label><input id="f-email" type="email" name="email" placeholder="jouw@email.nl" required autocomplete="email"></div>
+        <div><label for="f-tel">Telefoon (optioneel)</label><input id="f-tel" type="tel" name="telefoon" placeholder="06 12345678" autocomplete="tel"></div>
+        <div class="full"><label for="f-straat">Straat en huisnummer</label><input id="f-straat" type="text" name="adres" required autocomplete="street-address"></div>
+        <div><label for="f-postcode">Postcode</label><input id="f-postcode" type="text" name="postcode" placeholder="1234 AB" required autocomplete="postal-code"></div>
+        <div><label for="f-plaats">Plaats</label><input id="f-plaats" type="text" name="plaats" required autocomplete="address-level2"></div>
+        <div class="full"><label for="f-land">Land</label>
+        <select id="f-land" name="land" required autocomplete="country-name">
           <option value="Nederland" selected>Nederland</option>
           <option value="België">België</option>
-        </select>
+        </select></div>
       </div>
-      <button class="btn btn-gold" type="submit" id="orderSubmit">Bevestig bestelling · <span id="orderBtnTotal">€64,95</span> ☾</button>
+      <button class="btn btn-gold" type="submit" id="orderSubmit">Bevestig bestelling · <span id="orderBtnTotal">€64,95</span> <span aria-hidden="true">☾</span></button>
       <p class="modal-pay-note">
         <strong>Zo werkt betalen:</strong> na het bevestigen krijg je van ons een persoonlijke betaallink per e-mail. Betalen kan veilig via iDEAL, Bancontact, creditcard of bankoverschrijving. Pas na jouw betaling verzenden we. Niet tevreden? 30 nachten geld-terug-garantie.
       </p>
@@ -1373,8 +1389,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 <div class="modal-back" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
   <div class="modal">
     <button class="modal-close" data-close-legal aria-label="Sluiten">✕</button>
-    <h3 id="legalTitle">Voorwaarden</h3>
-    <div class="legal-body" id="legalBody"></div>
+    <h3 id="legalTitle" tabindex="-1">Voorwaarden</h3>
+    <div class="legal-body" id="legalBody" tabindex="0" role="region" aria-labelledby="legalTitle"></div>
   </div>
 </div>
 
@@ -1383,9 +1399,13 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   <div class="modal" style="text-align:center">
     <button class="modal-close" data-close-confirm aria-label="Sluiten">✕</button>
     <img src="logo-maan.webp" alt="" width="360" height="360" style="width:76px;height:auto;margin:0 auto 1rem;filter:drop-shadow(0 6px 20px rgba(169,127,45,.45))">
-    <h3 id="confirmTitle">Gelukt</h3>
+    <h3 id="confirmTitle" tabindex="-1">Gelukt</h3>
     <p class="modal-sub" id="confirmText" style="margin-top:.8rem"></p>
-    <button class="btn btn-gold" data-close-confirm style="width:auto;margin-top:1.6rem">Verder slapen ☾</button>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin-top:1.6rem">
+      <a id="payNow" class="btn btn-gold" style="display:none;width:auto;margin-top:0" rel="noopener">Nu veilig afrekenen <span aria-hidden="true">☾</span></a>
+      <button class="btn btn-gold" id="confirmClose" data-close-confirm style="width:auto;margin-top:0">Verder slapen <span aria-hidden="true">☾</span></button>
+    </div>
+    <p id="payMethods" style="display:none;margin-top:.8rem;font-size:.72rem;color:var(--ink-dim);letter-spacing:.06em">iDEAL · Bancontact · creditcard</p>
   </div>
 </div>
 
@@ -1467,6 +1487,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   // --- order modal ----------------------------------------------------
   var modal=document.getElementById('orderModal');
   var lastFocus=null;
+  var inertTargets=['.topbar','#siteNav','main','footer','#stickyCta'];
+  function setInert(on){inertTargets.forEach(function(sel){var el=document.querySelector(sel);if(el){if(on)el.setAttribute('inert','');else el.removeAttribute('inert');}});}
   function updateTotal(){
     var checked=modal.querySelector('input[name=bundel]:checked');
     if(!checked) return;
@@ -1477,6 +1499,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     if(btnTotal) btnTotal.textContent=total;
     var hidden=document.getElementById('orderTotaal');
     if(hidden) hidden.value=total;
+    var nx=modal.querySelector('input[name=_next]');
+    if(nx) nx.value=location.origin+location.pathname+'?bevestigd=bestelling&bundel='+checked.id.slice(1);
   }
   function openModal(bundle){
     if(bundle){var r=document.getElementById('b'+bundle); if(r) r.checked=true;}
@@ -1484,12 +1508,14 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     lastFocus=document.activeElement;
     modal.classList.add('open');
     document.body.style.overflow='hidden';
+    setInert(true);
     var first=modal.querySelector('input[type=radio]:checked')||modal.querySelector('input,button');
     if(first) first.focus();
   }
   function closeModal(){
     modal.classList.remove('open');
     document.body.style.overflow='';
+    setInert(false);
     if(lastFocus){ lastFocus.focus(); lastFocus=null; }
   }
   modal.querySelectorAll('input[name=bundel]').forEach(function(r){
@@ -1497,7 +1523,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
   });
   updateTotal();
   document.querySelectorAll('[data-order]').forEach(function(btn){
-    btn.addEventListener('click',function(){ openModal(btn.dataset.order); });
+    btn.addEventListener('click',function(e){ e.preventDefault(); openModal(btn.dataset.order); });
   });
   modal.addEventListener('click',function(e){ if(e.target===modal) closeModal(); });
   modal.querySelector('[data-close]').addEventListener('click',closeModal);
@@ -1537,7 +1563,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
   // --- bevestigingsmodal na redirect ------------------------------------
   var confirmModal=document.getElementById('confirmModal');
-  function closeConfirm(){ confirmModal.classList.remove('open'); document.body.style.overflow=''; }
+  function closeConfirm(){ confirmModal.classList.remove('open'); document.body.style.overflow=''; setInert(false); var b=document.querySelector('.brand'); if(b) b.focus(); }
   confirmModal.querySelectorAll('[data-close-confirm]').forEach(function(b){ b.addEventListener('click',closeConfirm); });
   confirmModal.addEventListener('click',function(e){ if(e.target===confirmModal) closeConfirm(); });
   var mConf=location.search.match(/[?&]bevestigd=(bestelling|droomclub)/);
@@ -1545,13 +1571,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     var t=document.getElementById('confirmTitle'), x=document.getElementById('confirmText');
     if(mConf[1]==='bestelling'){
       t.textContent='Je bestelling is ontvangen';
-      x.textContent='Binnen 24 uur ontvang je van ons een persoonlijk betaalverzoek per e-mail. Na betaling verzenden we binnen 2 werkdagen. Slaap lekker alvast.';
+      var PAY={}; /* betaallinks per bundel, bijv. {1:'https://...',2:'https://...',3:'https://...'} zodra aangemaakt (Mollie: iDEAL, Bancontact, creditcard) */
+      var mB=location.search.match(/[?&]bundel=([123])/);
+      if(mB&&PAY[mB[1]]){
+        var pn=document.getElementById('payNow'); pn.href=PAY[mB[1]]; pn.style.display='inline-flex';
+        document.getElementById('payMethods').style.display='block';
+        document.getElementById('confirmClose').className='btn btn-pearl';
+        x.textContent='Je bestelling is binnen. Reken je nu meteen af, dan verzenden we binnen 2 werkdagen. Liever wachten? Dan ontvang je binnen 24 uur een persoonlijk betaalverzoek per e-mail.';
+      }else{
+        x.textContent='Binnen 24 uur ontvang je van ons een persoonlijk betaalverzoek per e-mail. Niets gezien? Kijk ook in je spam-map. Blijft het stil, mail dan even naar hallo@droompleisters.nl. Na betaling verzenden we binnen 2 werkdagen. Slaap lekker alvast.';
+      }
     }else{
       t.textContent='Welkom bij de Droomclub';
       x.textContent='Je aanmelding is binnen. Check je inbox voor je welkomstvoordeel en de beste slaaptips.';
     }
     confirmModal.classList.add('open');
     document.body.style.overflow='hidden';
+    setInert(true); document.getElementById('confirmTitle').focus();
     history.replaceState(null,'',location.pathname+location.hash);
   }
 
@@ -1570,16 +1606,17 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
       html:'<h4>Wettelijk herroepingsrecht</h4><p>Je hebt bij koop op afstand het recht je bestelling binnen 14 dagen na ontvangst zonder opgave van reden te herroepen. Ongeopende dozen kun je binnen die termijn retourneren; na ontvangst betalen wij het aankoopbedrag van de geretourneerde dozen terug. Om hygiënische redenen kunnen geopende dozen niet worden geretourneerd, behalve via de slaapgarantie hieronder.</p><h4>30 nachten slaapgarantie</h4><p>Bovenop het herroepingsrecht geldt onze slaapgarantie: probeer je eerste doos 30 nachten. Niet tevreden? Mail naar hallo@droompleisters.nl en je krijgt je aankoopbedrag terug, inclusief ongeopende dozen uit een bundel.</p><h4>Retouradres</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland. Meld je retour altijd eerst per e-mail, dan ontvang je instructies.</p>'
     }
   };
-  var legalModal=document.getElementById('legalModal');
-  function closeLegal(){ legalModal.classList.remove('open'); document.body.style.overflow=''; }
+  var legalModal=document.getElementById('legalModal'), legalLast=null;
+  function closeLegal(){ legalModal.classList.remove('open'); document.body.style.overflow=''; setInert(false); if(legalLast){ legalLast.focus(); legalLast=null; } }
   document.querySelectorAll('[data-legal]').forEach(function(btn){
     btn.addEventListener('click',function(){
       var d=LEGAL[btn.dataset.legal]; if(!d) return;
       document.getElementById('legalTitle').textContent=d.title;
       document.getElementById('legalBody').innerHTML=d.html;
+      legalLast=btn;
       legalModal.classList.add('open');
       document.body.style.overflow='hidden';
-      legalModal.querySelector('.modal-close').focus();
+      setInert(true); document.getElementById('legalTitle').focus();
     });
   });
   legalModal.querySelector('[data-close-legal]').addEventListener('click',closeLegal);
@@ -1588,6 +1625,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
     if(e.key==='Escape'){
       if(legalModal.classList.contains('open')) closeLegal();
       if(confirmModal.classList.contains('open')) closeConfirm();
+    }
+    if(e.key==='Tab'){
+      var openM=[legalModal,confirmModal].filter(function(m){return m.classList.contains('open')})[0];
+      if(!openM) return;
+      var f=Array.prototype.filter.call(openM.querySelectorAll('button,input,select,[href],[tabindex="0"]'),function(el){return !el.disabled&&el.offsetParent!==null;});
+      if(!f.length) return;
+      var first=f[0],last=f[f.length-1],a=document.activeElement;
+      if(e.shiftKey&&(a===first||!openM.contains(a))){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&(a===last||!openM.contains(a))){e.preventDefault();first.focus();}
     }
   });
 
