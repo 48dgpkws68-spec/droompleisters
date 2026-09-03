@@ -111,6 +111,15 @@
   }
   var landSel=document.getElementById('f-land');
   if(landSel) landSel.addEventListener('change',updateTotal);
+  // ritme alleen bij club, cadeau-kaartje
+  function syncClubUI(){
+    var checked=modal.querySelector('input[name=bundel]:checked'); var fc=document.getElementById('freqChoice');
+    if(fc&&checked) fc.hidden=checked.dataset.club!=='1';
+  }
+  modal.querySelectorAll('input[name=bundel]').forEach(function(r){ r.addEventListener('change',syncClubUI); });
+  syncClubUI();
+  var giftOpt=document.getElementById('giftOpt'), giftMsg=document.getElementById('giftMsg');
+  if(giftOpt&&giftMsg) giftOpt.addEventListener('change',function(){ giftMsg.hidden=!giftOpt.checked; });
   function openModal(bundle){
     if(bundle){var r=document.getElementById('b'+bundle); if(r) r.checked=true;}
     updateTotal();
@@ -134,6 +143,7 @@
   document.querySelectorAll('[data-order]').forEach(function(btn){
     btn.addEventListener('click',function(e){ e.preventDefault(); openModal(btn.dataset.order); });
   });
+  document.addEventListener('dp:order',function(e){ openModal(e.detail); });
   modal.addEventListener('click',function(e){ if(e.target===modal) closeModal(); });
   modal.querySelector('[data-close]').addEventListener('click',closeModal);
   document.addEventListener('keydown',function(e){
@@ -187,9 +197,9 @@
         var pn=document.getElementById('payNow'); pn.href=PAY[mB[1]]; pn.style.display='inline-flex';
         document.getElementById('payMethods').style.display='block';
         document.getElementById('confirmClose').className='btn btn-pearl';
-        x.textContent='Nog één stap: rond je betaling af. Daarna verwerken we je bestelling automatisch en verzenden we op werkdagen binnen 1 werkdag.';
+        x.textContent='Nog één stap: rond je betaling af. Daarna verwerken we je bestelling automatisch en verzenden we vóór 17:00 besteld, dezelfde werkdag.';
       }else{
-        x.textContent=(isClub?'Welkom bij de Droomclub! Je welkomstbox met je eerste doos en het satijnen slaapmasker gaat als eerste levering de deur uit. ':'Bedankt! ')+'Je bestelling wordt automatisch verwerkt. Je ontvangt je bevestiging en track & trace per e-mail; op werkdagen verzenden we binnen 1 werkdag vanuit Nederland.';
+        x.textContent=(isClub?'Welkom bij de Droomclub! Je welkomstbox met je eerste doos en het satijnen slaapmasker gaat als eerste levering de deur uit. ':'Bedankt! ')+'Je bestelling wordt automatisch verwerkt. Je ontvangt je bevestiging en track & trace per e-mail; op werkdagen vóór 17:00 besteld, dezelfde dag verzonden vanuit Nederland.';
       }
     }else if(mConf[1]==='contact'){
       t.textContent='Bericht ontvangen';
@@ -208,7 +218,7 @@
   var LEGAL={
     voorwaarden:{
       title:'Algemene voorwaarden',
-      html:'<h4>Bestellen &amp; betalen</h4><p>Je rekent direct af met iDEAL, Bancontact of creditcard. Je bestelling wordt automatisch verwerkt en je ontvangt meteen een bevestiging per e-mail. Alle prijzen zijn in euro en inclusief btw.</p><h4>Verzending en levering</h4><p>Verzending is gratis in heel Nederland. Naar België is verzending gratis vanaf 2 dozen; voor 1 losse doos rekenen we €4,95. Droomclub-leden betalen nooit verzendkosten. Op werkdagen verzenden we binnen 1 werkdag vanuit Nederland, met track &amp; trace.</p><h4>Droomclub</h4><p>Als lid ontvang je elke 30 dagen automatisch één doos voor €19,95, gratis verzonden. De vervolgbetalingen lopen via automatische incasso (na iDEAL of Bancontact) of via je creditcard; je krijgt 3 dagen vooraf een herinnering. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd via de link in elke mail of via hallo@droompleisters.nl.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar hallo@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · hallo@droompleisters.nl</p>'
+      html:'<h4>Bestellen &amp; betalen</h4><p>Je rekent direct af met iDEAL, Bancontact of creditcard. Je bestelling wordt automatisch verwerkt en je ontvangt meteen een bevestiging per e-mail. Alle prijzen zijn in euro en inclusief btw.</p><h4>Verzending en levering</h4><p>Verzending is gratis in heel Nederland. Naar België is verzending gratis vanaf 2 dozen; voor 1 losse doos rekenen we €4,95. Droomclub-leden betalen nooit verzendkosten. Op werkdagen vóór 17:00 besteld, dezelfde dag verzonden vanuit Nederland, met track &amp; trace.</p><h4>Droomclub</h4><p>Als lid ontvang je elke 30 dagen automatisch één doos voor €19,95, gratis verzonden. De vervolgbetalingen lopen via automatische incasso (na iDEAL of Bancontact) of via je creditcard; je krijgt 3 dagen vooraf een herinnering. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd via de link in elke mail of via hallo@droompleisters.nl.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar hallo@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · hallo@droompleisters.nl</p>'
     },
     privacy:{
       title:'Privacybeleid',
@@ -262,6 +272,28 @@
   paintProgress();
 
   // --- countdown to 23:59 ---------------------------------------------
+  // --- leverbelofte met cut-off 17:00 (werkdagen) --------------------------
+  var DAGEN=['zondag','maandag','dinsdag','woensdag','donderdag','vrijdag','zaterdag'], MAANDEN=['januari','februari','maart','april','mei','juni','juli','augustus','september','oktober','november','december'];
+  function nlNow(){ try{ return new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})); }catch(e){ return new Date(); } }
+  function nextWorkday(d){ var x=new Date(d); x.setDate(x.getDate()+1); while(x.getDay()===0||x.getDay()===6) x.setDate(x.getDate()+1); return x; }
+  function fmt(d){ return DAGEN[d.getDay()]+' '+d.getDate()+' '+MAANDEN[d.getMonth()]; }
+  function deliveryText(be){
+    var now=nlNow(), day=now.getDay(), beforeCut=now.getHours()<17;
+    var ship, when;
+    if(day>=1&&day<=5&&beforeCut){ ship=new Date(now); when='vandaag'; }
+    else { ship=nextWorkday(now); when=(ship.getDate()===now.getDate()+1&&day>=1&&day<=4)?'morgen':'op '+DAGEN[ship.getDay()]; }
+    var arrive=nextWorkday(ship); if(be) arrive=nextWorkday(arrive);
+    var pre=(day>=1&&day<=5&&beforeCut)?'Bestel v\u00f3\u00f3r 17:00, dan gaat je pakket vandaag nog mee. ':'Bestel nu, dan gaat je pakket '+when+' mee. ';
+    return pre+'Verwacht in huis: <b>'+fmt(arrive)+'</b>'+(be?' (Belgi\u00eb, 1 werkdag extra)':'')+'.';
+  }
+  function renderDelivery(){
+    var be=document.getElementById('f-land')&&document.getElementById('f-land').value==='Belgi\u00eb';
+    document.querySelectorAll('[data-delivery]').forEach(function(el){ el.innerHTML=deliveryText(el.closest('#orderModal')?be:false); });
+    var c=document.getElementById('cutoffLeft'); if(c){ var n=nlNow(); if(n.getDay()>=1&&n.getDay()<=5&&n.getHours()<17){ var ms=new Date(n.getFullYear(),n.getMonth(),n.getDate(),17,0,0)-n; var h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000); c.textContent='Nog '+(h>0?h+' uur en ':'')+mi+' minuten om vandaag verzonden te worden.'; } else { c.textContent=''; } }
+  }
+  renderDelivery(); setInterval(renderDelivery,60000);
+  if(document.getElementById('f-land')) document.getElementById('f-land').addEventListener('change',renderDelivery);
+
   var cd=document.getElementById('cdown');
   function tickCd(){
     var now=new Date(), end=new Date(now);
@@ -381,5 +413,78 @@
         if(r.dataset.cta) pdpOrder.textContent=r.dataset.cta;
       });
     });
+  }
+  // slaaptest
+  var qz=document.getElementById('quiz');
+  if(qz){
+    var data=JSON.parse(qz.getAttribute('data-quiz')), body=document.getElementById('quizBody'), bar=document.getElementById('quizBar'), step=document.getElementById('quizStep'), back=document.getElementById('quizBack');
+    var answers=[], idx=0, letters='ABCD';
+    function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+    function render(){
+      var q=data.q[idx];
+      bar.style.width=Math.round(idx/data.q.length*100)+'%';
+      step.textContent='Vraag '+(idx+1)+' van '+data.q.length;
+      back.hidden=idx===0;
+      var h='<h2 class="quiz-q">'+esc(q.t)+'</h2><div class="quiz-opts" role="group" aria-label="'+esc(q.t)+'">';
+      q.a.forEach(function(a,i){ h+='<button type="button" class="quiz-opt" data-k="'+esc(a.k)+'"><span class="k" aria-hidden="true">'+letters[i]+'</span><span>'+esc(a.t)+'</span></button>'; });
+      body.innerHTML=h+'</div>';
+      var first=body.querySelector('.quiz-opt'); if(first&&idx>0) first.focus();
+      body.querySelectorAll('.quiz-opt').forEach(function(b){ b.addEventListener('click',function(){ answers[idx]=b.dataset.k; if(idx<data.q.length-1){ idx++; render(); } else { result(); } }); });
+    }
+    function result(){
+      var score={P:0,L:0,R:0,M:0}, sev=0, tryFirst=false, duo=false, gift=false;
+      answers.forEach(function(k){ if(score.hasOwnProperty(k)) score[k]++; if(k==='s1') sev=1; if(k==='s2') sev=2; if(k==='s3') sev=3; if(k==='try') tryFirst=true; if(k==='duo') duo=true; if(k==='gift') gift=true; });
+      var best='P', max=-1; ['P','L','R','M'].forEach(function(k){ if(score[k]>max){ max=score[k]; best=k; } });
+      var r=data.r[best];
+      bar.style.width='100%'; step.textContent='Jouw resultaat'; back.hidden=true;
+      var reco, order;
+      if(gift){ reco={rh:'Ons advies als cadeau', h:'Eén doos, mooi verpakt', p:'Een losse doos is het mooiste cadeau: 30 nachten, gratis verzonden in Nederland, met 30 nachten garantie. Wordt het een blijvertje? Dan kan de ontvanger zelf lid worden voor €19,95 per doos.', btn:'Bestel 1 doos · €29,95', order:'1', alt:'Of geef de Droomclub cadeau', altOrder:'club'}; }
+      else if(tryFirst){ reco={rh:'Ons eerlijke advies', h:'Begin met één doos', p:'Je wilt eerst rustig proberen. Prima: één doos, €29,95, gratis verzonden in Nederland, 30 nachten garantie. Bevalt het ritueel? Dan is de Droomclub daarna €10 per doos goedkoper.', btn:'Bestel 1 doos · €29,95', order:'1', alt:'Toch meteen lid worden · €19,95 per doos', altOrder:'club'}; }
+      else if(duo){ reco={rh:'Ons advies voor jullie samen', h:'Droomclub voor twee', p:'Elke 30 dagen twee dozen in één pakket voor 2 × €19,95, altijd gratis verzonden, met de welkomstbox bij je eerste levering. Pauzeren of opzeggen kan altijd.', btn:'Word lid voor twee · €39,90', order:'club2', alt:'Liever eerst één doos proberen', altOrder:'1'}; }
+      else { reco={rh:'Ons advies', h:sev>=2?'De Droomclub, omdat ritme wint':'De Droomclub, zonder gedoe', p:(sev>=2?'Bij meerdere onrustige nachten per week is het ritme belangrijker dan één goede nacht. ':'')+'Als lid ligt er elke 30 dagen automatisch een nieuwe doos voor €19,95 op de mat, gratis verzonden, met de welkomstbox bij je eerste levering. Geen looptijd, geen opzegtermijn, 30 nachten garantie.', btn:'Word lid · €19,95 per doos', order:'club', alt:'Liever eerst één doos proberen · €29,95', altOrder:'1'}; }
+      var h='<div class="quiz-result"><p class="eyebrow">Jouw slaaptype</p><h2>'+esc(r.name)+'</h2><p class="lead">'+esc(r.text)+'</p><ul class="quiz-tips">';
+      r.tips.forEach(function(t){ h+='<li>'+esc(t)+'</li>'; });
+      h+='</ul><div class="quiz-why"><b>Waarom een Droompleister bij jou past.</b> '+esc(r.why)+(r.url?' <a href="'+esc(r.url)+'" style="color:var(--gold-deep)">'+esc(r.urlTitle)+'</a>':'')+'</div>';
+      h+='<div class="quiz-reco"><p class="rh">'+esc(reco.rh)+'</p><h3>'+esc(reco.h)+'</h3><p>'+esc(reco.p)+'</p><div class="club-cta"><a class="btn btn-gold" href="slaappleisters.html#bestel" data-order="'+reco.order+'">'+esc(reco.btn)+'</a><a class="btn btn-pearl" href="slaappleisters.html#bestel" data-order="'+reco.altOrder+'">'+esc(reco.alt)+'</a></div></div>';
+      h+='<p class="quiz-again"><button type="button" id="quizAgain">Opnieuw doen</button> · <a href="droomclub.html" style="color:var(--gold-deep)">Alles over de Droomclub</a></p></div>';
+      body.innerHTML=h;
+      body.querySelectorAll('[data-order]').forEach(function(btn){ btn.addEventListener('click',function(e){ e.preventDefault(); document.dispatchEvent(new CustomEvent('dp:order',{detail:btn.dataset.order})); }); });
+      document.getElementById('quizAgain').addEventListener('click',function(){ answers=[]; idx=0; render(); qz.scrollIntoView({behavior:'smooth',block:'start'}); });
+      var rh=body.querySelector('h2'); if(rh){ rh.setAttribute('tabindex','-1'); rh.focus(); }
+    }
+    back.addEventListener('click',function(){ if(idx>0){ idx--; render(); } });
+    render();
+  }
+  // exit-prompt: één keer per bezoeker, alleen desktop, niet als een modal open is
+  var ep=document.getElementById('exitPrompt');
+  if(ep&&window.matchMedia('(hover:hover) and (min-width:900px)').matches){
+    var seen=false; try{ seen=localStorage.getItem('dpExit')==='1'; }catch(e){}
+    function closeExit(){ ep.classList.remove('open'); ep.hidden=true; }
+    if(!seen){
+      var armed=false; setTimeout(function(){ armed=true; },15000);
+      document.addEventListener('mouseleave',function(e){
+        if(!armed||e.clientY>0||document.querySelector('.modal-back.open')) return;
+        armed=false; try{ localStorage.setItem('dpExit','1'); }catch(err){}
+        ep.hidden=false; ep.classList.add('open'); var b=document.getElementById('exitClose'); if(b) b.focus();
+      });
+    }
+    document.getElementById('exitClose').addEventListener('click',closeExit);
+    ep.addEventListener('click',function(e){ if(e.target===ep) closeExit(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&ep.classList.contains('open')) closeExit(); });
+    var dl=document.getElementById('exitDownload'); if(dl) dl.addEventListener('click',function(){ setTimeout(closeExit,300); });
+  }
+  var n14g=document.getElementById('n14Good');
+  if(n14g){
+    n14g.addEventListener('click',function(){ document.getElementById('n14Form').hidden=false; document.getElementById('n14Tips').hidden=true; document.getElementById('r-naam').focus(); });
+    document.getElementById('n14Meh').addEventListener('click',function(){ document.getElementById('n14Tips').hidden=false; document.getElementById('n14Form').hidden=true; });
+  }
+  var rf=document.querySelector('.rev-filter');
+  if(rf){
+    rf.querySelectorAll('button').forEach(function(btn){ btn.addEventListener('click',function(){
+      rf.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on',b===btn); b.setAttribute('aria-pressed',b===btn?'true':'false'); });
+      var f=btn.dataset.f, n=0;
+      document.querySelectorAll('#revGrid .rev-card').forEach(function(c){ var show=f==='alle'||c.dataset.sit===f; c.hidden=!show; if(show) n++; });
+      var e=document.getElementById('revEmpty'); if(e) e.hidden=n>0;
+    }); });
   }
 })();
