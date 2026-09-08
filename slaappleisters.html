@@ -202,6 +202,17 @@
 <!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="container foot-inner">
+    <div class="foot-social" id="slaapfeit-vandaag">
+      <div class="fs-card">
+        <span class="fs-label">Slaapfeit van vandaag</span>
+        <strong class="fs-hook" id="fs-hook">Koel = sneller in slaap</strong>
+        <p class="fs-text" id="fs-text">Je lichaam begint al ongeveer 2 uur voor het slapen te koelen. Een koele slaapkamer van 16 tot 19 graden helpt dat proces.</p>
+        <p class="fs-follow">Elke dag een nieuw slaapfeit, volg ons:
+          <a href="https://www.instagram.com/droompleisters/" target="_blank" rel="noopener" class="fs-btn">Instagram</a>
+          <a href="https://www.tiktok.com/@droompleisters" target="_blank" rel="noopener" class="fs-btn">TikTok</a>
+        </p>
+      </div>
+    </div>
     <div class="foot-grid">
       <div>
         <div class="foot-brand">
@@ -240,6 +251,8 @@
         <h4>Contact &amp; voorwaarden</h4>
         <ul>
           <li><a href="mailto:hallo@droompleisters.nl">hallo@droompleisters.nl</a></li>
+          <li><a href="https://www.instagram.com/droompleisters/" target="_blank" rel="noopener">Instagram @droompleisters</a></li>
+          <li><a href="https://www.tiktok.com/@droompleisters" target="_blank" rel="noopener">TikTok @droompleisters</a></li>
           <li>Voorstraat 9</li>
           <li>4132 AM Vianen · Nederland</li>
           <!-- invullen zodra bekend: <li>KvK 00000000 · btw-id NL000000000B00</li> -->
@@ -258,7 +271,7 @@
     </div>
   </div>
 </footer>
-
+<script>(function(){try{fetch('slaapfeiten.json').then(function(r){return r.json()}).then(function(a){var d=new Date(),s=Date.UTC(d.getFullYear(),0,0),n=Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-s)/864e5),p=a[n%a.length];document.getElementById('fs-hook').textContent=p.h;document.getElementById('fs-text').textContent=p.f})}catch(e){}})()</script>
 <!-- ===================== STICKY MOBILE CTA ===================== -->
 <div class="sticky-cta" id="stickyCta">
   <div class="info"><b>Droomclub</b> · €19,95 per doos<br>gratis verzending · 30 nachten garantie</div>

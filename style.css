@@ -1033,3 +1033,13 @@ body.menu-open .sticky-cta{transform:translateY(110%);visibility:hidden}
 .passport th{font-weight:500;color:var(--ink);width:34%;white-space:nowrap}
 .passport td{color:var(--ink-soft)}
 .passport tr:last-child th,.passport tr:last-child td{border-bottom:none}
+
+/* slaapfeit van de dag + social */
+.foot-social{margin-bottom:2.4rem}
+.fs-card{border:1px solid rgba(212,169,85,.35);border-radius:18px;padding:1.4rem 1.6rem;background:linear-gradient(135deg,rgba(212,169,85,.08),rgba(255,255,255,0));max-width:44rem}
+.fs-label{display:block;font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#c9962e;margin-bottom:.35rem}
+.fs-hook{display:block;font-family:var(--serif);font-size:1.45rem;color:#f2dfae;margin-bottom:.35rem}
+.fs-text{margin:0 0 .9rem;max-width:38rem}
+.fs-follow{margin:0;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;font-size:.92rem}
+.fs-btn{display:inline-block;padding:.45rem .95rem;border-radius:999px;border:1px solid #d4a955;color:#f2dfae;text-decoration:none;font-family:var(--sans);font-size:.85rem;transition:background .2s}
+.fs-btn:hover{background:rgba(212,169,85,.18)}
