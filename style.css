@@ -1043,3 +1043,32 @@ body.menu-open .sticky-cta{transform:translateY(110%);visibility:hidden}
 .fs-follow{margin:0;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;font-size:.92rem}
 .fs-btn{display:inline-block;padding:.45rem .95rem;border-radius:999px;border:1px solid #d4a955;color:#f2dfae;text-decoration:none;font-family:var(--sans);font-size:.85rem;transition:background .2s}
 .fs-btn:hover{background:rgba(212,169,85,.18)}
+
+/* v16: lancering 1 november + mobiel logo */
+.post-launch{display:none}
+.launched .post-launch{display:inline}
+.launched .pre-launch{display:none!important}
+.tb-cd,[data-cd-short]{font-variant-numeric:tabular-nums;color:#fff;font-weight:600}
+.launch{margin:1.3rem auto 0;padding:1rem 1.1rem 1.05rem;max-width:520px;border:1px solid rgba(227,194,126,.38);border-radius:18px;background:rgba(6,8,18,.42);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);text-align:center}
+.hero-copy .launch{margin-left:0}
+@media (max-width:900px){.hero-copy .launch{margin-left:auto}}
+.launch-title{margin:0 0 .7rem;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-300)}
+.launch-title b{color:#fff;font-weight:600}
+.cd-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.5rem}
+.cd-box{padding:.6rem .2rem .5rem;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(227,194,126,.22)}
+.cd-box b{display:block;font-family:var(--serif);font-size:clamp(1.55rem,6vw,2.1rem);line-height:1;color:#fff;font-weight:600;font-variant-numeric:tabular-nums}
+.cd-box span{display:block;margin-top:.32rem;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-200)}
+.launch-note{margin:.75rem 0 0;font-size:.8rem;line-height:1.5;color:var(--mist)}
+.launch-line{margin:0 0 .8rem;padding:.6rem .8rem;border-radius:12px;background:rgba(201,150,46,.1);border:1px solid rgba(201,150,46,.3);font-size:.8rem;line-height:1.45;color:var(--ink-soft)}
+.launch-line b,.launch-line [data-cd-short]{color:var(--gold-deep);font-weight:600}
+/* logo altijd leesbaar op telefoon: nav blijft donker, ook boven lichte secties en met open menu */
+@media (max-width:900px){
+  header.nav.lit,body.menu-open header.nav{background:rgba(6,8,18,.92);border-bottom-color:rgba(227,194,126,.22);box-shadow:0 10px 30px -18px rgba(0,0,0,.7)}
+  header.nav.lit .nav-burger,body.menu-open .nav-burger{border-color:rgba(227,194,126,.45);background:rgba(255,255,255,.06)}
+  header.nav.lit .nav-burger span,body.menu-open .nav-burger span{background:var(--gold-300)}
+}
+@media (max-width:520px){.brand-moon{height:44px}.brand-word{height:17px}}
+@media (max-width:380px){.brand-moon{height:40px}.brand-word{height:15px}}
+@media (max-width:340px){.brand-word{display:block;height:13px}}
+/* desktop: wordmark donkerder goud op de lichte balk */
+@media (min-width:901px){header.nav.lit .brand-word{filter:brightness(.66) saturate(1.2) drop-shadow(0 1px 0 rgba(255,255,255,.5))}}

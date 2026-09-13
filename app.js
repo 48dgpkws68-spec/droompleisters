@@ -277,7 +277,20 @@
   function nlNow(){ try{ return new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})); }catch(e){ return new Date(); } }
   function nextWorkday(d){ var x=new Date(d); x.setDate(x.getDate()+1); while(x.getDay()===0||x.getDay()===6) x.setDate(x.getDate()+1); return x; }
   function fmt(d){ return DAGEN[d.getDay()]+' '+d.getDate()+' '+MAANDEN[d.getMonth()]; }
+  var LAUNCH=Date.parse((document.querySelector('meta[name="launch"]')||{}).content||'2026-11-01T00:00:00+01:00');
+  function preLaunch(){ return Date.now()<LAUNCH; }
+  function pad2(n){ return String(n).padStart(2,'0'); }
+  function tickLaunch(){
+    var s=Math.max(0,Math.floor((LAUNCH-Date.now())/1000)), d=Math.floor(s/86400), h=Math.floor(s%86400/3600), mi=Math.floor(s%3600/60), se=s%60;
+    var v={d:d,h:pad2(h),m:pad2(mi),s:pad2(se)};
+    document.querySelectorAll('[data-cd]').forEach(function(el){ el.textContent=v[el.dataset.cd]; });
+    var short=d>0?(d+(d===1?' dag':' dagen')+(d<7?' en '+h+' uur':'')):(h+' uur en '+mi+' min');
+    document.querySelectorAll('[data-cd-short]').forEach(function(el){ el.textContent=short; });
+    if(!preLaunch()) document.documentElement.classList.add('launched');
+  }
+  tickLaunch(); setInterval(tickLaunch,1000);
   function deliveryText(be){
+    if(preLaunch()) return 'Verzending start op <b>1 november</b>. Bestel je nu, dan gaat je pakket op 1 november als eerste op de post'+(be?' (Belgi\u00eb, 1 werkdag extra)':'')+'.';
     var now=nlNow(), day=now.getDay(), beforeCut=now.getHours()<17;
     var ship, when;
     if(day>=1&&day<=5&&beforeCut){ ship=new Date(now); when='vandaag'; }
@@ -289,7 +302,7 @@
   function renderDelivery(){
     var be=document.getElementById('f-land')&&document.getElementById('f-land').value==='Belgi\u00eb';
     document.querySelectorAll('[data-delivery]').forEach(function(el){ el.innerHTML=deliveryText(el.closest('#orderModal')?be:false); });
-    var c=document.getElementById('cutoffLeft'); if(c){ var n=nlNow(); if(n.getDay()>=1&&n.getDay()<=5&&n.getHours()<17){ var ms=new Date(n.getFullYear(),n.getMonth(),n.getDate(),17,0,0)-n; var h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000); c.textContent='Nog '+(h>0?h+' uur en ':'')+mi+' minuten om vandaag verzonden te worden.'; } else { c.textContent=''; } }
+    var c=document.getElementById('cutoffLeft'); if(c&&preLaunch()){ var dd=Math.ceil((LAUNCH-Date.now())/86400000); c.textContent='Nog '+dd+(dd===1?' dag':' dagen')+' tot de verzending start.'; } else if(c){ var n=nlNow(); if(n.getDay()>=1&&n.getDay()<=5&&n.getHours()<17){ var ms=new Date(n.getFullYear(),n.getMonth(),n.getDate(),17,0,0)-n; var h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000); c.textContent='Nog '+(h>0?h+' uur en ':'')+mi+' minuten om vandaag verzonden te worden.'; } else { c.textContent=''; } }
   }
   renderDelivery(); setInterval(renderDelivery,60000);
   if(document.getElementById('f-land')) document.getElementById('f-land').addEventListener('change',renderDelivery);
