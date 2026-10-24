@@ -1072,3 +1072,5 @@ body.menu-open .sticky-cta{transform:translateY(110%);visibility:hidden}
 @media (max-width:340px){.brand-word{display:block;height:13px}}
 /* desktop: wordmark donkerder goud op de lichte balk */
 @media (min-width:901px){header.nav.lit .brand-word{filter:brightness(.66) saturate(1.2) drop-shadow(0 1px 0 rgba(255,255,255,.5))}}
+
+@media (max-width:900px){.nav-cta .res-long{display:none}}

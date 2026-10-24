@@ -121,7 +121,7 @@
   var giftOpt=document.getElementById('giftOpt'), giftMsg=document.getElementById('giftMsg');
   if(giftOpt&&giftMsg) giftOpt.addEventListener('change',function(){ giftMsg.hidden=!giftOpt.checked; });
   function openModal(bundle){
-    if(bundle){var r=document.getElementById('b'+bundle); if(r) r.checked=true;}
+    if(bundle){var isC=String(bundle).indexOf('club')===0; var r=document.getElementById(isC?'bclub':'b1'); if(r) r.checked=true; var am=document.getElementById('f-aantal'); var n=bundle==='club2'?'2':(isC?'1':String(bundle)); if(am&&/^[123]$/.test(n)) am.value=n;}
     updateTotal();
     lastFocus=document.activeElement;
     modal.classList.add('open');
@@ -176,6 +176,7 @@
 
   // --- _next meeschalen met het actieve domein --------------------------
   document.querySelectorAll('input[name=_next]').forEach(function(i){
+    if(i.value.indexOf('bedankt.html')>-1){ i.value=location.origin+'/bedankt.html'; return; }
     var q=(i.value.split('?')[1]||'bevestigd=bestelling');
     i.value=location.origin+location.pathname+'?'+q;
   });
@@ -451,8 +452,8 @@
       var r=data.r[best];
       bar.style.width='100%'; step.textContent='Jouw resultaat'; back.hidden=true;
       var reco, order;
-      if(gift){ reco={rh:'Ons advies als cadeau', h:'Eén doos, mooi verpakt', p:'Een losse doos is het mooiste cadeau: 30 nachten, gratis verzonden in Nederland, met 30 nachten garantie. Wordt het een blijvertje? Dan kan de ontvanger zelf lid worden voor €19,95 per doos.', btn:'Bestel 1 doos · €29,95', order:'1', alt:'Of geef de Droomclub cadeau', altOrder:'club'}; }
-      else if(tryFirst){ reco={rh:'Ons eerlijke advies', h:'Begin met één doos', p:'Je wilt eerst rustig proberen. Prima: één doos, €29,95, gratis verzonden in Nederland, 30 nachten garantie. Bevalt het ritueel? Dan is de Droomclub daarna €10 per doos goedkoper.', btn:'Bestel 1 doos · €29,95', order:'1', alt:'Toch meteen lid worden · €19,95 per doos', altOrder:'club'}; }
+      if(gift){ reco={rh:'Ons advies als cadeau', h:'Eén doos, mooi verpakt', p:'Een losse doos is het mooiste cadeau: 30 nachten, gratis verzonden in Nederland, met 30 nachten garantie. Wordt het een blijvertje? Dan kan de ontvanger zelf lid worden voor €19,95 per doos.', btn:'Reserveer nu · leverbaar vanaf 1 november', order:'1', alt:'Of geef de Droomclub cadeau', altOrder:'club'}; }
+      else if(tryFirst){ reco={rh:'Ons eerlijke advies', h:'Begin met één doos', p:'Je wilt eerst rustig proberen. Prima: één doos, €29,95, gratis verzonden in Nederland, 30 nachten garantie. Bevalt het ritueel? Dan is de Droomclub daarna €10 per doos goedkoper.', btn:'Reserveer nu · leverbaar vanaf 1 november', order:'1', alt:'Toch meteen lid worden · €19,95 per doos', altOrder:'club'}; }
       else if(duo){ reco={rh:'Ons advies voor jullie samen', h:'Droomclub voor twee', p:'Elke 30 dagen twee dozen in één pakket voor 2 × €19,95, altijd gratis verzonden, met de welkomstbox bij je eerste levering. Pauzeren of opzeggen kan altijd.', btn:'Word lid voor twee · €39,90', order:'club2', alt:'Liever eerst één doos proberen', altOrder:'1'}; }
       else { reco={rh:'Ons advies', h:sev>=2?'De Droomclub, omdat ritme wint':'De Droomclub, zonder gedoe', p:(sev>=2?'Bij meerdere onrustige nachten per week is het ritme belangrijker dan één goede nacht. ':'')+'Als lid ligt er elke 30 dagen automatisch een nieuwe doos voor €19,95 op de mat, gratis verzonden, met de welkomstbox bij je eerste levering. Geen looptijd, geen opzegtermijn, 30 nachten garantie.', btn:'Word lid · €19,95 per doos', order:'club', alt:'Liever eerst één doos proberen · €29,95', altOrder:'1'}; }
       var h='<div class="quiz-result"><p class="eyebrow">Jouw slaaptype</p><h2>'+esc(r.name)+'</h2><p class="lead">'+esc(r.text)+'</p><ul class="quiz-tips">';
