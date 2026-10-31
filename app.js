@@ -219,7 +219,7 @@
   var LEGAL={
     voorwaarden:{
       title:'Algemene voorwaarden',
-      html:'<h4>Bestellen &amp; betalen</h4><p>Tot 1 november reserveer je zonder te betalen. Vanaf 1 november reken je via de bestellink af met iDEAL, Bancontact of creditcard. Je bestelling wordt automatisch verwerkt en je ontvangt meteen een bevestiging per e-mail. Alle prijzen zijn in euro en inclusief btw.</p><h4>Verzending en levering</h4><p>Verzending is gratis in heel Nederland. Naar België is verzending gratis vanaf 2 dozen; voor 1 losse doos rekenen we €4,95. Droomclub-leden betalen nooit verzendkosten. Op werkdagen vóór 17:00 besteld, dezelfde dag verzonden vanuit Nederland, met track &amp; trace.</p><h4>Droomclub</h4><p>Als lid ontvang je elke 30 dagen automatisch één doos voor €19,95, gratis verzonden. De vervolgbetalingen lopen via automatische incasso (na iDEAL of Bancontact) of via je creditcard; je krijgt 3 dagen vooraf een herinnering. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd via de link in elke mail of via hallo@droompleisters.nl.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar hallo@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · hallo@droompleisters.nl</p>'
+      html:'<h4>Bestellen &amp; betalen</h4><p>Nu reserveer je zonder te betalen. Zodra bestellen kan, reken je via de bestellink af met iDEAL, Bancontact of creditcard. Je bestelling wordt automatisch verwerkt en je ontvangt meteen een bevestiging per e-mail. Alle prijzen zijn in euro en inclusief btw.</p><h4>Verzending en levering</h4><p>Verzending is gratis in heel Nederland. Naar België is verzending gratis vanaf 2 dozen; voor 1 losse doos rekenen we €4,95. Droomclub-leden betalen nooit verzendkosten. Op werkdagen vóór 17:00 besteld, dezelfde dag verzonden vanuit Nederland, met track &amp; trace.</p><h4>Droomclub</h4><p>Als lid ontvang je elke 30 dagen automatisch één doos voor €19,95, gratis verzonden. De vervolgbetalingen lopen via automatische incasso (na iDEAL of Bancontact) of via je creditcard; je krijgt 3 dagen vooraf een herinnering. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd via de link in elke mail of via hallo@droompleisters.nl.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar hallo@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · hallo@droompleisters.nl</p>'
     },
     privacy:{
       title:'Privacybeleid',
@@ -278,10 +278,11 @@
   function nlNow(){ try{ return new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Amsterdam'})); }catch(e){ return new Date(); } }
   function nextWorkday(d){ var x=new Date(d); x.setDate(x.getDate()+1); while(x.getDay()===0||x.getDay()===6) x.setDate(x.getDate()+1); return x; }
   function fmt(d){ return DAGEN[d.getDay()]+' '+d.getDate()+' '+MAANDEN[d.getMonth()]; }
-  var LAUNCH=Date.parse((document.querySelector('meta[name="launch"]')||{}).content||'2026-11-01T00:00:00+01:00');
+  var LAUNCH=Date.parse((document.querySelector('meta[name="launch"]')||{}).content||'')||Infinity; /* geen meta = wachtlijst zonder datum */
   function preLaunch(){ return Date.now()<LAUNCH; }
   function pad2(n){ return String(n).padStart(2,'0'); }
   function tickLaunch(){
+    if(!isFinite(LAUNCH)) return;
     var s=Math.max(0,Math.floor((LAUNCH-Date.now())/1000)), d=Math.floor(s/86400), h=Math.floor(s%86400/3600), mi=Math.floor(s%3600/60), se=s%60;
     var v={d:d,h:pad2(h),m:pad2(mi),s:pad2(se)};
     document.querySelectorAll('[data-cd]').forEach(function(el){ el.textContent=v[el.dataset.cd]; });
@@ -291,7 +292,7 @@
   }
   tickLaunch(); setInterval(tickLaunch,1000);
   function deliveryText(be){
-    if(preLaunch()) return 'Verzending start op <b>1 november</b>. Bestel je nu, dan gaat je pakket op 1 november als eerste op de post'+(be?' (Belgi\u00eb, 1 werkdag extra)':'')+'.';
+    if(preLaunch()) return isFinite(LAUNCH)?'Verzending start binnenkort.':'Reserveer nu zonder te betalen. Zodra bestellen kan, krijg je als eerste de bestellink.';
     var now=nlNow(), day=now.getDay(), beforeCut=now.getHours()<17;
     var ship, when;
     if(day>=1&&day<=5&&beforeCut){ ship=new Date(now); when='vandaag'; }
@@ -303,7 +304,7 @@
   function renderDelivery(){
     var be=document.getElementById('f-land')&&document.getElementById('f-land').value==='Belgi\u00eb';
     document.querySelectorAll('[data-delivery]').forEach(function(el){ el.innerHTML=deliveryText(el.closest('#orderModal')?be:false); });
-    var c=document.getElementById('cutoffLeft'); if(c&&preLaunch()){ var dd=Math.ceil((LAUNCH-Date.now())/86400000); c.textContent='Nog '+dd+(dd===1?' dag':' dagen')+' tot de verzending start.'; } else if(c){ var n=nlNow(); if(n.getDay()>=1&&n.getDay()<=5&&n.getHours()<17){ var ms=new Date(n.getFullYear(),n.getMonth(),n.getDate(),17,0,0)-n; var h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000); c.textContent='Nog '+(h>0?h+' uur en ':'')+mi+' minuten om vandaag verzonden te worden.'; } else { c.textContent=''; } }
+    var c=document.getElementById('cutoffLeft'); if(c&&preLaunch()&&!isFinite(LAUNCH)){ c.textContent=''; } else if(c&&preLaunch()){ var dd=Math.ceil((LAUNCH-Date.now())/86400000); c.textContent='Nog '+dd+(dd===1?' dag':' dagen')+' tot de verzending start.'; } else if(c){ var n=nlNow(); if(n.getDay()>=1&&n.getDay()<=5&&n.getHours()<17){ var ms=new Date(n.getFullYear(),n.getMonth(),n.getDate(),17,0,0)-n; var h=Math.floor(ms/3600000), mi=Math.floor(ms%3600000/60000); c.textContent='Nog '+(h>0?h+' uur en ':'')+mi+' minuten om vandaag verzonden te worden.'; } else { c.textContent=''; } }
   }
   renderDelivery(); setInterval(renderDelivery,60000);
   if(document.getElementById('f-land')) document.getElementById('f-land').addEventListener('change',renderDelivery);
@@ -452,8 +453,8 @@
       var r=data.r[best];
       bar.style.width='100%'; step.textContent='Jouw resultaat'; back.hidden=true;
       var reco, order;
-      if(gift){ reco={rh:'Ons advies als cadeau', h:'Eén doos, mooi verpakt', p:'Een losse doos is het mooiste cadeau: 30 nachten, gratis verzonden in Nederland, met 30 nachten garantie. Wordt het een blijvertje? Dan kan de ontvanger zelf lid worden voor €19,95 per doos.', btn:'Reserveer nu · leverbaar vanaf 1 november', order:'1', alt:'Of geef de Droomclub cadeau', altOrder:'club'}; }
-      else if(tryFirst){ reco={rh:'Ons eerlijke advies', h:'Begin met één doos', p:'Je wilt eerst rustig proberen. Prima: één doos, €29,95, gratis verzonden in Nederland, 30 nachten garantie. Bevalt het ritueel? Dan is de Droomclub daarna €10 per doos goedkoper.', btn:'Reserveer nu · leverbaar vanaf 1 november', order:'1', alt:'Toch meteen lid worden · €19,95 per doos', altOrder:'club'}; }
+      if(gift){ reco={rh:'Ons advies als cadeau', h:'Eén doos, mooi verpakt', p:'Een losse doos is het mooiste cadeau: 30 nachten, gratis verzonden in Nederland, met 30 nachten garantie. Wordt het een blijvertje? Dan kan de ontvanger zelf lid worden voor €19,95 per doos.', btn:'Reserveer nu · als eerste bestellen', order:'1', alt:'Of geef de Droomclub cadeau', altOrder:'club'}; }
+      else if(tryFirst){ reco={rh:'Ons eerlijke advies', h:'Begin met één doos', p:'Je wilt eerst rustig proberen. Prima: één doos, €29,95, gratis verzonden in Nederland, 30 nachten garantie. Bevalt het ritueel? Dan is de Droomclub daarna €10 per doos goedkoper.', btn:'Reserveer nu · als eerste bestellen', order:'1', alt:'Toch meteen lid worden · €19,95 per doos', altOrder:'club'}; }
       else if(duo){ reco={rh:'Ons advies voor jullie samen', h:'Droomclub voor twee', p:'Elke 30 dagen twee dozen in één pakket voor 2 × €19,95, altijd gratis verzonden, met de welkomstbox bij je eerste levering. Pauzeren of opzeggen kan altijd.', btn:'Word lid voor twee · €39,90', order:'club2', alt:'Liever eerst één doos proberen', altOrder:'1'}; }
       else { reco={rh:'Ons advies', h:sev>=2?'De Droomclub, omdat ritme wint':'De Droomclub, zonder gedoe', p:(sev>=2?'Bij meerdere onrustige nachten per week is het ritme belangrijker dan één goede nacht. ':'')+'Als lid ligt er elke 30 dagen automatisch een nieuwe doos voor €19,95 op de mat, gratis verzonden, met de welkomstbox bij je eerste levering. Geen looptijd, geen opzegtermijn, 30 nachten garantie.', btn:'Word lid · €19,95 per doos', order:'club', alt:'Liever eerst één doos proberen · €29,95', altOrder:'1'}; }
       var h='<div class="quiz-result"><p class="eyebrow">Jouw slaaptype</p><h2>'+esc(r.name)+'</h2><p class="lead">'+esc(r.text)+'</p><ul class="quiz-tips">';

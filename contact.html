@@ -22,11 +22,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<meta name="launch" content="2026-11-01T00:00:00+01:00">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script>if(location.search.indexOf('noanim')<0)document.documentElement.classList.add('js');if(Date.now()>=Date.parse('2026-11-01T00:00:00+01:00'))document.documentElement.classList.add('launched')</script>
+<script>if(location.search.indexOf('noanim')<0)document.documentElement.classList.add('js')</script>
 
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -45,7 +44,7 @@
 <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <div class="topbar" role="note">
-  <span class='pre-launch'><span aria-hidden="true">☾</span> <strong>Leverbaar vanaf 1 november</strong> · reserveer nu en je bent als eerste aan de beurt<span class="tb-full"> · nog <span class="tb-cd" data-cd-short>…</span></span></span><span class='post-launch'><span class="tb-full"><span aria-hidden="true">☾</span> <strong>Gratis verzending in heel Nederland</strong> · Droomclub-leden betalen €19,95 per doos · vóór 17:00 besteld, vandaag verzonden</span><span class="tb-short"><span aria-hidden="true">☾</span> <strong>Gratis verzending in NL</strong> · Droomclub €19,95 per doos</span></span>
+  <span class='pre-launch'><span aria-hidden="true">☾</span> <strong>Binnenkort leverbaar</strong> · reserveer nu en je bent als eerste aan de beurt</span><span class='post-launch'><span class="tb-full"><span aria-hidden="true">☾</span> <strong>Gratis verzending in heel Nederland</strong> · Droomclub-leden betalen €19,95 per doos · vóór 17:00 besteld, vandaag verzonden</span><span class="tb-short"><span aria-hidden="true">☾</span> <strong>Gratis verzending in NL</strong> · Droomclub €19,95 per doos</span></span>
 </div>
 
 <header class="nav" id="siteNav">
@@ -56,7 +55,7 @@
     </a>
     <ul class="nav-links"><li><a href="slaappleisters.html">Slaappleisters</a></li><li><a href="werking.html">Werking</a></li><li><a href="ingredienten.html">Ingrediënten</a></li><li><a href="reviews.html">Reviews</a></li><li><a href="droomclub.html">Droomclub</a></li><li><a href="slaaptest.html">Slaaptest</a></li><li><a href="faq.html">FAQ</a></li></ul>
     <div class="nav-actions">
-      <a href="slaappleisters.html#bestel" class="btn btn-gold nav-cta" data-order="club">Reserveer nu<span class="res-long"> · leverbaar vanaf 1 november</span></a>
+      <a href="slaappleisters.html#bestel" class="btn btn-gold nav-cta" data-order="club">Reserveer nu<span class="res-long"> · als eerste bestellen</span></a>
       <button class="nav-burger" id="navBurger" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -64,7 +63,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <div class="mm-inner">
     <ul><li><a class="mm-link" href="slaappleisters.html">Slaappleisters</a></li><li><a class="mm-link" href="werking.html">Werking</a></li><li><a class="mm-link" href="ingredienten.html">Ingrediënten</a></li><li><a class="mm-link" href="reviews.html">Reviews</a></li><li><a class="mm-link" href="droomclub.html">Droomclub</a></li><li><a class="mm-link" href="slaaptest.html">Slaaptest</a></li><li><a class="mm-link" href="faq.html">FAQ</a></li><li><a class="mm-link" href="over-ons.html">Over ons</a></li><li><a class="mm-link" href="contact.html">Contact</a></li></ul>
-    <a class="btn btn-gold btn-xl" href="slaappleisters.html#bestel" data-order="club">Reserveer nu · leverbaar vanaf 1 november</a>
+    <a class="btn btn-gold btn-xl" href="slaappleisters.html#bestel" data-order="club">Reserveer nu · als eerste bestellen</a>
     <p class="mm-note">Gratis verzending in Nederland · 30 nachten slaapgarantie</p>
   </div>
 </div>
@@ -178,8 +177,8 @@
 <div class="modal-back" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
   <div class="modal">
     <button class="modal-close" data-close aria-label="Sluiten">✕</button>
-    <h3 id="orderTitle">Reserveer nu · leverbaar vanaf 1 november</h3>
-    <p class="modal-sub">Zet je naam op de lijst. Je betaalt nu niets. Op 1 november krijg je als eerste een mail met de bestellink.</p>
+    <h3 id="orderTitle">Reserveer nu · als eerste bestellen</h3>
+    <p class="modal-sub">Zet je naam op de lijst. Je betaalt nu niets. Zodra bestellen kan, krijg je als eerste een mail met de bestellink.</p>
     <form action="https://formsubmit.co/hallo@droompleisters.nl" method="POST" id="orderForm">
       <input type="hidden" name="_subject" value="🌙 Nieuwe reservering via droompleisters.nl">
       <input type="hidden" name="_captcha" value="false">
@@ -202,7 +201,7 @@
         <div><label for="f-email">E-mailadres</label><input id="f-email" type="email" name="email" placeholder="jouw@email.nl" required autocomplete="email"></div>
         <div><label for="f-aantal">Aantal dozen</label><select id="f-aantal" name="aantal"><option value="1" selected>1</option><option value="2">2</option><option value="3">3</option></select></div>
       </div>
-      <p class="modal-legal">Een reservering is vrijblijvend: geen betaling en geen verplichting. We gebruiken je gegevens alleen om je op 1 november de bestellink te mailen; lees ons <a href="privacy.html" target="_blank" rel="noopener">privacybeleid</a>.</p>
+      <p class="modal-legal">Een reservering is vrijblijvend: geen betaling en geen verplichting. We gebruiken je gegevens alleen om je de bestellink te mailen zodra bestellen kan; lees ons <a href="privacy.html" target="_blank" rel="noopener">privacybeleid</a>.</p>
       <button class="btn btn-gold" type="submit" id="orderSubmit">Zet me op de lijst <span aria-hidden="true">☾</span></button>
       <div class="modal-trust"><span>✓ Nu niets betalen</span><span>✓ Als eerste de bestellink</span><span>✓ 30 nachten garantie</span></div>
     </form>
