@@ -161,7 +161,7 @@
   });
 
   // --- submit-state: voorkom dubbele inzendingen ------------------------
-  document.querySelectorAll('form[action*="formsubmit.co"]').forEach(function(f){
+  document.querySelectorAll('form[action*="/dp/"]').forEach(function(f){
     f.addEventListener('submit',function(){
       var b=f.querySelector('button[type=submit]');
       if(b){ b.disabled=true; b.dataset.txt=b.innerHTML; b.textContent='Versturen…'; setTimeout(function(){ if(b.disabled){ b.disabled=false; b.innerHTML=b.dataset.txt; } },8000); }
