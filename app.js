@@ -615,6 +615,13 @@
     pdpMode();
   }
 
+  // brede vergelijkingstabel: zeg erbij dat je opzij kunt vegen
+  document.querySelectorAll('table.vgl-wide').forEach(function(t){
+    var w=t.closest('.table-wrap'); if(!w) return;
+    var p=document.createElement('p'); p.className='vgl-hint'; p.textContent='Veeg opzij voor alle merken ›';
+    w.insertAdjacentElement('beforebegin',p);
+  });
+
   // veeg-hint onder de kaartstroken op telefoon
   document.querySelectorAll('#ingredienten .ingr-grid,#reviews .rev-grid').forEach(function(el){
     var p=document.createElement('p'); p.className='swipe-hint'; p.setAttribute('aria-hidden','true');
