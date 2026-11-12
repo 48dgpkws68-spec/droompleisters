@@ -64,12 +64,12 @@ section{position:relative}
 .sec-head p{margin-top:1.2rem;color:var(--ink-soft);font-size:1.05rem}
 
 /* == reveal ============================================================ */
-.js .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1)}
-.js .reveal.in{opacity:1;transform:none}
+.js .reveal{opacity:0;translate:0 22px;transition:opacity 1.1s cubic-bezier(.16,1,.3,1),translate 1.1s cubic-bezier(.16,1,.3,1)}
+.js .reveal.in{opacity:1;translate:0 0}
 .js .reveal.d1{transition-delay:.08s}.js .reveal.d2{transition-delay:.16s}.js .reveal.d3{transition-delay:.24s}
 .js .reveal.d4{transition-delay:.32s}.js .reveal.d5{transition-delay:.4s}
 @media (prefers-reduced-motion:reduce){
-  .js .reveal{opacity:1;transform:none;transition:none}
+  .js .reveal{opacity:1;translate:none;transition:none}
   *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   html{scroll-behavior:auto}
 }
@@ -1074,3 +1074,278 @@ body.menu-open .sticky-cta{transform:translateY(110%);visibility:hidden}
 @media (min-width:901px){header.nav.lit .brand-word{filter:brightness(.66) saturate(1.2) drop-shadow(0 1px 0 rgba(255,255,255,.5))}}
 
 @media (max-width:900px){.nav-cta .res-long{display:none}}
+
+/* == v20 luxe-laag: rust, beweging, wegwijzer ========================= */
+:root{--ease:cubic-bezier(.16,1,.3,1)}
+body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+
+/* zachte overgang tussen pagina's (browsers die het kunnen) */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vtOut .28s ease both}
+::view-transition-new(root){animation:vtIn .45s ease both}
+@keyframes vtOut{to{opacity:0}}
+@keyframes vtIn{from{opacity:0}}
+
+/* == reveals: rustiger, en hover-effecten blijven werken ================ */
+.js .reveal.done{transition:transform .4s var(--ease),border-color .3s,box-shadow .4s,background .3s,color .2s;transition-delay:0s}
+.js .sec-head.reveal h2{clip-path:inset(0 -6% 100% -6%);translate:0 .35em;transition:clip-path 1.3s var(--ease) .1s,translate 1.3s var(--ease) .1s}
+.js .sec-head.reveal.in h2{clip-path:inset(-20% -6% -30% -6%);translate:0 0}
+.js .page-hero h1,.js .page-hero .intro{animation:lxRise 1.3s var(--ease) .05s both}
+.js .page-hero .intro{animation-delay:.2s}
+@keyframes lxRise{from{opacity:0;clip-path:inset(0 -6% 100% -6%);translate:0 .35em}to{opacity:1;clip-path:inset(-20% -6% -30% -6%);translate:0 0}}
+.js .hairline{scale:0 1;opacity:0;transition:scale 1.8s var(--ease),opacity 1.2s ease}
+.js .hairline.in{scale:1 1;opacity:1}
+.js .photo-frame img{scale:1.14;transition:scale 2.2s var(--ease),transform .8s cubic-bezier(.22,.61,.36,1)}
+.js .photo-frame.in img{scale:1}
+@media (hover:hover) and (min-width:901px){
+  .js .photo-frame.in img{scale:1.08;translate:0 var(--py,0px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .sec-head.reveal h2{clip-path:none;translate:none;transition:none}
+  .js .page-hero h1,.js .page-hero .intro{animation:none}
+  .js .hairline{scale:1 1;opacity:1;transition:none}
+  .js .photo-frame img,.js .photo-frame.in img{scale:1;translate:none;transition:none}
+}
+
+/* == navigatie ========================================================= */
+.brand{flex:none}
+.brand-moon,.brand-word{max-width:none}
+.nav-links a{position:relative;padding:.5rem 0}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:.1rem;height:1px;background:currentColor;scale:0 1;transform-origin:left;transition:scale .45s var(--ease);opacity:.7}
+.nav-links a:hover::after,.nav-links a.active::after{scale:1 1}
+@media (min-width:981px) and (max-width:1180px){.brand-word{display:none}.nav-links{gap:1.25rem}}
+@media (min-width:1181px) and (max-width:1420px){.nav-links{gap:1.45rem}.nav-links a{font-size:.74rem;letter-spacing:.1em}.brand-word{height:15px}}
+@media (min-width:1421px){.nav-links{gap:2.1rem}}
+/* tot 980px: hamburger, donkere balk, vaste bestelbalk onderaan */
+@media (max-width:980px){
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .nav-cta{display:none}
+  .brand-word{display:block}
+  header.nav.lit,body.menu-open header.nav{background:rgba(6,8,18,.92);border-bottom-color:rgba(227,194,126,.22);box-shadow:0 10px 30px -18px rgba(0,0,0,.7)}
+  header.nav.lit .nav-burger,body.menu-open .nav-burger{border-color:rgba(227,194,126,.45);background:rgba(255,255,255,.06)}
+  header.nav.lit .nav-burger span,body.menu-open .nav-burger span{background:var(--gold-300)}
+  header.nav.lit .brand-word{filter:drop-shadow(0 1px 2px rgba(0,0,0,.55))}
+  .foot-inner{padding-bottom:calc(36px + 76px + env(safe-area-inset-bottom))}
+}
+@media (min-width:901px) and (max-width:980px){.sticky-cta{display:flex}}
+/* menuknop met het woord erbij: niemand hoeft te raden wat de streepjes betekenen */
+.nav-burger{position:relative;width:auto;min-width:44px;border-radius:999px;padding:0 1rem 0 4.15rem}
+.nav-burger::before{content:"Menu";position:absolute;left:1.05rem;top:50%;translate:0 -50%;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-200);font-weight:500;pointer-events:none;line-height:1}
+.nav-burger.is-open::before{content:"Sluit"}
+@media (max-width:520px){.brand-moon{height:40px}.brand-word{height:15px}.brand{gap:.6rem}}
+@media (max-width:380px){.brand-moon{height:36px}.brand-word{height:13px}.nav-burger{padding:0 .85rem 0 3.9rem}.nav-burger::before{left:.9rem}}
+@media (max-width:345px){.nav-burger{padding:0;width:44px;border-radius:50%}.nav-burger::before{display:none}}
+
+/* mobiel menu: nachtblauw, elke regel zegt wat je er vindt */
+.mobile-menu{
+  background:radial-gradient(90% 46% at 85% 0%,rgba(146,100,32,.3),transparent 62%),linear-gradient(180deg,#060812 0%,#0b1026 58%,#101a3e 100%);
+  backdrop-filter:none;-webkit-backdrop-filter:none;padding-left:18px;padding-right:18px;padding-bottom:2.2rem;
+}
+.mm-inner{max-width:480px;text-align:left}
+.mm-inner ul{gap:0;margin-bottom:1.3rem}
+.mm-link{display:flex;align-items:center;gap:.9rem;padding:.62rem .2rem;min-height:62px;border-bottom:1px solid rgba(227,194,126,.14);font-family:var(--sans);font-size:1rem;font-weight:300;color:#f8f5ec}
+.mm-ic{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:var(--gold-300);border:1px solid rgba(227,194,126,.38);background:rgba(255,255,255,.04)}
+.mm-ic svg{width:21px;height:21px}
+.mm-tx{min-width:0}
+.mm-t{display:block;font-family:var(--serif);font-size:1.3rem;font-weight:600;line-height:1.12;color:#f8f5ec}
+.mm-s{display:block;font-size:.8rem;color:var(--mist-dim);margin-top:.1rem;line-height:1.3}
+.mm-go{margin-left:auto;color:var(--gold-400);font-size:1.5rem;line-height:1;flex:none}
+.mm-link.active{color:#f8f5ec}
+.mm-link.active .mm-t{color:var(--gold-300)}
+.mm-link.active .mm-ic{background:rgba(227,194,126,.16)}
+.mm-note{color:var(--mist-dim);text-align:center}
+.mobile-menu.open .mm-inner li,.mobile-menu.open .mm-inner>.btn,.mobile-menu.open .mm-note{animation:mmIn .6s var(--ease) both}
+.mobile-menu.open .mm-inner li:nth-child(2){animation-delay:.03s}.mobile-menu.open .mm-inner li:nth-child(3){animation-delay:.06s}
+.mobile-menu.open .mm-inner li:nth-child(4){animation-delay:.09s}.mobile-menu.open .mm-inner li:nth-child(5){animation-delay:.12s}
+.mobile-menu.open .mm-inner li:nth-child(6){animation-delay:.15s}.mobile-menu.open .mm-inner li:nth-child(7){animation-delay:.18s}
+.mobile-menu.open .mm-inner li:nth-child(8){animation-delay:.21s}.mobile-menu.open .mm-inner li:nth-child(9){animation-delay:.24s}
+.mobile-menu.open .mm-inner>.btn{animation-delay:.28s}.mobile-menu.open .mm-note{animation-delay:.32s}
+@keyframes mmIn{from{opacity:0;translate:0 14px}to{opacity:1;translate:0 0}}
+.mobile-menu :focus-visible{outline-color:var(--gold-300)}
+
+/* == hero: zwevende doos met de echte pleister ========================= */
+.hero{isolation:isolate}
+.dust{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.stage{
+  --bh:clamp(300px,min(62vh,40vw),600px);
+  position:absolute;top:0;bottom:auto;right:0;width:min(50%,860px);height:clamp(520px,calc(100vh - 110px),860px);max-height:100%;z-index:1;pointer-events:none;
+}
+.stage>*{position:absolute}
+.stage-halo{
+  left:50%;top:50%;width:calc(var(--bh)*1.7);aspect-ratio:1;translate:-50% -50%;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(226,180,96,.4),rgba(150,104,36,.2) 40%,rgba(120,84,30,.06) 62%,transparent 72%);
+  animation:lxBreathe 11s ease-in-out infinite;
+}
+@keyframes lxBreathe{0%,100%{opacity:.72;scale:.95}50%{opacity:1;scale:1.05}}
+.stage-rings{left:50%;top:50%;width:0;height:0}
+.stage-rings i{position:absolute;left:0;top:0;border-radius:50%;translate:-50% -50%;border:1px solid rgba(227,194,126,.2)}
+.stage-rings i:nth-child(1){width:calc(var(--bh)*.98);height:calc(var(--bh)*.98);border-color:rgba(227,194,126,.26)}
+.stage-rings i:nth-child(2){width:calc(var(--bh)*1.26);height:calc(var(--bh)*1.26);border-style:dashed;border-color:rgba(227,194,126,.17);animation:lxSpin 140s linear infinite}
+.stage-rings i:nth-child(3){width:calc(var(--bh)*1.56);height:calc(var(--bh)*1.56);border-color:rgba(227,194,126,.1);animation:lxSpin 90s linear infinite reverse}
+.stage-rings i:nth-child(3)::before{content:"";position:absolute;left:50%;top:-3px;width:6px;height:6px;border-radius:50%;translate:-50% 0;background:#f2dfae;box-shadow:0 0 14px 3px rgba(242,223,174,.75)}
+@keyframes lxSpin{to{rotate:360deg}}
+.stage-box{
+  left:50%;top:50%;height:var(--bh);aspect-ratio:702/1000;translate:-50% -52%;
+  transform:perspective(1300px) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .9s var(--ease);
+  animation:lxStageIn 1.8s var(--ease) both;
+}
+.stage-box img{
+  width:100%;height:100%;object-fit:contain;
+  filter:drop-shadow(0 34px 46px rgba(0,0,0,.55)) drop-shadow(0 0 50px rgba(212,169,85,.2));
+  -webkit-box-reflect:below 0 linear-gradient(transparent 70%,rgba(0,0,0,.2));
+  animation:lxFloat 9s ease-in-out infinite;
+}
+@keyframes lxStageIn{from{opacity:0;scale:.94}to{opacity:1;scale:1}}
+@keyframes lxFloat{0%,100%{translate:0 0}50%{translate:0 -12px}}
+.stage-patch{height:auto;border-radius:50%;filter:drop-shadow(0 16px 22px rgba(0,0,0,.55))}
+.stage-patch.p1{width:calc(var(--bh)*.3);left:calc(50% + var(--bh)*.31);top:calc(50% - var(--bh)*.475);animation:lxPatchIn 1.4s var(--ease) .7s both,lxPatchA 10s ease-in-out 2.1s infinite}
+.stage-patch.p2{width:calc(var(--bh)*.17);left:calc(50% - var(--bh)*.56);top:calc(50% + var(--bh)*.14);filter:blur(1.2px) drop-shadow(0 12px 18px rgba(0,0,0,.5));opacity:.92;animation:lxPatchIn 1.4s var(--ease) 1s both,lxPatchB 13s ease-in-out 2.4s infinite}
+@keyframes lxPatchIn{from{opacity:0;scale:.6;rotate:-30deg}to{scale:1;rotate:0deg}}
+@keyframes lxPatchA{0%,100%{translate:0 0;rotate:0deg}50%{translate:-6px 12px;rotate:7deg}}
+@keyframes lxPatchB{0%,100%{translate:0 0;rotate:0deg}50%{translate:8px -10px;rotate:-9deg}}
+.stage-floor{left:50%;top:calc(50% + var(--bh)*.48);width:calc(var(--bh)*1.4);height:1px;translate:-50% 0;background:linear-gradient(90deg,transparent,rgba(242,223,174,.7),transparent)}
+.stage-floor::after{content:"";position:absolute;left:8%;right:8%;top:-22px;height:44px;background:radial-gradient(closest-side,rgba(227,194,126,.38),transparent);filter:blur(10px)}
+@media (max-width:960px){
+  .hero{background:
+    radial-gradient(90% 46% at 50% 24%,rgba(146,100,32,.4),transparent 66%),
+    radial-gradient(50% 40% at 10% 4%,rgba(19,32,74,.55),transparent 65%),
+    linear-gradient(180deg,#05070f 0%,#0a0e1f 60%,#070a15 100%)}
+  .stage{--bh:clamp(240px,70vw,400px);position:relative;top:auto;bottom:auto;right:auto;width:100%;height:calc(var(--bh) + 96px);max-height:none}
+  .hero-copy{padding-top:6px}
+}
+@media (max-width:640px){
+  .stage{height:calc(var(--bh) + 78px)}
+  .hero .chip-row{display:none}
+  .hero-copy{padding-top:0}
+  .hero-proof{margin-top:1.3rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .stage-box,.stage-box img,.stage-patch,.stage-halo,.stage-rings i{animation:none!important}
+}
+
+/* wolkenovergang: laat de lucht heel langzaam drijven */
+.sky{animation:lxSky 70s ease-in-out infinite alternate;background-size:118% auto;background-position:42% center}
+@keyframes lxSky{to{background-position:58% center}}
+@media (max-width:640px){.sky{background-size:cover;animation:none;background-position:center}}
+.ticker-track{animation-duration:64s}
+.final{isolation:isolate}
+.final .dust{z-index:1}
+.final .moon-center{animation:lxFloat 10s ease-in-out infinite}
+
+/* == wegwijzer: wat wil je weten? ====================================== */
+.wegwijzer{padding:clamp(54px,7vw,96px) 0 0;position:relative;z-index:2}
+.wegwijzer .sec-head h2{font-size:clamp(1.9rem,3.6vw,2.8rem)}
+.ww-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2.4rem}
+.ww{
+  display:flex;align-items:center;gap:1rem;min-height:88px;padding:1.15rem 1.25rem;border-radius:18px;text-decoration:none;
+  background:linear-gradient(180deg,var(--card),#faf6ec);border:1px solid var(--card-line);box-shadow:var(--sh-card);position:relative;overflow:hidden;
+}
+.js .ww.reveal.done,.ww{transition:transform .45s var(--ease),border-color .3s,box-shadow .45s}
+.ww::before{content:"";position:absolute;top:0;left:8%;right:8%;height:1.5px;background:linear-gradient(90deg,transparent,#fff,transparent)}
+.ww-ic{flex:none;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;color:var(--gold-300);background:linear-gradient(160deg,#16224c,#0b1026);box-shadow:0 12px 24px -12px rgba(19,28,56,.65),inset 0 0 0 1px rgba(227,194,126,.4);transition:scale .45s var(--ease)}
+.ww-ic svg{width:25px;height:25px}
+.ww-tx{min-width:0}
+.ww-t{display:block;font-family:var(--serif);font-size:1.32rem;font-weight:600;color:var(--ink);line-height:1.15}
+.ww-s{display:block;font-size:.84rem;color:var(--ink-soft);margin-top:.18rem;line-height:1.35}
+.ww-go{margin-left:auto;flex:none;color:var(--gold-600);font-size:1.6rem;line-height:1;transition:translate .4s var(--ease)}
+@media (hover:hover){
+  .ww:hover{transform:translateY(-3px);border-color:var(--gold-400);box-shadow:0 1.5px 0 rgba(255,255,255,.9) inset,0 30px 60px -34px rgba(169,127,45,.42)}
+  .ww:hover .ww-go{translate:5px 0}
+  .ww:hover .ww-ic{scale:1.06}
+}
+.ww:active{transform:scale(.985)}
+.wegwijzer.verder{padding:clamp(20px,4vw,50px) 0 clamp(64px,8vw,110px)}
+@media (max-width:900px){.ww-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){
+  .ww-grid{grid-template-columns:minmax(0,1fr);gap:.6rem;margin-top:1.5rem}
+  .ww{min-height:74px;padding:.85rem 1rem;border-radius:16px}
+  .ww-ic{width:46px;height:46px}.ww-ic svg{width:22px;height:22px}
+  .ww-t{font-size:1.22rem}
+}
+
+/* == verfijning ======================================================== */
+.glossy{transition:transform .5s var(--ease),border-color .3s,box-shadow .5s var(--ease)}
+.btn{transition:transform .35s var(--ease),box-shadow .35s,background .25s,border-color .25s,color .2s}
+.btn:active{transform:translateY(0) scale(.98)}
+.faq-q{min-height:56px}
+.faq-q .plus{width:32px;height:32px}
+.price-card.popular{z-index:1}
+.sticky-cta .btn{min-width:8.5rem}
+.release svg{width:100%;height:auto}
+.strip-item .big{font-variant-numeric:tabular-nums}
+.photo-frame{background:#0b1026}
+.pdp-thumb img{background:#0b1026}
+.gids-cover{flex:none}
+
+/* telefoon: lange rijen kaarten worden een rustige veegstrook */
+@media (max-width:640px){
+  #ingredienten .ingr-grid,#reviews .rev-grid{
+    display:flex;gap:.7rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    margin-inline:calc(-1*clamp(20px,4vw,44px));padding:.3rem clamp(20px,4vw,44px) 1rem;scroll-padding-inline:clamp(20px,4vw,44px);
+    scrollbar-width:none;
+  }
+  #ingredienten .ingr-grid::-webkit-scrollbar,#reviews .rev-grid::-webkit-scrollbar{display:none}
+  #ingredienten .ingr-card{flex:0 0 68%;scroll-snap-align:start}
+  #reviews .rev-card{flex:0 0 84%;scroll-snap-align:start}
+  .swipe-hint{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.2rem;font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-deep);font-weight:500;position:relative;z-index:2}
+  .swipe-hint i{display:block;width:34px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-500))}
+  .swipe-hint i:last-child{background:linear-gradient(90deg,var(--gold-500),transparent)}
+  .topbar{letter-spacing:.05em}
+  .launch{padding:.8rem .9rem .85rem;border-radius:16px}
+  .launch-title{margin-bottom:.4rem}
+  .launch-note{margin-top:.3rem}
+}
+@media (min-width:641px){.swipe-hint{display:none}}
+
+/* kerncijfers: altijd een nette rij */
+.strip-inner{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(1rem,3vw,3rem);max-width:980px}
+.strip-item{min-width:0}
+@media (max-width:640px){.strip-inner{grid-template-columns:repeat(2,minmax(0,1fr));gap:1.3rem 1rem}}
+
+/* telefoon: grafiek en tabel goed leesbaar */
+@media (max-width:640px){
+  .release svg text{font-size:21px}
+  .release svg text.piek{font-size:17px;letter-spacing:1px}
+  .release{padding:1.4rem 1.1rem}
+  table.vgl:not(.vgl-wide){table-layout:fixed}
+  table.vgl:not(.vgl-wide) th:first-child,table.vgl:not(.vgl-wide) td:first-child{width:33%}
+  table.vgl:not(.vgl-wide) thead th{font-size:.58rem;letter-spacing:.03em;padding:.7rem .2rem;overflow-wrap:anywhere;line-height:1.35}
+  table.vgl:not(.vgl-wide) td:first-child{font-size:.8rem;line-height:1.4}
+  .rev-summary{flex-direction:column;gap:.3rem}
+  .rev-meta{text-align:center}
+}
+
+/* telefoon: kleine labels net iets groter, zodat alles leesbaar blijft */
+@media (max-width:640px){
+  .eyebrow{font-size:.72rem;letter-spacing:.24em}
+  .ticker span{font-size:.72rem;letter-spacing:.18em}
+  .rev-verified{font-size:.72rem}
+  .b-tag,.pdp-bundle .tag{font-size:.64rem}
+  .pdp-main-note{font-size:.7rem}
+  .strip-item .small{font-size:.72rem;letter-spacing:.16em}
+  .price-sub{font-size:.8rem}
+  .p-card h3 a{display:inline-block;padding:.35rem 0}
+}
+.passport caption{padding:0 0 .6rem 1rem}
+@media (max-width:900px){.pdp-main{padding:5% 7% 12%}}
+
+/* desktop: de hele hero past rustig in één scherm */
+@media (min-width:961px){
+  .hero-copy{max-width:42rem;padding-top:clamp(44px,5.4vw,84px);padding-bottom:clamp(70px,8vw,120px)}
+  .hero h1{font-size:clamp(2.6rem,4.3vw,4rem);white-space:nowrap}
+  .hero-sub{margin-top:1.2rem}
+  .hero .chip-row{margin-top:1.5rem;gap:.5rem;flex-wrap:nowrap}
+  .hero .chip:nth-child(2){display:none}
+  .hero .chip{letter-spacing:.18em;padding:.48rem .95rem;white-space:nowrap}
+  .hero-cta{margin-top:1.9rem;flex-wrap:nowrap}
+  .hero-proof{margin-top:1.5rem}
+  .hero-copy .launch{display:flex;align-items:baseline;gap:.9rem;text-align:left;max-width:34rem;padding:.75rem 1.1rem;margin-top:1.1rem;border-radius:14px}
+  .hero-copy .launch-title{margin:0;white-space:nowrap}
+  .hero-copy .launch-note{margin:0;font-size:.78rem}
+}
+.pdp-main.photo{padding:0}
+.pdp-main.photo img{object-fit:cover;filter:none}
+.pdp-main.photo .pdp-main-note{display:none}
+.pdp-main:not(.photo) img{animation:lxFloat 9s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.pdp-main:not(.photo) img{animation:none}}

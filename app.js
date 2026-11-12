@@ -453,8 +453,8 @@
       var r=data.r[best];
       bar.style.width='100%'; step.textContent='Jouw resultaat'; back.hidden=true;
       var reco, order;
-      if(gift){ reco={rh:'Ons advies als cadeau', h:'Eén doos, mooi verpakt', p:'Een losse doos is het mooiste cadeau: 30 nachten, gratis verzonden in Nederland, met 30 nachten garantie. Wordt het een blijvertje? Dan kan de ontvanger zelf lid worden voor €19,95 per doos.', btn:'Reserveer nu · als eerste bestellen', order:'1', alt:'Of geef de Droomclub cadeau', altOrder:'club'}; }
-      else if(tryFirst){ reco={rh:'Ons eerlijke advies', h:'Begin met één doos', p:'Je wilt eerst rustig proberen. Prima: één doos, €29,95, gratis verzonden in Nederland, 30 nachten garantie. Bevalt het ritueel? Dan is de Droomclub daarna €10 per doos goedkoper.', btn:'Reserveer nu · als eerste bestellen', order:'1', alt:'Toch meteen lid worden · €19,95 per doos', altOrder:'club'}; }
+      if(gift){ reco={rh:'Ons advies als cadeau', h:'Eén doos, mooi verpakt', p:'Een losse doos is het mooiste cadeau: 30 nachten, gratis verzonden in Nederland, met 30 nachten garantie. Wordt het een blijvertje? Dan kan de ontvanger zelf lid worden voor €19,95 per doos.', btn:'Reserveer nu', order:'1', alt:'Of geef de Droomclub cadeau', altOrder:'club'}; }
+      else if(tryFirst){ reco={rh:'Ons eerlijke advies', h:'Begin met één doos', p:'Je wilt eerst rustig proberen. Prima: één doos, €29,95, gratis verzonden in Nederland, 30 nachten garantie. Bevalt het ritueel? Dan is de Droomclub daarna €10 per doos goedkoper.', btn:'Reserveer nu', order:'1', alt:'Toch meteen lid worden · €19,95 per doos', altOrder:'club'}; }
       else if(duo){ reco={rh:'Ons advies voor jullie samen', h:'Droomclub voor twee', p:'Elke 30 dagen twee dozen in één pakket voor 2 × €19,95, altijd gratis verzonden, met de welkomstbox bij je eerste levering. Pauzeren of opzeggen kan altijd.', btn:'Word lid voor twee · €39,90', order:'club2', alt:'Liever eerst één doos proberen', altOrder:'1'}; }
       else { reco={rh:'Ons advies', h:sev>=2?'De Droomclub, omdat ritme wint':'De Droomclub, zonder gedoe', p:(sev>=2?'Bij meerdere onrustige nachten per week is het ritme belangrijker dan één goede nacht. ':'')+'Als lid ligt er elke 30 dagen automatisch een nieuwe doos voor €19,95 op de mat, gratis verzonden, met de welkomstbox bij je eerste levering. Geen looptijd, geen opzegtermijn, 30 nachten garantie.', btn:'Word lid · €19,95 per doos', order:'club', alt:'Liever eerst één doos proberen · €29,95', altOrder:'1'}; }
       var h='<div class="quiz-result"><p class="eyebrow">Jouw slaaptype</p><h2>'+esc(r.name)+'</h2><p class="lead">'+esc(r.text)+'</p><ul class="quiz-tips">';
@@ -502,4 +502,123 @@
       var e=document.getElementById('revEmpty'); if(e) e.hidden=n>0;
     }); });
   }
+})();
+
+/* v20 luxe-laag: rustige beweging, geen scroll-kaping */
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(hover:hover) and (min-width:901px)').matches;
+
+  // na de reveal: hover-effecten weer vlot laten reageren
+  document.addEventListener('transitionend',function(e){
+    var t=e.target;
+    if(e.propertyName==='opacity'&&t.classList&&t.classList.contains('reveal')&&t.classList.contains('in')) t.classList.add('done');
+  });
+
+  // eigen in-beeld-check voor lijnen en foto's (werkt ook waar IntersectionObserver stilstaat)
+  var watch=Array.prototype.slice.call(document.querySelectorAll('.hairline,.photo-frame'));
+  var frames=Array.prototype.slice.call(document.querySelectorAll('.photo-frame'));
+  function checkWatch(){
+    if(!watch.length){ clearInterval(wTimer); return; }
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    watch=watch.filter(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top<vh-20&&r.bottom>0){ el.classList.add('in'); return false; }
+      return true;
+    });
+  }
+  var wTimer=setInterval(checkWatch,600);
+  window.addEventListener('scroll',checkWatch,{passive:true});
+  window.addEventListener('resize',checkWatch);
+  checkWatch();
+
+  // foto's bewegen heel licht mee met scrollen (alleen desktop)
+  if(fine&&!reduce&&frames.length){
+    var ticking=false;
+    function parallax(){
+      ticking=false;
+      var vh=window.innerHeight;
+      frames.forEach(function(f){
+        var r=f.getBoundingClientRect();
+        if(r.bottom<-50||r.top>vh+50) return;
+        var p=((r.top+r.height/2)-vh/2)/vh;            // -0.5 .. 0.5
+        var img=f.querySelector('img');
+        if(img) img.style.setProperty('--py',(p*-r.height*0.06).toFixed(1)+'px');
+      });
+    }
+    window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(parallax); } },{passive:true});
+    parallax();
+  }
+
+  // de doos kantelt een fractie mee met de muis (alleen desktop)
+  var stage=document.querySelector('[data-stage]');
+  if(stage&&fine&&!reduce){
+    var box=stage.querySelector('.stage-box'), hero=stage.closest('.hero');
+    hero.addEventListener('mousemove',function(e){
+      var r=hero.getBoundingClientRect();
+      var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+      box.style.setProperty('--ry',(x*9).toFixed(2)+'deg');
+      box.style.setProperty('--rx',(y*-6).toFixed(2)+'deg');
+    });
+    hero.addEventListener('mouseleave',function(){ box.style.setProperty('--ry','0deg'); box.style.setProperty('--rx','0deg'); });
+  }
+
+  // sterrenstof met scherptediepte in de nachtsecties
+  function makeDust(cv){
+    var ctx=cv.getContext('2d'); if(!ctx) return;
+    var host=cv.parentElement, w=0, h=0, dpr=Math.min(window.devicePixelRatio||1,2), parts=[], running=false, visible=true, last=0;
+    var spr=document.createElement('canvas'); spr.width=spr.height=64;
+    var sx=spr.getContext('2d'), g=sx.createRadialGradient(32,32,0,32,32,32);
+    g.addColorStop(0,'rgba(255,244,214,1)'); g.addColorStop(.25,'rgba(242,223,174,.55)'); g.addColorStop(1,'rgba(242,223,174,0)');
+    sx.fillStyle=g; sx.fillRect(0,0,64,64);
+    function size(){
+      var r=host.getBoundingClientRect(); w=Math.max(1,Math.round(r.width)); h=Math.max(1,Math.round(r.height));
+      cv.width=w*dpr; cv.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      var n=Math.max(24,Math.min(64,Math.round(w*h/26000)));
+      parts=[];
+      for(var i=0;i<n;i++){
+        var z=Math.random();                                   // 0 = ver weg, 1 = dichtbij (groot en vaag)
+        parts.push({x:Math.random()*w,y:Math.random()*h,z:z,r:1.2+z*z*9,a:.18+Math.random()*.5*(1-z*.6),vy:-(3+z*11),ph:Math.random()*6.28,sp:.2+Math.random()*.5});
+      }
+    }
+    function draw(t){
+      var dt=Math.min(.05,(t-last)/1000||0); last=t;
+      ctx.clearRect(0,0,w,h);
+      for(var i=0;i<parts.length;i++){
+        var p=parts[i];
+        p.y+=p.vy*dt; p.ph+=p.sp*dt; p.x+=Math.sin(p.ph)*6*dt*(.4+p.z);
+        if(p.y<-20){ p.y=h+20; p.x=Math.random()*w; }
+        ctx.globalAlpha=p.a*(.65+.35*Math.sin(p.ph*1.7));
+        ctx.drawImage(spr,p.x-p.r,p.y-p.r,p.r*2,p.r*2);
+      }
+      ctx.globalAlpha=1;
+    }
+    function loop(t){ if(!running) return; draw(t); requestAnimationFrame(loop); }
+    function start(){ if(running||reduce||!visible||document.hidden) return; running=true; last=performance.now(); requestAnimationFrame(loop); }
+    function stop(){ running=false; }
+    size(); draw(performance.now());
+    var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ size(); draw(performance.now()); },200); });
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){ visible=en[0].isIntersecting; if(visible) start(); else stop(); }).observe(host);
+    }
+    document.addEventListener('visibilitychange',function(){ if(document.hidden) stop(); else start(); });
+    start();
+  }
+  document.querySelectorAll('canvas[data-dust]').forEach(makeDust);
+
+  // productgalerij: sfeerfoto's vullen het hele kader, de vrijstaande doos blijft zweven
+  var pdpImg=document.getElementById('pdpMain');
+  if(pdpImg&&window.MutationObserver){
+    var pdpBox=pdpImg.closest('.pdp-main');
+    function pdpMode(){ pdpBox.classList.toggle('photo',/sfeer-(nacht|arm|plak)|pleister-kaart/.test(pdpImg.getAttribute('src')||'')); }
+    new MutationObserver(pdpMode).observe(pdpImg,{attributes:true,attributeFilter:['src']});
+    pdpMode();
+  }
+
+  // veeg-hint onder de kaartstroken op telefoon
+  document.querySelectorAll('#ingredienten .ingr-grid,#reviews .rev-grid').forEach(function(el){
+    var p=document.createElement('p'); p.className='swipe-hint'; p.setAttribute('aria-hidden','true');
+    p.innerHTML='<i></i>Veeg opzij voor meer<i></i>';
+    el.insertAdjacentElement('afterend',p);
+  });
 })();
