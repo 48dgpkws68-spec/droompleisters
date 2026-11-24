@@ -121,8 +121,9 @@
   var giftOpt=document.getElementById('giftOpt'), giftMsg=document.getElementById('giftMsg');
   if(giftOpt&&giftMsg) giftOpt.addEventListener('change',function(){ giftMsg.hidden=!giftOpt.checked; });
   function openModal(bundle){
+    if(window.DP_SHOP&&DP_SHOP[bundle]){ location.href=DP_SHOP[bundle]; return; }
     if(bundle){var isC=String(bundle).indexOf('club')===0; var r=document.getElementById(isC?'bclub':'b1'); if(r) r.checked=true; var am=document.getElementById('f-aantal'); var n=bundle==='club2'?'2':(isC?'1':String(bundle)); if(am&&/^[123]$/.test(n)) am.value=n;}
-    updateTotal();
+    updateTotal(); syncShop();
     lastFocus=document.activeElement;
     modal.classList.add('open');
     document.body.style.overflow='hidden';
@@ -140,6 +141,21 @@
     r.addEventListener('change',updateTotal);
   });
   updateTotal();
+  // winkelmodus: losse dozen naar de Shopify-kassa, Droomclub blijft reserveren
+  var shopForm=document.querySelector('form[data-shopform]');
+  function syncShop(){
+    if(!shopForm) return;
+    var c=shopForm.querySelector('input[name=keuze]:checked'); if(!c) return;
+    var isShop=!!c.dataset.shop, cf=document.getElementById('clubFields'), lg=document.getElementById('orderLegal'), sb=document.getElementById('orderSubmit');
+    if(cf){ cf.hidden=isShop; cf.querySelectorAll('input').forEach(function(i){ i.required=!isShop; }); }
+    if(lg) lg.textContent=isShop?lg.dataset.shopText:lg.dataset.clubText;
+    if(sb&&c.dataset.btn) sb.textContent=c.dataset.btn;
+  }
+  if(shopForm){
+    shopForm.querySelectorAll('input[name=keuze]').forEach(function(r){ r.addEventListener('change',syncShop); });
+    shopForm.addEventListener('submit',function(e){ var c=shopForm.querySelector('input[name=keuze]:checked'); if(c&&c.dataset.shop){ e.preventDefault(); e.stopImmediatePropagation(); location.href=c.dataset.shop; } });
+    syncShop();
+  }
   document.querySelectorAll('[data-order]').forEach(function(btn){
     btn.addEventListener('click',function(e){ e.preventDefault(); openModal(btn.dataset.order); });
   });
