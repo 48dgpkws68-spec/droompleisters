@@ -148,7 +148,7 @@
     var c=shopForm.querySelector('input[name=keuze]:checked'); if(!c) return;
     var isShop=!!c.dataset.shop, cf=document.getElementById('clubFields'), lg=document.getElementById('orderLegal'), sb=document.getElementById('orderSubmit');
     if(cf){ cf.hidden=isShop; cf.querySelectorAll('input').forEach(function(i){ i.required=!isShop; }); }
-    if(lg) lg.textContent=isShop?lg.dataset.shopText:lg.dataset.clubText;
+    if(lg) lg.textContent=c.dataset.legal||(isShop?lg.dataset.shopText:lg.dataset.clubText);
     if(sb&&c.dataset.btn) sb.textContent=c.dataset.btn;
   }
   if(shopForm){
@@ -238,7 +238,7 @@
   var LEGAL={
     voorwaarden:{
       title:'Algemene voorwaarden',
-      html:'<h4>Bestellen &amp; betalen</h4><p>Je rekent direct af met creditcard, PayPal, Klarna, Apple Pay of Google Pay. Je bestelling wordt automatisch verwerkt en je ontvangt meteen een bevestiging per e-mail. Alle prijzen zijn in euro en inclusief btw.</p><h4>Verzending en levering</h4><p>Verzending is gratis in heel Nederland. Naar België is verzending gratis vanaf 2 dozen; voor 1 losse doos rekenen we €4,95. Droomclub-leden betalen nooit verzendkosten. Op werkdagen vóór 17:00 besteld, dezelfde dag verzonden vanuit Nederland, met track &amp; trace.</p><h4>Droomclub</h4><p>Als lid ontvang je elke 30 dagen automatisch één doos voor €19,95, gratis verzonden. De vervolgbetalingen lopen via automatische incasso (na iDEAL of Bancontact) of via je creditcard; je krijgt 3 dagen vooraf een herinnering. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd via de link in elke mail of via info@droompleisters.nl.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar info@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · info@droompleisters.nl</p>'
+      html:'<h4>Bestellen &amp; betalen</h4><p>Je rekent direct af met creditcard, PayPal, Klarna, Apple Pay of Google Pay. Je bestelling wordt automatisch verwerkt en je ontvangt meteen een bevestiging per e-mail. Alle prijzen zijn in euro en inclusief btw.</p><h4>Verzending en levering</h4><p>Verzending is gratis in heel Nederland. Naar België is verzending gratis vanaf 2 dozen; voor 1 losse doos rekenen we €4,95. Droomclub-leden betalen nooit verzendkosten. Op werkdagen vóór 17:00 besteld, dezelfde dag verzonden vanuit Nederland, met track &amp; trace.</p><h4>Droomclub</h4><p>Als lid ontvang je elke 30 dagen automatisch één doos voor €19,95, gratis verzonden. De vervolgbetalingen lopen automatisch via je creditcard, Apple Pay of Google Pay; in je account zie je altijd wanneer de volgende afschrijving is. Geen minimale looptijd en geen opzegtermijn: overslaan, pauzeren of opzeggen kan altijd via de link in elke mail of via info@droompleisters.nl.</p><h4>Garantie</h4><p>Je hebt 30 nachten slaapgarantie op je eerste doos. Ben je niet tevreden, dan krijg je je aankoopbedrag terug; ongeopende dozen uit een bundel vergoeden we ook. Mail hiervoor naar info@droompleisters.nl.</p><h4>Contact</h4><p>Droompleisters · Voorstraat 9, 4132 AM Vianen, Nederland · info@droompleisters.nl</p>'
     },
     privacy:{
       title:'Privacybeleid',
