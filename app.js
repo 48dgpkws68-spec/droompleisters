@@ -186,7 +186,7 @@
   function closeConfirm(){ confirmModal.classList.remove('open'); document.body.style.overflow=''; setInert(false); var b=document.querySelector('.brand'); if(b) b.focus(); }
   confirmModal.querySelectorAll('[data-close-confirm]').forEach(function(b){ b.addEventListener('click',closeConfirm); });
   confirmModal.addEventListener('click',function(e){ if(e.target===confirmModal) closeConfirm(); });
-  var mConf=location.search.match(/[?&]bevestigd=(bestelling|droomclub|contact)/);
+  var mConf=location.search.match(/[?&]bevestigd=(bestelling|droomclub|contact|verkooppunt)/);
   if(mConf){
     var t=document.getElementById('confirmTitle'), x=document.getElementById('confirmText');
     if(mConf[1]==='bestelling'){
@@ -202,6 +202,9 @@
       }else{
         x.textContent=(isClub?'Welkom bij de Droomclub! Je welkomstbox met je eerste doos en het satijnen slaapmasker gaat als eerste levering de deur uit. ':'Bedankt! ')+'Je bestelling wordt automatisch verwerkt. Je ontvangt je bevestiging en track & trace per e-mail; op werkdagen vóór 17:00 besteld, dezelfde dag verzonden vanuit Nederland.';
       }
+    }else if(mConf[1]==='verkooppunt'){
+      t.textContent='Aanmelding ontvangen';
+      x.textContent='Bedankt voor je aanmelding als verkooppunt. Binnen één werkdag mailen we je de inkoopprijzen en voorwaarden. Geen mail gezien? Kijk even in je spam-map.';
     }else if(mConf[1]==='contact'){
       t.textContent='Bericht ontvangen';
       x.textContent='Bedankt voor je bericht. We reageren binnen één werkdag op het e-mailadres dat je opgaf.';
