@@ -480,6 +480,7 @@
       r.tips.forEach(function(t){ h+='<li>'+esc(t)+'</li>'; });
       h+='</ul><div class="quiz-why"><b>Waarom een Droompleister bij jou past.</b> '+esc(r.why)+(r.url?' <a href="'+esc(r.url)+'" style="color:var(--gold-deep)">'+esc(r.urlTitle)+'</a>':'')+'</div>';
       h+='<div class="quiz-reco"><p class="rh">'+esc(reco.rh)+'</p><h3>'+esc(reco.h)+'</h3><p>'+esc(reco.p)+'</p><div class="club-cta"><a class="btn btn-gold" href="slaappleisters.html#bestel" data-order="'+reco.order+'">'+esc(reco.btn)+'</a><a class="btn btn-pearl" href="slaappleisters.html#bestel" data-order="'+reco.altOrder+'">'+esc(reco.alt)+'</a></div></div>';
+      if(gift) h+='<p class="more-link"><a href="cadeau.html">Alles over Droompleisters cadeau geven</a></p>';
       h+='<p class="quiz-again"><button type="button" id="quizAgain">Opnieuw doen</button> · <a href="droomclub.html" style="color:var(--gold-deep)">Alles over de Droomclub</a></p></div>';
       body.innerHTML=h;
       body.querySelectorAll('[data-order]').forEach(function(btn){ btn.addEventListener('click',function(e){ e.preventDefault(); document.dispatchEvent(new CustomEvent('dp:order',{detail:btn.dataset.order})); }); });
